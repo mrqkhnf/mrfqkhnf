@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Closing Tomoro</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(135deg,#f5f1eb,#ebe2d5);
+      min-height:100vh;
+      padding:15px;
+      color:#2b2b2b;
+    }
+
+    .container{
+      width:100%;
+      max-width:1200px;
+      margin:auto;
+      background:#fff;
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:0 15px 40px rgba(0,0,0,0.12);
+    }
+
+    .header{
+      background:linear-gradient(135deg,#3d2b1f,#6f4e37);
+      padding:35px 20px;
+      text-align:center;
+      color:white;
+      position:relative;
+    }
+
+    .creator{
+      position:absolute;
+      top:15px;
+      right:15px;
+      background:rgba(255,255,255,0.12);
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:500;
+      backdrop-filter:blur(5px);
+    }
+
+    .logo{
+      width:120px;
+      margin-bottom:18px;
+      transition:0.3s;
+    }
+
+    .logo:hover{
+      transform:scale(1.05);
+    }
+
+    .header h1{
+      font-size:34px;
+      font-weight:700;
+    }
+
+    .header p{
+      margin-top:10px;
+      font-size:14px;
+      opacity:0.9;
+    }
+
+    .content{
+      padding:20px;
+    }
+
+    .top-info{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-bottom:20px;
+    }
+
+    .info-box{
+      flex:1;
+      min-width:220px;
+      background:#fff8ef;
+      border:1px solid #f0d9b5;
+      padding:14px;
+      border-radius:15px;
+      font-size:13px;
+      color:#6f4e37;
+      font-weight:600;
+      text-align:center;
+    }
+
+    .items-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:18px;
+    }
+
+    .item-card{
+      background:#fff;
+      border:1px solid #eee;
+      border-radius:20px;
+      padding:18px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.05);
+      transition:0.25s;
+    }
+
+    .item-card:hover{
+      transform:translateY(-2px);
+    }
+
+    .item-name{
+      font-size:16px;
+      font-weight:700;
+      color:#5c3d2e;
+      margin-bottom:14px;
+    }
+
+    .item-info{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:14px;
+      flex-wrap:wrap;
+    }
+
+    .badge{
+      background:#f3f4f6;
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:600;
+      color:#555;
+    }
+
+    input{
+      width:100%;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid #ccc;
+      outline:none;
+      transition:0.2s;
+      font-size:15px;
+      text-align:center;
+      font-family:'Poppins',sans-serif;
+    }
+
+    input:focus{
+      border-color:#6f4e37;
+      box-shadow:0 0 0 3px rgba(111,78,55,0.15);
+    }
+
+    .button-group{
+      margin-top:30px;
+    }
+
+    .btn{
+      width:100%;
+      padding:16px;
+      border:none;
+      border-radius:16px;
+      font-size:16px;
+      font-weight:600;
+      cursor:pointer;
+      transition:0.25s;
+      font-family:'Poppins',sans-serif;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg,#6f4e37,#3d2b1f);
+      color:white;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .result-title{
+      margin-top:40px;
+      margin-bottom:20px;
+      font-size:24px;
+      font-weight:700;
+      color:#5c3d2e;
+    }
+
+    .result{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:18px;
+    }
+
+    .card{
+      background:#fff;
+      border-radius:18px;
+      padding:20px;
+      border:1px solid #eee;
+      box-shadow:0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    .card h3{
+      margin-bottom:14px;
+      color:#5c3d2e;
+      font-size:18px;
+    }
+
+    .card p{
+      margin:8px 0;
+      font-size:14px;
+    }
+
+    .empty-text{
+      text-align:center;
+      padding:40px 20px;
+      background:#fff8ef;
+      border-radius:18px;
+      color:#8b5e3c;
+      font-weight:600;
+      border:1px dashed #d6b08c;
+    }
+
+    .notes{
+      margin-top:40px;
+      background:#fff8ef;
+      border:1px solid #f0d9b5;
+      border-radius:20px;
+      padding:24px;
+    }
+
+    .notes h2{
+      margin-bottom:15px;
+      color:#5c3d2e;
+      font-size:22px;
+    }
+
+    .notes ul{
+      padding-left:20px;
+      line-height:2;
+      color:#555;
+      font-size:14px;
+    }
+
+    .footer{
+      text-align:center;
+      padding:22px;
+      color:#777;
+      font-size:13px;
+      border-top:1px solid #eee;
+      background:#fafafa;
+    }
+
+    @media(max-width:700px){
+
+      .items-grid{
+        grid-template-columns:1fr;
+      }
+
+      .header h1{
+        font-size:28px;
+      }
+
+      .creator{
+        position:static;
+        margin-bottom:15px;
+        display:inline-block;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="header">
+
+      <div class="creator">
+        Project By : Rifqi Jatengland
+      </div>
+
+      <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDw1rBEzkPWQoDBVyWNduo80f-XI6jeP769xeMi9rXBw&s=10" target="_blank">
+
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDw1rBEzkPWQoDBVyWNduo80f-XI6jeP769xeMi9rXBw&s=10"
+          class="logo"
+          alt="Tomoro Coffee Logo"
+        >
+
+      </a>
+
+      <h1>Closing Tomoro</h1>
+
+      <p>
+        Sistem kalkulator closing stock bahan Tomoro Coffee
+      </p>
+
+    </div>
+
+    <div class="content">
+
+      <div class="top-info">
+
+        <div class="info-box">
+          ✓ Data otomatis tersimpan walaupun refresh
+        </div>
+
+        <div class="info-box">
+          ✓ Tampilan mobile friendly tanpa geser layar
+        </div>
+
+      </div>
+
+      <div class="items-grid" id="tableBody"></div>
+
+      <div class="button-group">
+
+        <button class="btn btn-primary" onclick="hitung()">
+          Hitung Closing
+        </button>
+
+      </div>
+
+      <h2 class="result-title">
+        Hasil Perhitungan
+      </h2>
+
+      <div class="result" id="hasil"></div>
+
+      <div class="notes">
+
+        <h2>Catatan Perhitungan</h2>
+
+        <ul>
+          <li>Powder otomatis dikurangi berat toples 200gr.</li>
+          <li>Syrup otomatis dikurangi berat pump 45gr.</li>
+          <li>Premade otomatis dikurangi botol squeeze 60gr.</li>
+          <li>Rumus Powder = (timbangan - 200) ÷ gross weight.</li>
+          <li>Rumus Syrup = (timbangan - 45) ÷ gross weight.</li>
+          <li>Rumus Premade = (timbangan - 60) ÷ 2 lalu ditambahkan ke hasil powder yang sama.</li>
+          <li>Data otomatis tersimpan walaupun halaman ter-refresh.</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <div class="footer">
+      © 2026 Closing Tomoro • Project By Rifqi Jatengland
+    </div>
+
+  </div>
+
+  <script>
+
+    const products = [
+
+      { name:'Tomoro Master Coffee Bean', gross:1000, type:'normal' },
+      { name:'Whipping Cream', gross:1010, type:'normal' },
+      { name:'Oat Milk', gross:1080, type:'normal' },
+      { name:'Susu Kental Manis', gross:545, type:'normal', key:'skm' },
+      { name:'Barista Coconut', gross:1054, type:'normal' },
+
+      { name:'Aren Syrup', gross:1050, type:'syrup' },
+      { name:'Vanilla Syrup', gross:1050, type:'syrup' },
+      { name:'Caramel Syrup', gross:1050, type:'syrup' },
+      { name:'Simple Syrup', gross:1060, type:'syrup' },
+
+      { name:'Tomoro Caramel Sauce', gross:1054, type:'syrup', key:'caramel' },
+
+      { name:'Chocolate Sweet Powder', gross:1000, type:'powder', key:'coklat' },
+      { name:'Hojicha Latte Powder', gross:1000, type:'powder' },
+      { name:'Matcha Powder', gross:1000, type:'powder', key:'matcha' },
+      { name:'Tomoro Frappe Powder', gross:1000, type:'powder' },
+      { name:'Tomoro Blend V2', gross:1000, type:'powder' },
+      { name:'Tomoro Master Milk', gross:1052, type:'powder' },
+
+      { name:'Manuka Syrup', gross:1050, type:'syrup' },
+
+      { name:'Foam Powder', gross:1000, type:'powder' },
+      { name:'Sea Salt', gross:210, type:'powder' },
+      { name:'Milk Powder', gross:1000, type:'powder' },
+      { name:'Cheese Milk Powder', gross:1000, type:'powder' },
+
+      { name:'Pistachio Powder', gross:700, type:'powder', key:'pistachio' },
+
+      { name:'Premade Coklat', gross:2, type:'premade', key:'coklat' },
+      { name:'Premade Matcha', gross:2, type:'premade', key:'matcha' },
+      { name:'Premade Pistachio', gross:2, type:'premade', key:'pistachio' },
+
+      { name:'Premade Caramel Sauce', gross:1054, type:'premade_only', key:'caramel' },
+      { name:'Premade SKM', gross:545, type:'premade_only', key:'skm' },
+
+      { name:'Jasmine Green Tea', gross:25, type:'normal' },
+      { name:'Pastry Bag Logo', gross:200, type:'normal' },
+
+      { name:'Cup 18oz', gross:50, type:'normal' },
+      { name:'Cup 12oz', gross:50, type:'normal' },
+      { name:'Black Ice Cup', gross:50, type:'normal' },
+      { name:'Black Hot Cup', gross:25, type:'normal' },
+
+      { name:'Lid Black Hot Cup', gross:50, type:'normal' },
+      { name:'Lid Black Ice Cup', gross:50, type:'normal' },
+
+      { name:'Dome Lid Ice Cup', gross:50, type:'normal' },
+      { name:'Strawless Lid Ice Cup', gross:50, type:'normal' },
+      { name:'Anti Spill Lid', gross:50, type:'normal' },
+      { name:'Lid Iced Cup 30oz', gross:50, type:'normal' },
+      { name:'Straw Logo Small', gross:500, type:'normal' },
+
+    ];
+
+    const tableBody =
+    document.getElementById('tableBody');
+
+    products.forEach((item,index)=>{
+
+      tableBody.innerHTML += `
+
+        <div class="item-card">
+
+          <div class="item-name">
+            ${item.name}
+          </div>
+
+          <div class="item-info">
+
+            <div class="badge">
+              Gross : ${item.gross}
+            </div>
+
+            <div class="badge">
+              ${item.type}
+            </div>
+
+          </div>
+
+          <input
+            type="number"
+            id="input-${index}"
+            placeholder="Masukkan hasil timbangan"
+            oninput="simpanData()"
+          >
+
+        </div>
+
+      `;
+
+    });
+
+    function simpanData(){
+
+      let data = {};
+
+      products.forEach((item,index)=>{
+
+        data[index] =
+        document.getElementById(`input-${index}`).value;
+
+      });
+
+      localStorage.setItem(
+        'closingTomoroData',
+        JSON.stringify(data)
+      );
+
+    }
+
+    function loadData(){
+
+      let saved =
+      localStorage.getItem('closingTomoroData');
+
+      if(saved){
+
+        let data = JSON.parse(saved);
+
+        Object.keys(data).forEach(index=>{
+
+          const input =
+          document.getElementById(`input-${index}`);
+
+          if(input){
+            input.value = data[index];
+          }
+
+        });
+
+      }
+
+    }
+
+    function tampilkanCard(nama,bersih,hasil,label){
+
+      const hasilDiv =
+      document.getElementById('hasil');
+
+      hasilDiv.innerHTML += `
+
+        <div class="card">
+
+          <h3>${nama}</h3>
+
+          <p>
+            <b>Berat Bersih :</b>
+            ${bersih.toFixed(2)} gr
+          </p>
+
+          <p>
+            <b>${label} :</b>
+            ${hasil.toFixed(2)}
+          </p>
+
+        </div>
+
+      `;
+
+    }
+
+    function hitung(){
+
+      const hasilDiv =
+      document.getElementById('hasil');
+
+      hasilDiv.innerHTML = '';
+
+      let finalResult = {};
+      let adaData = false;
+
+      products.forEach((item,index)=>{
+
+        let timbang =
+        Number(document.getElementById(`input-${index}`).value) || 0;
+
+        if(timbang <= 0) return;
+
+        adaData = true;
+
+        let beratBersih = timbang;
+        let hasil = 0;
+
+        if(item.type === 'powder'){
+
+          beratBersih -= 200;
+          hasil = beratBersih / item.gross;
+
+          if(item.key){
+
+            if(!finalResult[item.key])
+            finalResult[item.key] = 0;
+
+            finalResult[item.key] += hasil;
+
+          }
+
+          tampilkanCard(
+            item.name,
+            beratBersih,
+            hasil,
+            'Sisa'
+          );
+
+        }
+
+        else if(item.type === 'syrup'){
+
+          beratBersih -= 45;
+          hasil = beratBersih / item.gross;
+
+          tampilkanCard(
+            item.name,
+            beratBersih,
+            hasil,
+            'Sisa'
+          );
+
+        }
+
+        else if(item.type === 'premade'){
+
+          beratBersih -= 60;
+          hasil = beratBersih / 2;
+
+          if(!finalResult[item.key])
+          finalResult[item.key] = 0;
+
+          finalResult[item.key] += hasil;
+
+          tampilkanCard(
+            item.name,
+            beratBersih,
+            hasil,
+            'Hasil Premade'
+          );
+
+        }
+
+        else if(item.type === 'premade_only'){
+
+          beratBersih -= 60;
+          hasil = beratBersih;
+
+          if(!finalResult[item.key])
+          finalResult[item.key] = 0;
+
+          finalResult[item.key] += hasil;
+
+          tampilkanCard(
+            item.name,
+            beratBersih,
+            hasil,
+            'Tambahan'
+          );
+
+        }
+
+      });
+
+      Object.keys(finalResult).forEach((key)=>{
+
+        hasilDiv.innerHTML += `
+
+          <div class="card">
+
+            <h3>${key.toUpperCase()}</h3>
+
+            <p>
+              <b>Total Akhir :</b>
+              ${finalResult[key].toFixed(2)}
+            </p>
+
+          </div>
+
+        `;
+
+      });
+
+      if(!adaData){
+
+        hasilDiv.innerHTML = `
+
+          <div class="empty-text">
+            Tidak ada data yang dimasukkan
+          </div>
+
+        `;
+
+      }
+
+    }
+
+    loadData();
+
+    window.addEventListener('beforeunload',function(e){
+
+      e.preventDefault();
+
+      e.returnValue =
+      'Data closing sudah dimasukkan, yakin ingin keluar atau refresh?';
+
+    });
+
+  </script>
+
+</body>
+</html>
