@@ -189,6 +189,16 @@ input:focus{
   font-weight:600;
 }
 
+.note-premade{
+  margin-top:10px;
+  background:#fff7dc;
+  color:#8a5a00;
+  padding:10px;
+  border-radius:10px;
+  font-size:12px;
+  line-height:1.6;
+}
+
 .notes{
   margin-top:35px;
   background:#fff8ef;
@@ -277,8 +287,8 @@ Hasil Perhitungan
 <li>Powder dikurangi berat toples 200gr.</li>
 <li>Syrup dikurangi berat pump 45gr.</li>
 <li>Premade powder dikurangi 60gr lalu dibagi 2.</li>
-<li>Hasil premade langsung ditambahkan ke powder terkait.</li>
-<li>Premade tidak muncul sendiri pada hasil akhir.</li>
+<li>Hasil premade otomatis ditambahkan ke powder terkait.</li>
+<li>Premade tetap muncul dengan catatan sudah ditambahkan.</li>
 <li>Premade SKM & caramel sauce hanya dikurangi 60gr.</li>
 <li>Data otomatis tersimpan.</li>
 </ul>
@@ -326,9 +336,9 @@ const products = [
 
 { name:'Pistachio Powder', gross:700, type:'powder', premade:'Premade Pistachio' },
 
-{ name:'Premade Coklat', gross:'Mengikut hasil powder', type:'premade' },
-{ name:'Premade Matcha', gross:'Mengikut hasil powder', type:'premade' },
-{ name:'Premade Pistachio', gross:'Mengikut hasil powder', type:'premade' },
+{ name:'Premade Coklat', gross:1, type:'premade' },
+{ name:'Premade Matcha', gross:1, type:'premade' },
+{ name:'Premade Pistachio', gross:1, type:'premade' },
 
 { name:'Premade Caramel Sauce', gross:1, type:'premade_only' },
 { name:'Premade SKM', gross:1, type:'premade_only' },
@@ -456,10 +466,6 @@ hasilDiv.innerHTML = '';
 
 products.forEach((item,index)=>{
 
-if(item.type === 'premade'){
-return;
-}
-
 let timbang =
 Number(document.getElementById(`input-${index}`).value);
 
@@ -487,6 +493,7 @@ Habis / Belum Dihitung
 
 let beratBersih = timbang;
 let hasil = 0;
+let catatanPremade = '';
 
 if(item.type === 'powder'){
 
@@ -510,6 +517,14 @@ if(premadeHasil > 0){
 
 beratBersih += premadeHasil;
 
+catatanPremade = `
+<div class="note-premade">
+Hasil dari ${item.premade} sebesar
+${premadeHasil.toFixed(2)} gr
+sudah ditambahkan ke powder terkait.
+</div>
+`;
+
 }
 
 }
@@ -529,6 +544,26 @@ beratBersih = 0;
 }
 
 hasil = beratBersih / item.gross;
+
+}
+
+else if(item.type === 'premade'){
+
+let hasilPremade =
+(timbang - 60) / 2;
+
+if(hasilPremade < 0){
+hasilPremade = 0;
+}
+
+beratBersih = hasilPremade;
+hasil = hasilPremade;
+
+catatanPremade = `
+<div class="note-premade">
+Sudah ditambahkan ke powder yang terkait.
+</div>
+`;
 
 }
 
@@ -565,6 +600,8 @@ ${beratBersih.toFixed(2)} gr
 <b>Hasil :</b>
 ${hasil.toFixed(2)}
 </p>
+
+${catatanPremade}
 
 <div class="status-ada">
 Sudah Dihitung
