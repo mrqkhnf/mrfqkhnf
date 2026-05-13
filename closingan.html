@@ -21,7 +21,6 @@
 body{
   font-family:'Poppins',sans-serif;
   background:#f5f1eb;
-  min-height:100vh;
   padding:15px;
   color:#2b2b2b;
 }
@@ -45,11 +44,6 @@ body{
 .logo{
   width:120px;
   margin-bottom:15px;
-  transition:0.3s;
-}
-
-.logo:hover{
-  transform:scale(1.05);
 }
 
 .header h1{
@@ -112,12 +106,6 @@ input{
   outline:none;
   font-size:15px;
   text-align:center;
-  font-family:'Poppins',sans-serif;
-}
-
-input:focus{
-  border-color:#6f4e37;
-  box-shadow:0 0 0 3px rgba(111,78,55,0.15);
 }
 
 .button-group{
@@ -223,10 +211,6 @@ input:focus{
     grid-template-columns:1fr;
   }
 
-  .header h1{
-    font-size:28px;
-  }
-
 }
 
 </style>
@@ -274,11 +258,10 @@ Hasil Perhitungan
 <h2>Catatan Perhitungan</h2>
 
 <ul>
-<li>Powder dikurangi berat toples 200gr.</li>
-<li>Syrup dikurangi berat pump 45gr.</li>
+<li>Powder dikurangi 200gr.</li>
+<li>Syrup dikurangi 45gr.</li>
 <li>Premade powder dikurangi 60gr lalu dibagi 2.</li>
-<li>Premade SKM & caramel sauce hanya dikurangi 60gr.</li>
-<li>Data otomatis tersimpan.</li>
+<li>Premade SKM & caramel sauce dikurangi 60gr.</li>
 </ul>
 
 </div>
@@ -295,62 +278,27 @@ Hasil Perhitungan
 
 const products = [
 
-{ name:'Tomoro Master Coffee Bean', gross:1000, type:'normal' },
-{ name:'Whipping Cream', gross:1010, type:'normal' },
-{ name:'Oat Milk', gross:1080, type:'normal' },
-
-{ name:'Susu Kental Manis', gross:545, type:'syrup' },
-
-{ name:'Barista Coconut', gross:1054, type:'normal' },
+{ name:'Chocolate Sweet Powder', gross:1000, type:'powder' },
+{ name:'Matcha Powder', gross:1000, type:'powder' },
+{ name:'Pistachio Powder', gross:700, type:'powder' },
 
 { name:'Aren Syrup', gross:1050, type:'syrup' },
 { name:'Vanilla Syrup', gross:1050, type:'syrup' },
 { name:'Caramel Syrup', gross:1050, type:'syrup' },
-{ name:'Simple Syrup', gross:1060, type:'syrup' },
 
 { name:'Tomoro Caramel Sauce', gross:1054, type:'syrup' },
+{ name:'Susu Kental Manis', gross:545, type:'syrup' },
 
-{ name:'Chocolate Sweet Powder', gross:1000, type:'powder' },
-{ name:'Hojicha Latte Powder', gross:1000, type:'powder' },
-{ name:'Matcha Powder', gross:1000, type:'powder' },
-{ name:'Tomoro Frappe Powder', gross:1000, type:'powder' },
-{ name:'Tomoro Blend V2', gross:1000, type:'powder' },
-{ name:'Tomoro Master Milk', gross:1052, type:'powder' },
+{ name:'Premade Coklat', gross:1000, type:'premade' },
+{ name:'Premade Matcha', gross:1000, type:'premade' },
+{ name:'Premade Pistachio', gross:700, type:'premade' },
 
-{ name:'Foam Powder', gross:1000, type:'powder' },
-{ name:'Sea Salt', gross:210, type:'powder' },
-{ name:'Milk Powder', gross:1000, type:'powder' },
-{ name:'Cheese Milk Powder', gross:1000, type:'powder' },
-
-{ name:'Pistachio Powder', gross:700, type:'powder' },
-
-{ name:'Premade Coklat', gross:2, type:'premade' },
-{ name:'Premade Matcha', gross:2, type:'premade' },
-{ name:'Premade Pistachio', gross:2, type:'premade' },
-
-{ name:'Premade Caramel Sauce', gross:1, type:'premade_only' },
-{ name:'Premade SKM', gross:1, type:'premade_only' },
-
-{ name:'Jasmine Green Tea', gross:25, type:'normal' },
-{ name:'Pastry Bag Logo', gross:200, type:'normal' },
-
-{ name:'Cup 18oz', gross:50, type:'normal' },
-{ name:'Cup 12oz', gross:50, type:'normal' },
-{ name:'Black Ice Cup', gross:50, type:'normal' },
-{ name:'Black Hot Cup', gross:25, type:'normal' },
-
-{ name:'Lid Black Hot Cup', gross:50, type:'normal' },
-{ name:'Lid Black Ice Cup', gross:50, type:'normal' },
-
-{ name:'Dome Lid Ice Cup', gross:50, type:'normal' },
-{ name:'Strawless Lid Ice Cup', gross:50, type:'normal' },
-{ name:'Anti Spill Lid', gross:50, type:'normal' },
-{ name:'Lid Iced Cup 30oz', gross:50, type:'normal' },
-{ name:'Straw Logo Small', gross:500, type:'normal' }
+{ name:'Premade Caramel Sauce', gross:1054, type:'premade_only' },
+{ name:'Premade SKM', gross:545, type:'premade_only' }
 
 ];
 
-const tableBody = document.getElementById('tableBody');
+const tableBody = document.getElementById("tableBody");
 
 products.forEach((item,index)=>{
 
@@ -414,11 +362,13 @@ let data = JSON.parse(saved);
 
 Object.keys(data).forEach(index=>{
 
-const input =
+let input =
 document.getElementById(`input-${index}`);
 
 if(input){
+
 input.value = data[index];
+
 }
 
 });
@@ -430,26 +380,26 @@ input.value = data[index];
 function hitung(){
 
 const hasilDiv =
-document.getElementById('hasil');
+document.getElementById("hasil");
 
-hasilDiv.innerHTML = '';
+hasilDiv.innerHTML = "";
 
 products.forEach((item,index)=>{
 
-let timbang =
-Number(document.getElementById(`input-${index}`).value);
+let input =
+document.getElementById(`input-${index}`).value;
 
-let isiHTML = '';
+let timbang = parseFloat(input);
 
-if(!timbang || timbang <= 0){
+if(isNaN(timbang) || timbang <= 0){
 
-isiHTML = `
+hasilDiv.innerHTML += `
 
 <div class="card">
 
 <h3>${item.name}</h3>
 
-<p><b>Status :</b> Belum dihitung</p>
+<p>Status : Belum dihitung</p>
 
 <div class="status-habis">
 Habis / Belum Dihitung
@@ -459,26 +409,16 @@ Habis / Belum Dihitung
 
 `;
 
-}else{
+return;
+
+}
 
 let beratBersih = timbang;
 let hasil = 0;
 
-if(item.type === 'powder'){
+if(item.type === "powder"){
 
-beratBersih -= 200;
-
-if(beratBersih < 0){
-beratBersih = 0;
-}
-
-hasil = beratBersih / item.gross;
-
-}
-
-else if(item.type === 'syrup'){
-
-beratBersih -= 45;
+beratBersih = timbang - 200;
 
 if(beratBersih < 0){
 beratBersih = 0;
@@ -488,21 +428,9 @@ hasil = beratBersih / item.gross;
 
 }
 
-else if(item.type === 'premade'){
+else if(item.type === "syrup"){
 
-beratBersih -= 60;
-
-if(beratBersih < 0){
-beratBersih = 0;
-}
-
-hasil = (beratBersih / 2) / 1000;
-
-}
-
-else if(item.type === 'premade_only'){
-
-beratBersih -= 60;
+beratBersih = timbang - 45;
 
 if(beratBersih < 0){
 beratBersih = 0;
@@ -512,17 +440,40 @@ hasil = beratBersih / item.gross;
 
 }
 
-else{
+else if(item.type === "premade"){
 
-hasil = timbang / item.gross;
+beratBersih = timbang - 60;
+
+if(beratBersih < 0){
+beratBersih = 0;
+}
+
+hasil = (beratBersih / 2) / item.gross;
 
 }
 
-isiHTML = `
+else if(item.type === "premade_only"){
+
+beratBersih = timbang - 60;
+
+if(beratBersih < 0){
+beratBersih = 0;
+}
+
+hasil = beratBersih / item.gross;
+
+}
+
+hasilDiv.innerHTML += `
 
 <div class="card">
 
 <h3>${item.name}</h3>
+
+<p>
+<b>Input :</b>
+${timbang.toFixed(2)} gr
+</p>
 
 <p>
 <b>Berat Bersih :</b>
@@ -541,10 +492,6 @@ Sudah Dihitung
 </div>
 
 `;
-
-}
-
-hasilDiv.innerHTML += isiHTML;
 
 });
 
