@@ -2,633 +2,557 @@
 <html lang="id">
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Closing Tomoro</title>
+<title>Closing Tomoro</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
 
-  <style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
+body{
+  font-family:'Poppins',sans-serif;
+  background:#f5f1eb;
+  min-height:100vh;
+  padding:15px;
+  color:#2b2b2b;
+}
 
-    body{
-      font-family:'Poppins',sans-serif;
-      background:linear-gradient(135deg,#f5f1eb,#ebe2d5);
-      min-height:100vh;
-      padding:15px;
-      color:#2b2b2b;
-    }
+.container{
+  max-width:1300px;
+  margin:auto;
+  background:white;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 15px 40px rgba(0,0,0,0.12);
+}
 
-    .container{
-      width:100%;
-      max-width:1200px;
-      margin:auto;
-      background:#fff;
-      border-radius:28px;
-      overflow:hidden;
-      box-shadow:0 15px 40px rgba(0,0,0,0.12);
-    }
+.header{
+  background:linear-gradient(135deg,#4b2e1e,#6f4e37);
+  color:white;
+  padding:35px 20px;
+  text-align:center;
+}
 
-    .header{
-      background:linear-gradient(135deg,#3d2b1f,#6f4e37);
-      padding:35px 20px;
-      text-align:center;
-      color:white;
-      position:relative;
-    }
+.logo{
+  width:120px;
+  margin-bottom:15px;
+  transition:0.3s;
+}
 
-    .creator{
-      position:absolute;
-      top:15px;
-      right:15px;
-      background:rgba(255,255,255,0.12);
-      padding:8px 14px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:500;
-      backdrop-filter:blur(5px);
-    }
+.logo:hover{
+  transform:scale(1.05);
+}
 
-    .logo{
-      width:120px;
-      margin-bottom:18px;
-      transition:0.3s;
-    }
+.header h1{
+  font-size:34px;
+  font-weight:700;
+}
 
-    .logo:hover{
-      transform:scale(1.05);
-    }
+.header p{
+  margin-top:8px;
+  opacity:0.9;
+  font-size:14px;
+}
 
-    .header h1{
-      font-size:34px;
-      font-weight:700;
-    }
+.content{
+  padding:22px;
+}
 
-    .header p{
-      margin-top:10px;
-      font-size:14px;
-      opacity:0.9;
-    }
+.items-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:18px;
+}
 
-    .content{
-      padding:20px;
-    }
+.item-card{
+  background:white;
+  border:1px solid #ececec;
+  border-radius:20px;
+  padding:18px;
+  box-shadow:0 5px 14px rgba(0,0,0,0.05);
+}
 
-    .top-info{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-bottom:20px;
-    }
+.item-name{
+  font-size:16px;
+  font-weight:700;
+  color:#5c3d2e;
+  margin-bottom:12px;
+}
 
-    .info-box{
-      flex:1;
-      min-width:220px;
-      background:#fff8ef;
-      border:1px solid #f0d9b5;
-      padding:14px;
-      border-radius:15px;
-      font-size:13px;
-      color:#6f4e37;
-      font-weight:600;
-      text-align:center;
-    }
+.item-info{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:14px;
+  gap:10px;
+  flex-wrap:wrap;
+}
 
-    .items-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:18px;
-    }
+.badge{
+  background:#f3f4f6;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+}
 
-    .item-card{
-      background:#fff;
-      border:1px solid #eee;
-      border-radius:20px;
-      padding:18px;
-      box-shadow:0 5px 15px rgba(0,0,0,0.05);
-      transition:0.25s;
-    }
+input{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:1px solid #ccc;
+  outline:none;
+  font-size:15px;
+  text-align:center;
+  font-family:'Poppins',sans-serif;
+}
 
-    .item-card:hover{
-      transform:translateY(-2px);
-    }
+input:focus{
+  border-color:#6f4e37;
+  box-shadow:0 0 0 3px rgba(111,78,55,0.15);
+}
 
-    .item-name{
-      font-size:16px;
-      font-weight:700;
-      color:#5c3d2e;
-      margin-bottom:14px;
-    }
+.button-group{
+  margin-top:30px;
+}
 
-    .item-info{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:14px;
-      flex-wrap:wrap;
-    }
+.btn{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:16px;
+  background:linear-gradient(135deg,#6f4e37,#3d2b1f);
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+}
 
-    .badge{
-      background:#f3f4f6;
-      padding:7px 12px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:600;
-      color:#555;
-    }
+.result-title{
+  margin-top:35px;
+  margin-bottom:20px;
+  color:#5c3d2e;
+  font-size:26px;
+}
 
-    input{
-      width:100%;
-      padding:14px;
-      border-radius:14px;
-      border:1px solid #ccc;
-      outline:none;
-      transition:0.2s;
-      font-size:15px;
-      text-align:center;
-      font-family:'Poppins',sans-serif;
-    }
+.result{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:18px;
+}
 
-    input:focus{
-      border-color:#6f4e37;
-      box-shadow:0 0 0 3px rgba(111,78,55,0.15);
-    }
+.card{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  border:1px solid #eee;
+  box-shadow:0 5px 14px rgba(0,0,0,0.05);
+}
 
-    .button-group{
-      margin-top:30px;
-    }
+.card h3{
+  color:#5c3d2e;
+  margin-bottom:12px;
+}
 
-    .btn{
-      width:100%;
-      padding:16px;
-      border:none;
-      border-radius:16px;
-      font-size:16px;
-      font-weight:600;
-      cursor:pointer;
-      transition:0.25s;
-      font-family:'Poppins',sans-serif;
-      background:linear-gradient(135deg,#6f4e37,#3d2b1f);
-      color:white;
-    }
+.card p{
+  margin:7px 0;
+  font-size:14px;
+}
 
-    .btn:hover{
-      transform:translateY(-2px);
-    }
+.status-habis{
+  margin-top:12px;
+  background:#ffeaea;
+  color:#c1121f;
+  padding:8px;
+  border-radius:10px;
+  text-align:center;
+  font-size:13px;
+  font-weight:600;
+}
 
-    .result-title{
-      margin-top:40px;
-      margin-bottom:20px;
-      font-size:24px;
-      font-weight:700;
-      color:#5c3d2e;
-    }
+.status-ada{
+  margin-top:12px;
+  background:#e8fff1;
+  color:#14804a;
+  padding:8px;
+  border-radius:10px;
+  text-align:center;
+  font-size:13px;
+  font-weight:600;
+}
 
-    .result{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:18px;
-    }
+.notes{
+  margin-top:35px;
+  background:#fff8ef;
+  border:1px solid #f0d9b5;
+  border-radius:20px;
+  padding:22px;
+}
 
-    .card{
-      background:#fff;
-      border-radius:18px;
-      padding:20px;
-      border:1px solid #eee;
-      box-shadow:0 8px 20px rgba(0,0,0,0.05);
-    }
+.notes h2{
+  margin-bottom:15px;
+  color:#5c3d2e;
+}
 
-    .card h3{
-      margin-bottom:14px;
-      color:#5c3d2e;
-      font-size:18px;
-    }
+.notes ul{
+  padding-left:20px;
+  line-height:2;
+  font-size:14px;
+}
 
-    .card p{
-      margin:8px 0;
-      font-size:14px;
-    }
+.footer{
+  text-align:center;
+  padding:20px;
+  background:#fafafa;
+  border-top:1px solid #eee;
+  color:#777;
+  font-size:13px;
+}
 
-    .status-habis{
-      margin-top:12px;
-      background:#ffeaea;
-      color:#c1121f;
-      padding:8px 12px;
-      border-radius:10px;
-      text-align:center;
-      font-size:13px;
-      font-weight:600;
-    }
+@media(max-width:700px){
 
-    .status-ada{
-      margin-top:12px;
-      background:#e8fff1;
-      color:#14804a;
-      padding:8px 12px;
-      border-radius:10px;
-      text-align:center;
-      font-size:13px;
-      font-weight:600;
-    }
+  .items-grid{
+    grid-template-columns:1fr;
+  }
 
-    .notes{
-      margin-top:40px;
-      background:#fff8ef;
-      border:1px solid #f0d9b5;
-      border-radius:20px;
-      padding:24px;
-    }
+  .header h1{
+    font-size:28px;
+  }
 
-    .notes h2{
-      margin-bottom:15px;
-      color:#5c3d2e;
-      font-size:22px;
-    }
+}
 
-    .notes ul{
-      padding-left:20px;
-      line-height:2;
-      color:#555;
-      font-size:14px;
-    }
-
-    .footer{
-      text-align:center;
-      padding:22px;
-      color:#777;
-      font-size:13px;
-      border-top:1px solid #eee;
-      background:#fafafa;
-    }
-
-    @media(max-width:700px){
-
-      .items-grid{
-        grid-template-columns:1fr;
-      }
-
-      .header h1{
-        font-size:28px;
-      }
-
-      .creator{
-        position:static;
-        margin-bottom:15px;
-        display:inline-block;
-      }
-
-    }
-
-  </style>
+</style>
 
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <div class="header">
+<div class="header">
 
-      <div class="creator">
-        Project By : Rifqi Jatengland
-      </div>
+<a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDw1rBEzkPWQoDBVyWNduo80f-XI6jeP769xeMi9rXBw&s=10" target="_blank">
 
-      <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDw1rBEzkPWQoDBVyWNduo80f-XI6jeP769xeMi9rXBw&s=10" target="_blank">
+<img
+src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDw1rBEzkPWQoDBVyWNduo80f-XI6jeP769xeMi9rXBw&s=10"
+class="logo">
 
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDw1rBEzkPWQoDBVyWNduo80f-XI6jeP769xeMi9rXBw&s=10"
-          class="logo"
-          alt="Tomoro Coffee Logo"
-        >
+</a>
 
-      </a>
+<h1>Closing Tomoro</h1>
 
-      <h1>Closing Tomoro</h1>
+<p>Sistem Kalkulator Closing Stock Tomoro Coffee</p>
 
-      <p>
-        Sistem kalkulator closing stock bahan Tomoro Coffee
-      </p>
+</div>
 
-    </div>
+<div class="content">
 
-    <div class="content">
+<div class="items-grid" id="tableBody"></div>
 
-      <div class="top-info">
+<div class="button-group">
+<button class="btn" onclick="hitung()">
+Hitung Closing
+</button>
+</div>
 
-        <div class="info-box">
-          ✓ Data otomatis tersimpan walaupun refresh
-        </div>
+<h2 class="result-title">
+Hasil Perhitungan
+</h2>
 
-        <div class="info-box">
-          ✓ Tampilan mobile friendly tanpa geser layar
-        </div>
+<div class="result" id="hasil"></div>
 
-      </div>
+<div class="notes">
 
-      <div class="items-grid" id="tableBody"></div>
+<h2>Catatan Perhitungan</h2>
 
-      <div class="button-group">
+<ul>
+<li>Powder dikurangi berat toples 200gr.</li>
+<li>Syrup dikurangi berat pump 45gr.</li>
+<li>Premade powder dikurangi 60gr lalu dibagi 2.</li>
+<li>Premade SKM & caramel sauce hanya dikurangi 60gr.</li>
+<li>Data otomatis tersimpan.</li>
+</ul>
 
-        <button class="btn" onclick="hitung()">
-          Hitung Closing
-        </button>
+</div>
 
-      </div>
+</div>
 
-      <h2 class="result-title">
-        Hasil Perhitungan
-      </h2>
+<div class="footer">
+© 2026 Closing Tomoro
+</div>
 
-      <div class="result" id="hasil"></div>
+</div>
 
-      <div class="notes">
+<script>
 
-        <h2>Catatan Perhitungan</h2>
+const products = [
 
-        <ul>
-          <li>Powder otomatis dikurangi berat toples 200gr.</li>
-          <li>Syrup otomatis dikurangi berat pump 45gr.</li>
-          <li>Premade otomatis dikurangi botol squeeze 60gr.</li>
-          <li>Jika tidak diisi maka otomatis muncul status "Belum Dihitung / Habis".</li>
-          <li>Data otomatis tersimpan walaupun halaman ter-refresh.</li>
-        </ul>
+{ name:'Tomoro Master Coffee Bean', gross:1000, type:'normal' },
+{ name:'Whipping Cream', gross:1010, type:'normal' },
+{ name:'Oat Milk', gross:1080, type:'normal' },
 
-      </div>
+{ name:'Susu Kental Manis', gross:545, type:'syrup' },
 
-    </div>
+{ name:'Barista Coconut', gross:1054, type:'normal' },
 
-    <div class="footer">
-      © 2026 Closing Tomoro • Project By Rifqi Jatengland
-    </div>
+{ name:'Aren Syrup', gross:1050, type:'syrup' },
+{ name:'Vanilla Syrup', gross:1050, type:'syrup' },
+{ name:'Caramel Syrup', gross:1050, type:'syrup' },
+{ name:'Simple Syrup', gross:1060, type:'syrup' },
 
-  </div>
+{ name:'Tomoro Caramel Sauce', gross:1054, type:'syrup' },
 
-  <script>
+{ name:'Chocolate Sweet Powder', gross:1000, type:'powder' },
+{ name:'Hojicha Latte Powder', gross:1000, type:'powder' },
+{ name:'Matcha Powder', gross:1000, type:'powder' },
+{ name:'Tomoro Frappe Powder', gross:1000, type:'powder' },
+{ name:'Tomoro Blend V2', gross:1000, type:'powder' },
+{ name:'Tomoro Master Milk', gross:1052, type:'powder' },
 
-    const products = [
+{ name:'Foam Powder', gross:1000, type:'powder' },
+{ name:'Sea Salt', gross:210, type:'powder' },
+{ name:'Milk Powder', gross:1000, type:'powder' },
+{ name:'Cheese Milk Powder', gross:1000, type:'powder' },
 
-      { name:'Tomoro Master Coffee Bean', gross:1000, type:'normal' },
-      { name:'Whipping Cream', gross:1010, type:'normal' },
-      { name:'Oat Milk', gross:1080, type:'normal' },
-      { name:'Susu Kental Manis', gross:545, type:'normal' },
-      { name:'Barista Coconut', gross:1054, type:'normal' },
+{ name:'Pistachio Powder', gross:700, type:'powder' },
 
-      { name:'Aren Syrup', gross:1050, type:'syrup' },
-      { name:'Vanilla Syrup', gross:1050, type:'syrup' },
-      { name:'Caramel Syrup', gross:1050, type:'syrup' },
-      { name:'Simple Syrup', gross:1060, type:'syrup' },
+{ name:'Premade Coklat', gross:2, type:'premade' },
+{ name:'Premade Matcha', gross:2, type:'premade' },
+{ name:'Premade Pistachio', gross:2, type:'premade' },
 
-      { name:'Tomoro Caramel Sauce', gross:1054, type:'syrup' },
+{ name:'Premade Caramel Sauce', gross:1, type:'premade_only' },
+{ name:'Premade SKM', gross:1, type:'premade_only' },
 
-      { name:'Chocolate Sweet Powder', gross:1000, type:'powder' },
-      { name:'Hojicha Latte Powder', gross:1000, type:'powder' },
-      { name:'Matcha Powder', gross:1000, type:'powder' },
-      { name:'Tomoro Frappe Powder', gross:1000, type:'powder' },
-      { name:'Tomoro Blend V2', gross:1000, type:'powder' },
-      { name:'Tomoro Master Milk', gross:1052, type:'powder' },
+{ name:'Jasmine Green Tea', gross:25, type:'normal' },
+{ name:'Pastry Bag Logo', gross:200, type:'normal' },
 
-      { name:'Manuka Syrup', gross:1050, type:'syrup' },
+{ name:'Cup 18oz', gross:50, type:'normal' },
+{ name:'Cup 12oz', gross:50, type:'normal' },
+{ name:'Black Ice Cup', gross:50, type:'normal' },
+{ name:'Black Hot Cup', gross:25, type:'normal' },
 
-      { name:'Foam Powder', gross:1000, type:'powder' },
-      { name:'Sea Salt', gross:210, type:'powder' },
-      { name:'Milk Powder', gross:1000, type:'powder' },
-      { name:'Cheese Milk Powder', gross:1000, type:'powder' },
+{ name:'Lid Black Hot Cup', gross:50, type:'normal' },
+{ name:'Lid Black Ice Cup', gross:50, type:'normal' },
 
-      { name:'Pistachio Powder', gross:700, type:'powder' },
+{ name:'Dome Lid Ice Cup', gross:50, type:'normal' },
+{ name:'Strawless Lid Ice Cup', gross:50, type:'normal' },
+{ name:'Anti Spill Lid', gross:50, type:'normal' },
+{ name:'Lid Iced Cup 30oz', gross:50, type:'normal' },
+{ name:'Straw Logo Small', gross:500, type:'normal' }
 
-      { name:'Premade Coklat', gross:2, type:'premade' },
-      { name:'Premade Matcha', gross:2, type:'premade' },
-      { name:'Premade Pistachio', gross:2, type:'premade' },
+];
 
-      { name:'Premade Caramel Sauce', gross:1054, type:'premade_only' },
-      { name:'Premade SKM', gross:545, type:'premade_only' },
+const tableBody = document.getElementById('tableBody');
 
-      { name:'Jasmine Green Tea', gross:25, type:'normal' },
-      { name:'Pastry Bag Logo', gross:200, type:'normal' },
+products.forEach((item,index)=>{
 
-      { name:'Cup 18oz', gross:50, type:'normal' },
-      { name:'Cup 12oz', gross:50, type:'normal' },
-      { name:'Black Ice Cup', gross:50, type:'normal' },
-      { name:'Black Hot Cup', gross:25, type:'normal' },
+tableBody.innerHTML += `
 
-      { name:'Lid Black Hot Cup', gross:50, type:'normal' },
-      { name:'Lid Black Ice Cup', gross:50, type:'normal' },
+<div class="item-card">
 
-      { name:'Dome Lid Ice Cup', gross:50, type:'normal' },
-      { name:'Strawless Lid Ice Cup', gross:50, type:'normal' },
-      { name:'Anti Spill Lid', gross:50, type:'normal' },
-      { name:'Lid Iced Cup 30oz', gross:50, type:'normal' },
-      { name:'Straw Logo Small', gross:500, type:'normal' }
+<div class="item-name">${item.name}</div>
 
-    ];
+<div class="item-info">
 
-    const tableBody = document.getElementById('tableBody');
+<div class="badge">
+Gross : ${item.gross}
+</div>
 
-    products.forEach((item,index)=>{
+<div class="badge">
+${item.type}
+</div>
 
-      tableBody.innerHTML += `
+</div>
 
-        <div class="item-card">
+<input
+type="number"
+id="input-${index}"
+placeholder="Masukkan hasil timbangan"
+oninput="simpanData()"
+>
 
-          <div class="item-name">
-            ${item.name}
-          </div>
+</div>
 
-          <div class="item-info">
+`;
 
-            <div class="badge">
-              Gross : ${item.gross}
-            </div>
+});
 
-            <div class="badge">
-              ${item.type}
-            </div>
+function simpanData(){
 
-          </div>
+let data = {};
 
-          <input
-            type="number"
-            id="input-${index}"
-            placeholder="Masukkan hasil timbangan"
-            oninput="simpanData()"
-          >
+products.forEach((item,index)=>{
 
-        </div>
+data[index] =
+document.getElementById(`input-${index}`).value;
 
-      `;
+});
 
-    });
+localStorage.setItem(
+'closingTomoroData',
+JSON.stringify(data)
+);
 
-    function simpanData(){
+}
 
-      let data = {};
+function loadData(){
 
-      products.forEach((item,index)=>{
+let saved =
+localStorage.getItem('closingTomoroData');
 
-        data[index] =
-        document.getElementById(`input-${index}`).value;
+if(saved){
 
-      });
+let data = JSON.parse(saved);
 
-      localStorage.setItem(
-        'closingTomoroData',
-        JSON.stringify(data)
-      );
+Object.keys(data).forEach(index=>{
 
-    }
+const input =
+document.getElementById(`input-${index}`);
 
-    function loadData(){
+if(input){
+input.value = data[index];
+}
 
-      let saved =
-      localStorage.getItem('closingTomoroData');
+});
 
-      if(saved){
+}
 
-        let data = JSON.parse(saved);
+}
 
-        Object.keys(data).forEach(index=>{
+function hitung(){
 
-          const input =
-          document.getElementById(`input-${index}`);
+const hasilDiv =
+document.getElementById('hasil');
 
-          if(input){
-            input.value = data[index];
-          }
+hasilDiv.innerHTML = '';
 
-        });
+products.forEach((item,index)=>{
 
-      }
+let timbang =
+Number(document.getElementById(`input-${index}`).value);
 
-    }
+let isiHTML = '';
 
-    function hitung(){
+if(!timbang || timbang <= 0){
 
-      const hasilDiv =
-      document.getElementById('hasil');
+isiHTML = `
 
-      hasilDiv.innerHTML = '';
+<div class="card">
 
-      products.forEach((item,index)=>{
+<h3>${item.name}</h3>
 
-        let timbang =
-        Number(document.getElementById(`input-${index}`).value);
+<p><b>Status :</b> Belum dihitung</p>
 
-        let isiHTML = '';
+<div class="status-habis">
+Habis / Belum Dihitung
+</div>
 
-        if(!timbang || timbang <= 0){
+</div>
 
-          isiHTML = `
+`;
 
-            <div class="card">
+}else{
 
-              <h3>${item.name}</h3>
+let beratBersih = timbang;
+let hasil = 0;
 
-              <p>
-                <b>Status :</b>
-                Belum dihitung
-              </p>
+if(item.type === 'powder'){
 
-              <div class="status-habis">
-                Habis / Belum Dihitung
-              </div>
+beratBersih -= 200;
 
-            </div>
+if(beratBersih < 0){
+beratBersih = 0;
+}
 
-          `;
+hasil = beratBersih / item.gross;
 
-        }
+}
 
-        else{
+else if(item.type === 'syrup'){
 
-          let beratBersih = timbang;
-          let hasil = 0;
+beratBersih -= 45;
 
-          if(item.type === 'powder'){
+if(beratBersih < 0){
+beratBersih = 0;
+}
 
-            beratBersih -= 200;
-            hasil = beratBersih / item.gross;
+hasil = beratBersih / item.gross;
 
-          }
+}
 
-          else if(item.type === 'syrup'){
+else if(item.type === 'premade'){
 
-            beratBersih -= 45;
-            hasil = beratBersih / item.gross;
+beratBersih -= 60;
 
-          }
+if(beratBersih < 0){
+beratBersih = 0;
+}
 
-          else if(item.type === 'premade'){
+hasil = (beratBersih / 2) / 1000;
 
-            beratBersih -= 60;
-            hasil = beratBersih / 2;
+}
 
-          }
+else if(item.type === 'premade_only'){
 
-          else if(item.type === 'premade_only'){
+beratBersih -= 60;
 
-            beratBersih -= 60;
-            hasil = beratBersih;
+if(beratBersih < 0){
+beratBersih = 0;
+}
 
-          }
+hasil = beratBersih / item.gross;
 
-          else{
+}
 
-            hasil = timbang;
+else{
 
-          }
+hasil = timbang / item.gross;
 
-          isiHTML = `
+}
 
-            <div class="card">
+isiHTML = `
 
-              <h3>${item.name}</h3>
+<div class="card">
 
-              <p>
-                <b>Berat Bersih :</b>
-                ${beratBersih.toFixed(2)} gr
-              </p>
+<h3>${item.name}</h3>
 
-              <p>
-                <b>Hasil :</b>
-                ${hasil.toFixed(2)}
-              </p>
+<p>
+<b>Berat Bersih :</b>
+${beratBersih.toFixed(2)} gr
+</p>
 
-              <div class="status-ada">
-                Sudah Dihitung
-              </div>
+<p>
+<b>Hasil :</b>
+${hasil.toFixed(2)}
+</p>
 
-            </div>
+<div class="status-ada">
+Sudah Dihitung
+</div>
 
-          `;
+</div>
 
-        }
+`;
 
-        hasilDiv.innerHTML += isiHTML;
+}
 
-      });
+hasilDiv.innerHTML += isiHTML;
 
-    }
+});
 
-    loadData();
+}
 
-    window.addEventListener('beforeunload',function(e){
+loadData();
 
-      e.preventDefault();
-
-      e.returnValue =
-      'Data closing sudah dimasukkan, yakin ingin keluar atau refresh?';
-
-    });
-
-  </script>
+</script>
 
 </body>
 </html>
