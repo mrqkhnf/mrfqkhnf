@@ -196,7 +196,7 @@ input:focus{
   padding:10px;
   border-radius:10px;
   font-size:12px;
-  line-height:1.6;
+  line-height:1.7;
 }
 
 .notes{
@@ -513,19 +513,20 @@ if(premadeInput > 0){
 let premadeHasil =
 (premadeInput - 60) / 2;
 
-if(premadeHasil > 0){
+if(premadeHasil < 0){
+premadeHasil = 0;
+}
 
 beratBersih += premadeHasil;
 
 catatanPremade = `
 <div class="note-premade">
-Hasil dari ${item.premade} sebesar
-${premadeHasil.toFixed(2)} gr
-sudah ditambahkan ke powder terkait.
+Hasil dari ${item.premade}
+sebanyak ${premadeHasil.toFixed(2)} gr
+sudah ditambahkan otomatis
+ke powder terkait.
 </div>
 `;
-
-}
 
 }
 
@@ -549,19 +550,19 @@ hasil = beratBersih / item.gross;
 
 else if(item.type === 'premade'){
 
-let hasilPremade =
+beratBersih =
 (timbang - 60) / 2;
 
-if(hasilPremade < 0){
-hasilPremade = 0;
+if(beratBersih < 0){
+beratBersih = 0;
 }
 
-beratBersih = hasilPremade;
-hasil = hasilPremade;
+hasil = beratBersih;
 
 catatanPremade = `
 <div class="note-premade">
-Sudah ditambahkan ke powder yang terkait.
+Hasil sudah ditambahkan otomatis
+ke powder terkait.
 </div>
 `;
 
