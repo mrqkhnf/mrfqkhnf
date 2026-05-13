@@ -258,10 +258,10 @@ Hasil Perhitungan
 <h2>Catatan Perhitungan</h2>
 
 <ul>
-<li>Powder dikurangi 200gr.</li>
-<li>Syrup dikurangi 45gr.</li>
-<li>Premade powder dikurangi 60gr lalu dibagi 2.</li>
-<li>Premade SKM & caramel sauce dikurangi 60gr.</li>
+<li>Powder dikurangi 200gr lalu dibagi gross weight.</li>
+<li>Syrup dikurangi 45gr lalu dibagi gross weight.</li>
+<li>Premade dikurangi 60gr lalu dibagi 2.</li>
+<li>Hasil premade otomatis ditambahkan ke powder terkait.</li>
 </ul>
 
 </div>
@@ -278,9 +278,9 @@ Hasil Perhitungan
 
 const products = [
 
-{ name:'Chocolate Sweet Powder', gross:1000, type:'powder' },
-{ name:'Matcha Powder', gross:1000, type:'powder' },
-{ name:'Pistachio Powder', gross:700, type:'powder' },
+{ name:'Chocolate Sweet Powder', gross:1000, type:'powder', key:'coklat' },
+{ name:'Matcha Powder', gross:1000, type:'powder', key:'matcha' },
+{ name:'Pistachio Powder', gross:700, type:'powder', key:'pistachio' },
 
 { name:'Aren Syrup', gross:1050, type:'syrup' },
 { name:'Vanilla Syrup', gross:1050, type:'syrup' },
@@ -289,12 +289,9 @@ const products = [
 { name:'Tomoro Caramel Sauce', gross:1054, type:'syrup' },
 { name:'Susu Kental Manis', gross:545, type:'syrup' },
 
-{ name:'Premade Coklat', gross:1000, type:'premade' },
-{ name:'Premade Matcha', gross:1000, type:'premade' },
-{ name:'Premade Pistachio', gross:700, type:'premade' },
-
-{ name:'Premade Caramel Sauce', gross:1054, type:'premade_only' },
-{ name:'Premade SKM', gross:545, type:'premade_only' }
+{ name:'Premade Coklat', gross:'Mengikut hasil powder', type:'premade', key:'coklat' },
+{ name:'Premade Matcha', gross:'Mengikut hasil powder', type:'premade', key:'matcha' },
+{ name:'Premade Pistachio', gross:'Mengikut hasil powder', type:'premade', key:'pistachio' }
 
 ];
 
@@ -384,6 +381,35 @@ document.getElementById("hasil");
 
 hasilDiv.innerHTML = "";
 
+let premadeTambahan = {
+coklat:0,
+matcha:0,
+pistachio:0
+};
+
+products.forEach((item,index)=>{
+
+let input =
+document.getElementById(`input-${index}`).value;
+
+let timbang = parseFloat(input);
+
+if(item.type === "premade" && !isNaN(timbang)){
+
+let beratBersih = timbang - 60;
+
+if(beratBersih < 0){
+beratBersih = 0;
+}
+
+let hasilPremade = beratBersih / 2;
+
+premadeTambahan[item.key] = hasilPremade;
+
+}
+
+});
+
 products.forEach((item,index)=>{
 
 let input =
@@ -424,6 +450,8 @@ if(beratBersih < 0){
 beratBersih = 0;
 }
 
+beratBersih += premadeTambahan[item.key];
+
 hasil = beratBersih / item.gross;
 
 }
@@ -448,19 +476,7 @@ if(beratBersih < 0){
 beratBersih = 0;
 }
 
-hasil = (beratBersih / 2) / item.gross;
-
-}
-
-else if(item.type === "premade_only"){
-
-beratBersih = timbang - 60;
-
-if(beratBersih < 0){
-beratBersih = 0;
-}
-
-hasil = beratBersih / item.gross;
+hasil = beratBersih / 2;
 
 }
 
