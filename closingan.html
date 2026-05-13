@@ -39,11 +39,17 @@ body{
   color:white;
   padding:35px 20px;
   text-align:center;
+  position:relative;
 }
 
 .logo{
   width:120px;
   margin-bottom:15px;
+  transition:0.3s;
+}
+
+.logo:hover{
+  transform:scale(1.05);
 }
 
 .header h1{
@@ -61,6 +67,26 @@ body{
   padding:22px;
 }
 
+.top-info{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:22px;
+}
+
+.info-box{
+  flex:1;
+  min-width:220px;
+  background:#fff8ef;
+  border:1px solid #f0d9b5;
+  padding:14px;
+  border-radius:15px;
+  font-size:13px;
+  color:#6f4e37;
+  font-weight:600;
+  text-align:center;
+}
+
 .items-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -73,6 +99,11 @@ body{
   border-radius:20px;
   padding:18px;
   box-shadow:0 5px 14px rgba(0,0,0,0.05);
+  transition:0.25s;
+}
+
+.item-card:hover{
+  transform:translateY(-2px);
 }
 
 .item-name{
@@ -106,6 +137,12 @@ input{
   outline:none;
   font-size:15px;
   text-align:center;
+  transition:0.2s;
+}
+
+input:focus{
+  border-color:#6f4e37;
+  box-shadow:0 0 0 3px rgba(111,78,55,0.15);
 }
 
 .button-group{
@@ -122,6 +159,11 @@ input{
   font-size:16px;
   font-weight:600;
   cursor:pointer;
+  transition:0.25s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
 }
 
 .result-title{
@@ -194,6 +236,7 @@ input{
   padding-left:20px;
   line-height:2;
   font-size:14px;
+  color:#555;
 }
 
 .footer{
@@ -209,6 +252,10 @@ input{
 
   .items-grid{
     grid-template-columns:1fr;
+  }
+
+  .header h1{
+    font-size:28px;
   }
 
 }
@@ -227,7 +274,8 @@ input{
 
 <img
 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDw1rBEzkPWQoDBVyWNduo80f-XI6jeP769xeMi9rXBw&s=10"
-class="logo">
+class="logo"
+alt="Tomoro Coffee Logo">
 
 </a>
 
@@ -239,12 +287,26 @@ class="logo">
 
 <div class="content">
 
+<div class="top-info">
+
+<div class="info-box">
+✓ Data otomatis tersimpan walaupun refresh
+</div>
+
+<div class="info-box">
+✓ Tampilan mobile friendly tanpa geser layar
+</div>
+
+</div>
+
 <div class="items-grid" id="tableBody"></div>
 
 <div class="button-group">
+
 <button class="btn" onclick="hitung()">
 Hitung Closing
 </button>
+
 </div>
 
 <h2 class="result-title">
@@ -258,10 +320,15 @@ Hasil Perhitungan
 <h2>Catatan Perhitungan</h2>
 
 <ul>
-<li>Powder dikurangi 200gr lalu dibagi gross weight.</li>
-<li>Syrup dikurangi 45gr lalu dibagi gross weight.</li>
-<li>Premade dikurangi 60gr lalu dibagi 2.</li>
-<li>Hasil premade otomatis ditambahkan ke powder terkait.</li>
+<li>Powder otomatis dikurangi berat toples 200gr lalu dibagi gross weight.</li>
+<li>Syrup otomatis dikurangi berat pump 45gr lalu dibagi gross weight.</li>
+<li>Premade otomatis dikurangi botol squeeze 60gr lalu dibagi 2.</li>
+<li>Hasil premade otomatis ditambahkan ke powder terkait sebelum dibagi gross weight powder.</li>
+<li>Premade Coklat masuk ke Chocolate Sweet Powder.</li>
+<li>Premade Matcha masuk ke Matcha Powder.</li>
+<li>Premade Pistachio masuk ke Pistachio Powder.</li>
+<li>Jika tidak diisi maka otomatis muncul status "Belum Dihitung / Habis".</li>
+<li>Data otomatis tersimpan walaupun halaman direfresh.</li>
 </ul>
 
 </div>
@@ -269,7 +336,7 @@ Hasil Perhitungan
 </div>
 
 <div class="footer">
-© 2026 Closing Tomoro
+© 2026 Closing Tomoro • Project By Rifqi Jatengland
 </div>
 
 </div>
@@ -278,20 +345,75 @@ Hasil Perhitungan
 
 const products = [
 
-{ name:'Chocolate Sweet Powder', gross:1000, type:'powder', key:'coklat' },
-{ name:'Matcha Powder', gross:1000, type:'powder', key:'matcha' },
-{ name:'Pistachio Powder', gross:700, type:'powder', key:'pistachio' },
+{ name:'Tomoro Master Coffee Bean', gross:1000, type:'normal' },
+{ name:'Whipping Cream', gross:1010, type:'normal' },
+{ name:'Oat Milk', gross:1080, type:'normal' },
+{ name:'Susu Kental Manis', gross:545, type:'syrup' },
+{ name:'Barista Coconut', gross:1054, type:'normal' },
 
 { name:'Aren Syrup', gross:1050, type:'syrup' },
 { name:'Vanilla Syrup', gross:1050, type:'syrup' },
 { name:'Caramel Syrup', gross:1050, type:'syrup' },
+{ name:'Simple Syrup', gross:1060, type:'syrup' },
 
 { name:'Tomoro Caramel Sauce', gross:1054, type:'syrup' },
-{ name:'Susu Kental Manis', gross:545, type:'syrup' },
 
-{ name:'Premade Coklat', gross:'Mengikut hasil powder', type:'premade', key:'coklat' },
-{ name:'Premade Matcha', gross:'Mengikut hasil powder', type:'premade', key:'matcha' },
-{ name:'Premade Pistachio', gross:'Mengikut hasil powder', type:'premade', key:'pistachio' }
+{ name:'Chocolate Sweet Powder', gross:1000, type:'powder', key:'coklat' },
+{ name:'Hojicha Latte Powder', gross:1000, type:'powder' },
+{ name:'Matcha Powder', gross:1000, type:'powder', key:'matcha' },
+{ name:'Tomoro Frappe Powder', gross:1000, type:'powder' },
+{ name:'Tomoro Blend V2', gross:1000, type:'powder' },
+{ name:'Tomoro Master Milk', gross:1052, type:'powder' },
+
+{ name:'Manuka Syrup', gross:1050, type:'syrup' },
+
+{ name:'Foam Powder', gross:1000, type:'powder' },
+{ name:'Sea Salt', gross:210, type:'powder' },
+{ name:'Milk Powder', gross:1000, type:'powder' },
+{ name:'Cheese Milk Powder', gross:1000, type:'powder' },
+
+{ name:'Pistachio Powder', gross:700, type:'powder', key:'pistachio' },
+
+{
+  name:'Premade Coklat',
+  gross:'Mengikut hasil powder',
+  type:'premade',
+  key:'coklat'
+},
+
+{
+  name:'Premade Matcha',
+  gross:'Mengikut hasil powder',
+  type:'premade',
+  key:'matcha'
+},
+
+{
+  name:'Premade Pistachio',
+  gross:'Mengikut hasil powder',
+  type:'premade',
+  key:'pistachio'
+},
+
+{ name:'Premade Caramel Sauce', gross:1054, type:'premade_only' },
+{ name:'Premade SKM', gross:545, type:'premade_only' },
+
+{ name:'Jasmine Green Tea', gross:25, type:'normal' },
+{ name:'Pastry Bag Logo', gross:200, type:'normal' },
+
+{ name:'Cup 18oz', gross:50, type:'normal' },
+{ name:'Cup 12oz', gross:50, type:'normal' },
+{ name:'Black Ice Cup', gross:50, type:'normal' },
+{ name:'Black Hot Cup', gross:25, type:'normal' },
+
+{ name:'Lid Black Hot Cup', gross:50, type:'normal' },
+{ name:'Lid Black Ice Cup', gross:50, type:'normal' },
+
+{ name:'Dome Lid Ice Cup', gross:50, type:'normal' },
+{ name:'Strawless Lid Ice Cup', gross:50, type:'normal' },
+{ name:'Anti Spill Lid', gross:50, type:'normal' },
+{ name:'Lid Iced Cup 30oz', gross:50, type:'normal' },
+{ name:'Straw Logo Small', gross:500, type:'normal' }
 
 ];
 
@@ -303,7 +425,9 @@ tableBody.innerHTML += `
 
 <div class="item-card">
 
-<div class="item-name">${item.name}</div>
+<div class="item-name">
+${item.name}
+</div>
 
 <div class="item-info">
 
@@ -359,7 +483,7 @@ let data = JSON.parse(saved);
 
 Object.keys(data).forEach(index=>{
 
-let input =
+const input =
 document.getElementById(`input-${index}`);
 
 if(input){
@@ -381,7 +505,7 @@ document.getElementById("hasil");
 
 hasilDiv.innerHTML = "";
 
-let premadeTambahan = {
+let tambahanPremade = {
 coklat:0,
 matcha:0,
 pistachio:0
@@ -389,22 +513,22 @@ pistachio:0
 
 products.forEach((item,index)=>{
 
-let input =
+let value =
 document.getElementById(`input-${index}`).value;
 
-let timbang = parseFloat(input);
+let timbang = parseFloat(value);
 
 if(item.type === "premade" && !isNaN(timbang)){
 
-let beratBersih = timbang - 60;
+let beratPremade = timbang - 60;
 
-if(beratBersih < 0){
-beratBersih = 0;
+if(beratPremade < 0){
+beratPremade = 0;
 }
 
-let hasilPremade = beratBersih / 2;
+let hasilPremade = beratPremade / 2;
 
-premadeTambahan[item.key] = hasilPremade;
+tambahanPremade[item.key] = hasilPremade;
 
 }
 
@@ -412,20 +536,25 @@ premadeTambahan[item.key] = hasilPremade;
 
 products.forEach((item,index)=>{
 
-let input =
+let value =
 document.getElementById(`input-${index}`).value;
 
-let timbang = parseFloat(input);
+let timbang = parseFloat(value);
+
+let isiHTML = '';
 
 if(isNaN(timbang) || timbang <= 0){
 
-hasilDiv.innerHTML += `
+isiHTML = `
 
 <div class="card">
 
 <h3>${item.name}</h3>
 
-<p>Status : Belum dihitung</p>
+<p>
+<b>Status :</b>
+Belum dihitung
+</p>
 
 <div class="status-habis">
 Habis / Belum Dihitung
@@ -435,9 +564,9 @@ Habis / Belum Dihitung
 
 `;
 
-return;
-
 }
+
+else{
 
 let beratBersih = timbang;
 let hasil = 0;
@@ -450,7 +579,11 @@ if(beratBersih < 0){
 beratBersih = 0;
 }
 
-beratBersih += premadeTambahan[item.key];
+if(item.key){
+
+beratBersih += tambahanPremade[item.key];
+
+}
 
 hasil = beratBersih / item.gross;
 
@@ -480,7 +613,25 @@ hasil = beratBersih / 2;
 
 }
 
-hasilDiv.innerHTML += `
+else if(item.type === "premade_only"){
+
+beratBersih = timbang - 60;
+
+if(beratBersih < 0){
+beratBersih = 0;
+}
+
+hasil = beratBersih;
+
+}
+
+else{
+
+hasil = timbang;
+
+}
+
+isiHTML = `
 
 <div class="card">
 
@@ -509,11 +660,24 @@ Sudah Dihitung
 
 `;
 
+}
+
+hasilDiv.innerHTML += isiHTML;
+
 });
 
 }
 
 loadData();
+
+window.addEventListener('beforeunload',function(e){
+
+e.preventDefault();
+
+e.returnValue =
+'Data closing sudah dimasukkan, yakin ingin keluar atau refresh?';
+
+});
 
 </script>
 
