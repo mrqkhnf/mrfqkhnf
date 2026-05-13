@@ -176,9 +176,6 @@
       cursor:pointer;
       transition:0.25s;
       font-family:'Poppins',sans-serif;
-    }
-
-    .btn-primary{
       background:linear-gradient(135deg,#6f4e37,#3d2b1f);
       color:white;
     }
@@ -220,14 +217,26 @@
       font-size:14px;
     }
 
-    .empty-text{
+    .status-habis{
+      margin-top:12px;
+      background:#ffeaea;
+      color:#c1121f;
+      padding:8px 12px;
+      border-radius:10px;
       text-align:center;
-      padding:40px 20px;
-      background:#fff8ef;
-      border-radius:18px;
-      color:#8b5e3c;
+      font-size:13px;
       font-weight:600;
-      border:1px dashed #d6b08c;
+    }
+
+    .status-belum{
+      margin-top:12px;
+      background:#fff8dc;
+      color:#8b5e3c;
+      padding:8px 12px;
+      border-radius:10px;
+      text-align:center;
+      font-size:13px;
+      font-weight:600;
     }
 
     .notes{
@@ -328,7 +337,7 @@
 
       <div class="button-group">
 
-        <button class="btn btn-primary" onclick="hitung()">
+        <button class="btn" onclick="hitung()">
           Hitung Closing
         </button>
 
@@ -348,9 +357,7 @@
           <li>Powder otomatis dikurangi berat toples 200gr.</li>
           <li>Syrup otomatis dikurangi berat pump 45gr.</li>
           <li>Premade otomatis dikurangi botol squeeze 60gr.</li>
-          <li>Rumus Powder = (timbangan - 200) ÷ gross weight.</li>
-          <li>Rumus Syrup = (timbangan - 45) ÷ gross weight.</li>
-          <li>Rumus Premade = (timbangan - 60) ÷ 2 lalu ditambahkan ke hasil powder yang sama.</li>
+          <li>Jika tidak diisi maka otomatis muncul status "Belum Dihitung / Habis".</li>
           <li>Data otomatis tersimpan walaupun halaman ter-refresh.</li>
         </ul>
 
@@ -503,7 +510,7 @@
 
     }
 
-    function tampilkanCard(nama,bersih,hasil,label){
+    function tampilkanCard(nama,bersih,hasil,label,status){
 
       const hasilDiv =
       document.getElementById('hasil');
@@ -516,13 +523,19 @@
 
           <p>
             <b>Berat Bersih :</b>
-            ${bersih.toFixed(2)} gr
+            ${bersih}
           </p>
 
           <p>
             <b>${label} :</b>
-            ${hasil.toFixed(2)}
+            ${hasil}
           </p>
+
+          <div class="${status === 'habis' ? 'status-habis' : 'status-belum'}">
+            ${status === 'habis'
+              ? 'Habis / Belum Dihitung'
+              : 'Sudah Dihitung'}
+          </div>
 
         </div>
 
@@ -538,16 +551,25 @@
       hasilDiv.innerHTML = '';
 
       let finalResult = {};
-      let adaData = false;
 
       products.forEach((item,index)=>{
 
         let timbang =
         Number(document.getElementById(`input-${index}`).value) || 0;
 
-        if(timbang <= 0) return;
+        if(timbang <= 0){
 
-        adaData = true;
+          tampilkanCard(
+            item.name,
+            '-',
+            '-',
+            'Status',
+            'habis'
+          );
+
+          return;
+
+        }
 
         let beratBersih = timbang;
         let hasil = 0;
@@ -555,110 +577,46 @@
         if(item.type === 'powder'){
 
           beratBersih -= 200;
-          hasil = beratBersih / item.gross;
-
-          if(item.key){
-
-            if(!finalResult[item.key])
-            finalResult[item.key] = 0;
-
-            finalResult[item.key] += hasil;
-
-          }
-
-          tampilkanCard(
-            item.name,
-            beratBersih,
-            hasil,
-            'Sisa'
-          );
+          hasil = (beratBersih / item.gross).toFixed(2);
 
         }
 
         else if(item.type === 'syrup'){
 
           beratBersih -= 45;
-          hasil = beratBersih / item.gross;
-
-          tampilkanCard(
-            item.name,
-            beratBersih,
-            hasil,
-            'Sisa'
-          );
+          hasil = (beratBersih / item.gross).toFixed(2);
 
         }
 
         else if(item.type === 'premade'){
 
           beratBersih -= 60;
-          hasil = beratBersih / 2;
-
-          if(!finalResult[item.key])
-          finalResult[item.key] = 0;
-
-          finalResult[item.key] += hasil;
-
-          tampilkanCard(
-            item.name,
-            beratBersih,
-            hasil,
-            'Hasil Premade'
-          );
+          hasil = (beratBersih / 2).toFixed(2);
 
         }
 
         else if(item.type === 'premade_only'){
 
           beratBersih -= 60;
-          hasil = beratBersih;
-
-          if(!finalResult[item.key])
-          finalResult[item.key] = 0;
-
-          finalResult[item.key] += hasil;
-
-          tampilkanCard(
-            item.name,
-            beratBersih,
-            hasil,
-            'Tambahan'
-          );
+          hasil = beratBersih.toFixed(2);
 
         }
 
-      });
+        else{
 
-      Object.keys(finalResult).forEach((key)=>{
+          hasil = timbang.toFixed(2);
 
-        hasilDiv.innerHTML += `
+        }
 
-          <div class="card">
-
-            <h3>${key.toUpperCase()}</h3>
-
-            <p>
-              <b>Total Akhir :</b>
-              ${finalResult[key].toFixed(2)}
-            </p>
-
-          </div>
-
-        `;
+        tampilkanCard(
+          item.name,
+          beratBersih.toFixed(2) + ' gr',
+          hasil,
+          'Hasil',
+          'ada'
+        );
 
       });
-
-      if(!adaData){
-
-        hasilDiv.innerHTML = `
-
-          <div class="empty-text">
-            Tidak ada data yang dimasukkan
-          </div>
-
-        `;
-
-      }
 
     }
 
