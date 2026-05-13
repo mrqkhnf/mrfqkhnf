@@ -284,10 +284,10 @@ Hasil Perhitungan
 <h2>Catatan Perhitungan</h2>
 
 <ul>
-<li>Powder dikurangi berat toples 200gr.</li>
+<li>Powder ditambahkan hasil premade terlebih dahulu.</li>
+<li>Setelah ditambahkan premade, powder dikurangi berat toples 200gr.</li>
 <li>Syrup dikurangi berat pump 45gr.</li>
-<li>Premade powder dikurangi 60gr lalu dibagi 2.</li>
-<li>Hasil premade otomatis ditambahkan ke powder terkait.</li>
+<li>Premade powder dikurangi 60gr lalu ditambahkan ke powder terkait.</li>
 <li>Premade tetap muncul dengan catatan sudah ditambahkan.</li>
 <li>Premade SKM & caramel sauce hanya dikurangi 60gr.</li>
 <li>Data otomatis tersimpan.</li>
@@ -497,11 +497,7 @@ let catatanPremade = '';
 
 if(item.type === 'powder'){
 
-beratBersih -= 200;
-
-if(beratBersih < 0){
-beratBersih = 0;
-}
+let totalKotor = timbang;
 
 if(item.premade){
 
@@ -510,19 +506,19 @@ getInputByName(item.premade);
 
 if(premadeInput > 0){
 
-let premadeHasil =
-(premadeInput - 60) / 2;
+let hasilPremade =
+premadeInput - 60;
 
-if(premadeHasil < 0){
-premadeHasil = 0;
+if(hasilPremade < 0){
+hasilPremade = 0;
 }
 
-beratBersih += premadeHasil;
+totalKotor += hasilPremade;
 
 catatanPremade = `
 <div class="note-premade">
-Hasil dari ${item.premade}
-sebanyak ${premadeHasil.toFixed(2)} gr
+Hasil premade sebesar
+${hasilPremade.toFixed(2)} gr
 sudah ditambahkan otomatis
 ke powder terkait.
 </div>
@@ -530,6 +526,12 @@ ke powder terkait.
 
 }
 
+}
+
+beratBersih = totalKotor - 200;
+
+if(beratBersih < 0){
+beratBersih = 0;
 }
 
 hasil = beratBersih / item.gross;
@@ -550,8 +552,7 @@ hasil = beratBersih / item.gross;
 
 else if(item.type === 'premade'){
 
-beratBersih =
-(timbang - 60) / 2;
+beratBersih = timbang - 60;
 
 if(beratBersih < 0){
 beratBersih = 0;
