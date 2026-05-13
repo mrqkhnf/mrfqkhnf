@@ -21,6 +21,7 @@
 body{
   font-family:'Poppins',sans-serif;
   background:#f5f1eb;
+  min-height:100vh;
   padding:15px;
   color:#2b2b2b;
 }
@@ -39,7 +40,6 @@ body{
   color:white;
   padding:35px 20px;
   text-align:center;
-  position:relative;
 }
 
 .logo{
@@ -67,26 +67,6 @@ body{
   padding:22px;
 }
 
-.top-info{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-bottom:22px;
-}
-
-.info-box{
-  flex:1;
-  min-width:220px;
-  background:#fff8ef;
-  border:1px solid #f0d9b5;
-  padding:14px;
-  border-radius:15px;
-  font-size:13px;
-  color:#6f4e37;
-  font-weight:600;
-  text-align:center;
-}
-
 .items-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -99,11 +79,6 @@ body{
   border-radius:20px;
   padding:18px;
   box-shadow:0 5px 14px rgba(0,0,0,0.05);
-  transition:0.25s;
-}
-
-.item-card:hover{
-  transform:translateY(-2px);
 }
 
 .item-name{
@@ -137,7 +112,7 @@ input{
   outline:none;
   font-size:15px;
   text-align:center;
-  transition:0.2s;
+  font-family:'Poppins',sans-serif;
 }
 
 input:focus{
@@ -159,11 +134,6 @@ input:focus{
   font-size:16px;
   font-weight:600;
   cursor:pointer;
-  transition:0.25s;
-}
-
-.btn:hover{
-  transform:translateY(-2px);
 }
 
 .result-title{
@@ -236,7 +206,6 @@ input:focus{
   padding-left:20px;
   line-height:2;
   font-size:14px;
-  color:#555;
 }
 
 .footer{
@@ -274,8 +243,7 @@ input:focus{
 
 <img
 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDw1rBEzkPWQoDBVyWNduo80f-XI6jeP769xeMi9rXBw&s=10"
-class="logo"
-alt="Tomoro Coffee Logo">
+class="logo">
 
 </a>
 
@@ -287,26 +255,12 @@ alt="Tomoro Coffee Logo">
 
 <div class="content">
 
-<div class="top-info">
-
-<div class="info-box">
-✓ Data otomatis tersimpan walaupun refresh
-</div>
-
-<div class="info-box">
-✓ Tampilan mobile friendly tanpa geser layar
-</div>
-
-</div>
-
 <div class="items-grid" id="tableBody"></div>
 
 <div class="button-group">
-
 <button class="btn" onclick="hitung()">
 Hitung Closing
 </button>
-
 </div>
 
 <h2 class="result-title">
@@ -320,15 +274,13 @@ Hasil Perhitungan
 <h2>Catatan Perhitungan</h2>
 
 <ul>
-<li>Powder otomatis dikurangi berat toples 200gr lalu dibagi gross weight.</li>
-<li>Syrup otomatis dikurangi berat pump 45gr lalu dibagi gross weight.</li>
-<li>Premade otomatis dikurangi botol squeeze 60gr lalu dibagi 2.</li>
-<li>Hasil premade otomatis ditambahkan ke powder terkait sebelum dibagi gross weight powder.</li>
-<li>Premade Coklat masuk ke Chocolate Sweet Powder.</li>
-<li>Premade Matcha masuk ke Matcha Powder.</li>
-<li>Premade Pistachio masuk ke Pistachio Powder.</li>
-<li>Jika tidak diisi maka otomatis muncul status "Belum Dihitung / Habis".</li>
-<li>Data otomatis tersimpan walaupun halaman direfresh.</li>
+<li>Powder dikurangi berat toples 200gr.</li>
+<li>Syrup dikurangi berat pump 45gr.</li>
+<li>Premade powder dikurangi 60gr lalu dibagi 2.</li>
+<li>Hasil premade langsung ditambahkan ke powder terkait.</li>
+<li>Premade tidak muncul sendiri pada hasil akhir.</li>
+<li>Premade SKM & caramel sauce hanya dikurangi 60gr.</li>
+<li>Data otomatis tersimpan.</li>
 </ul>
 
 </div>
@@ -336,7 +288,7 @@ Hasil Perhitungan
 </div>
 
 <div class="footer">
-© 2026 Closing Tomoro • Project By Rifqi Jatengland
+© 2026 Closing Tomoro
 </div>
 
 </div>
@@ -348,7 +300,9 @@ const products = [
 { name:'Tomoro Master Coffee Bean', gross:1000, type:'normal' },
 { name:'Whipping Cream', gross:1010, type:'normal' },
 { name:'Oat Milk', gross:1080, type:'normal' },
+
 { name:'Susu Kental Manis', gross:545, type:'syrup' },
+
 { name:'Barista Coconut', gross:1054, type:'normal' },
 
 { name:'Aren Syrup', gross:1050, type:'syrup' },
@@ -358,45 +312,26 @@ const products = [
 
 { name:'Tomoro Caramel Sauce', gross:1054, type:'syrup' },
 
-{ name:'Chocolate Sweet Powder', gross:1000, type:'powder', key:'coklat' },
+{ name:'Chocolate Sweet Powder', gross:1000, type:'powder', premade:'Premade Coklat' },
 { name:'Hojicha Latte Powder', gross:1000, type:'powder' },
-{ name:'Matcha Powder', gross:1000, type:'powder', key:'matcha' },
+{ name:'Matcha Powder', gross:1000, type:'powder', premade:'Premade Matcha' },
 { name:'Tomoro Frappe Powder', gross:1000, type:'powder' },
 { name:'Tomoro Blend V2', gross:1000, type:'powder' },
 { name:'Tomoro Master Milk', gross:1052, type:'powder' },
-
-{ name:'Manuka Syrup', gross:1050, type:'syrup' },
 
 { name:'Foam Powder', gross:1000, type:'powder' },
 { name:'Sea Salt', gross:210, type:'powder' },
 { name:'Milk Powder', gross:1000, type:'powder' },
 { name:'Cheese Milk Powder', gross:1000, type:'powder' },
 
-{ name:'Pistachio Powder', gross:700, type:'powder', key:'pistachio' },
+{ name:'Pistachio Powder', gross:700, type:'powder', premade:'Premade Pistachio' },
 
-{
-  name:'Premade Coklat',
-  gross:'Mengikut hasil powder',
-  type:'premade',
-  key:'coklat'
-},
+{ name:'Premade Coklat', gross:'Mengikut hasil powder', type:'premade' },
+{ name:'Premade Matcha', gross:'Mengikut hasil powder', type:'premade' },
+{ name:'Premade Pistachio', gross:'Mengikut hasil powder', type:'premade' },
 
-{
-  name:'Premade Matcha',
-  gross:'Mengikut hasil powder',
-  type:'premade',
-  key:'matcha'
-},
-
-{
-  name:'Premade Pistachio',
-  gross:'Mengikut hasil powder',
-  type:'premade',
-  key:'pistachio'
-},
-
-{ name:'Premade Caramel Sauce', gross:1054, type:'premade_only' },
-{ name:'Premade SKM', gross:545, type:'premade_only' },
+{ name:'Premade Caramel Sauce', gross:1, type:'premade_only' },
+{ name:'Premade SKM', gross:1, type:'premade_only' },
 
 { name:'Jasmine Green Tea', gross:25, type:'normal' },
 { name:'Pastry Bag Logo', gross:200, type:'normal' },
@@ -417,7 +352,7 @@ const products = [
 
 ];
 
-const tableBody = document.getElementById("tableBody");
+const tableBody = document.getElementById('tableBody');
 
 products.forEach((item,index)=>{
 
@@ -425,9 +360,7 @@ tableBody.innerHTML += `
 
 <div class="item-card">
 
-<div class="item-name">
-${item.name}
-</div>
+<div class="item-name">${item.name}</div>
 
 <div class="item-info">
 
@@ -487,63 +420,52 @@ const input =
 document.getElementById(`input-${index}`);
 
 if(input){
-
 input.value = data[index];
-
 }
 
 });
 
 }
+
+}
+
+function getInputByName(name){
+
+for(let i = 0; i < products.length; i++){
+
+if(products[i].name === name){
+
+return Number(
+document.getElementById(`input-${i}`).value
+);
+
+}
+
+}
+
+return 0;
 
 }
 
 function hitung(){
 
 const hasilDiv =
-document.getElementById("hasil");
+document.getElementById('hasil');
 
-hasilDiv.innerHTML = "";
-
-let tambahanPremade = {
-coklat:0,
-matcha:0,
-pistachio:0
-};
+hasilDiv.innerHTML = '';
 
 products.forEach((item,index)=>{
 
-let value =
-document.getElementById(`input-${index}`).value;
-
-let timbang = parseFloat(value);
-
-if(item.type === "premade" && !isNaN(timbang)){
-
-let beratPremade = timbang - 60;
-
-if(beratPremade < 0){
-beratPremade = 0;
+if(item.type === 'premade'){
+return;
 }
 
-let hasilPremade = beratPremade / 2;
-
-tambahanPremade[item.key] = hasilPremade;
-
-}
-
-});
-
-products.forEach((item,index)=>{
-
-let value =
-document.getElementById(`input-${index}`).value;
-
-let timbang = parseFloat(value);
+let timbang =
+Number(document.getElementById(`input-${index}`).value);
 
 let isiHTML = '';
 
-if(isNaN(timbang) || timbang <= 0){
+if(!timbang || timbang <= 0){
 
 isiHTML = `
 
@@ -551,10 +473,7 @@ isiHTML = `
 
 <h3>${item.name}</h3>
 
-<p>
-<b>Status :</b>
-Belum dihitung
-</p>
+<p><b>Status :</b> Belum dihitung</p>
 
 <div class="status-habis">
 Habis / Belum Dihitung
@@ -564,24 +483,36 @@ Habis / Belum Dihitung
 
 `;
 
-}
-
-else{
+}else{
 
 let beratBersih = timbang;
 let hasil = 0;
 
-if(item.type === "powder"){
+if(item.type === 'powder'){
 
-beratBersih = timbang - 200;
+beratBersih -= 200;
 
 if(beratBersih < 0){
 beratBersih = 0;
 }
 
-if(item.key){
+if(item.premade){
 
-beratBersih += tambahanPremade[item.key];
+let premadeInput =
+getInputByName(item.premade);
+
+if(premadeInput > 0){
+
+let premadeHasil =
+(premadeInput - 60) / 2;
+
+if(premadeHasil > 0){
+
+beratBersih += premadeHasil;
+
+}
+
+}
 
 }
 
@@ -589,9 +520,9 @@ hasil = beratBersih / item.gross;
 
 }
 
-else if(item.type === "syrup"){
+else if(item.type === 'syrup'){
 
-beratBersih = timbang - 45;
+beratBersih -= 45;
 
 if(beratBersih < 0){
 beratBersih = 0;
@@ -601,21 +532,9 @@ hasil = beratBersih / item.gross;
 
 }
 
-else if(item.type === "premade"){
+else if(item.type === 'premade_only'){
 
-beratBersih = timbang - 60;
-
-if(beratBersih < 0){
-beratBersih = 0;
-}
-
-hasil = beratBersih / 2;
-
-}
-
-else if(item.type === "premade_only"){
-
-beratBersih = timbang - 60;
+beratBersih -= 60;
 
 if(beratBersih < 0){
 beratBersih = 0;
@@ -627,7 +546,7 @@ hasil = beratBersih;
 
 else{
 
-hasil = timbang;
+hasil = timbang / item.gross;
 
 }
 
@@ -636,11 +555,6 @@ isiHTML = `
 <div class="card">
 
 <h3>${item.name}</h3>
-
-<p>
-<b>Input :</b>
-${timbang.toFixed(2)} gr
-</p>
 
 <p>
 <b>Berat Bersih :</b>
@@ -669,15 +583,6 @@ hasilDiv.innerHTML += isiHTML;
 }
 
 loadData();
-
-window.addEventListener('beforeunload',function(e){
-
-e.preventDefault();
-
-e.returnValue =
-'Data closing sudah dimasukkan, yakin ingin keluar atau refresh?';
-
-});
 
 </script>
 
