@@ -228,10 +228,10 @@
       font-weight:600;
     }
 
-    .status-belum{
+    .status-ada{
       margin-top:12px;
-      background:#fff8dc;
-      color:#8b5e3c;
+      background:#e8fff1;
+      color:#14804a;
       padding:8px 12px;
       border-radius:10px;
       text-align:center;
@@ -378,7 +378,7 @@
       { name:'Tomoro Master Coffee Bean', gross:1000, type:'normal' },
       { name:'Whipping Cream', gross:1010, type:'normal' },
       { name:'Oat Milk', gross:1080, type:'normal' },
-      { name:'Susu Kental Manis', gross:545, type:'normal', key:'skm' },
+      { name:'Susu Kental Manis', gross:545, type:'normal' },
       { name:'Barista Coconut', gross:1054, type:'normal' },
 
       { name:'Aren Syrup', gross:1050, type:'syrup' },
@@ -386,11 +386,11 @@
       { name:'Caramel Syrup', gross:1050, type:'syrup' },
       { name:'Simple Syrup', gross:1060, type:'syrup' },
 
-      { name:'Tomoro Caramel Sauce', gross:1054, type:'syrup', key:'caramel' },
+      { name:'Tomoro Caramel Sauce', gross:1054, type:'syrup' },
 
-      { name:'Chocolate Sweet Powder', gross:1000, type:'powder', key:'coklat' },
+      { name:'Chocolate Sweet Powder', gross:1000, type:'powder' },
       { name:'Hojicha Latte Powder', gross:1000, type:'powder' },
-      { name:'Matcha Powder', gross:1000, type:'powder', key:'matcha' },
+      { name:'Matcha Powder', gross:1000, type:'powder' },
       { name:'Tomoro Frappe Powder', gross:1000, type:'powder' },
       { name:'Tomoro Blend V2', gross:1000, type:'powder' },
       { name:'Tomoro Master Milk', gross:1052, type:'powder' },
@@ -402,14 +402,14 @@
       { name:'Milk Powder', gross:1000, type:'powder' },
       { name:'Cheese Milk Powder', gross:1000, type:'powder' },
 
-      { name:'Pistachio Powder', gross:700, type:'powder', key:'pistachio' },
+      { name:'Pistachio Powder', gross:700, type:'powder' },
 
-      { name:'Premade Coklat', gross:2, type:'premade', key:'coklat' },
-      { name:'Premade Matcha', gross:2, type:'premade', key:'matcha' },
-      { name:'Premade Pistachio', gross:2, type:'premade', key:'pistachio' },
+      { name:'Premade Coklat', gross:2, type:'premade' },
+      { name:'Premade Matcha', gross:2, type:'premade' },
+      { name:'Premade Pistachio', gross:2, type:'premade' },
 
-      { name:'Premade Caramel Sauce', gross:1054, type:'premade_only', key:'caramel' },
-      { name:'Premade SKM', gross:545, type:'premade_only', key:'skm' },
+      { name:'Premade Caramel Sauce', gross:1054, type:'premade_only' },
+      { name:'Premade SKM', gross:545, type:'premade_only' },
 
       { name:'Jasmine Green Tea', gross:25, type:'normal' },
       { name:'Pastry Bag Logo', gross:200, type:'normal' },
@@ -426,12 +426,11 @@
       { name:'Strawless Lid Ice Cup', gross:50, type:'normal' },
       { name:'Anti Spill Lid', gross:50, type:'normal' },
       { name:'Lid Iced Cup 30oz', gross:50, type:'normal' },
-      { name:'Straw Logo Small', gross:500, type:'normal' },
+      { name:'Straw Logo Small', gross:500, type:'normal' }
 
     ];
 
-    const tableBody =
-    document.getElementById('tableBody');
+    const tableBody = document.getElementById('tableBody');
 
     products.forEach((item,index)=>{
 
@@ -510,39 +509,6 @@
 
     }
 
-    function tampilkanCard(nama,bersih,hasil,label,status){
-
-      const hasilDiv =
-      document.getElementById('hasil');
-
-      hasilDiv.innerHTML += `
-
-        <div class="card">
-
-          <h3>${nama}</h3>
-
-          <p>
-            <b>Berat Bersih :</b>
-            ${bersih}
-          </p>
-
-          <p>
-            <b>${label} :</b>
-            ${hasil}
-          </p>
-
-          <div class="${status === 'habis' ? 'status-habis' : 'status-belum'}">
-            ${status === 'habis'
-              ? 'Habis / Belum Dihitung'
-              : 'Sudah Dihitung'}
-          </div>
-
-        </div>
-
-      `;
-
-    }
-
     function hitung(){
 
       const hasilDiv =
@@ -550,71 +516,102 @@
 
       hasilDiv.innerHTML = '';
 
-      let finalResult = {};
-
       products.forEach((item,index)=>{
 
         let timbang =
-        Number(document.getElementById(`input-${index}`).value) || 0;
+        Number(document.getElementById(`input-${index}`).value);
 
-        if(timbang <= 0){
+        let isiHTML = '';
 
-          tampilkanCard(
-            item.name,
-            '-',
-            '-',
-            'Status',
-            'habis'
-          );
+        if(!timbang || timbang <= 0){
 
-          return;
+          isiHTML = `
 
-        }
+            <div class="card">
 
-        let beratBersih = timbang;
-        let hasil = 0;
+              <h3>${item.name}</h3>
 
-        if(item.type === 'powder'){
+              <p>
+                <b>Status :</b>
+                Belum dihitung
+              </p>
 
-          beratBersih -= 200;
-          hasil = (beratBersih / item.gross).toFixed(2);
+              <div class="status-habis">
+                Habis / Belum Dihitung
+              </div>
 
-        }
+            </div>
 
-        else if(item.type === 'syrup'){
-
-          beratBersih -= 45;
-          hasil = (beratBersih / item.gross).toFixed(2);
-
-        }
-
-        else if(item.type === 'premade'){
-
-          beratBersih -= 60;
-          hasil = (beratBersih / 2).toFixed(2);
-
-        }
-
-        else if(item.type === 'premade_only'){
-
-          beratBersih -= 60;
-          hasil = beratBersih.toFixed(2);
+          `;
 
         }
 
         else{
 
-          hasil = timbang.toFixed(2);
+          let beratBersih = timbang;
+          let hasil = 0;
+
+          if(item.type === 'powder'){
+
+            beratBersih -= 200;
+            hasil = beratBersih / item.gross;
+
+          }
+
+          else if(item.type === 'syrup'){
+
+            beratBersih -= 45;
+            hasil = beratBersih / item.gross;
+
+          }
+
+          else if(item.type === 'premade'){
+
+            beratBersih -= 60;
+            hasil = beratBersih / 2;
+
+          }
+
+          else if(item.type === 'premade_only'){
+
+            beratBersih -= 60;
+            hasil = beratBersih;
+
+          }
+
+          else{
+
+            hasil = timbang;
+
+          }
+
+          isiHTML = `
+
+            <div class="card">
+
+              <h3>${item.name}</h3>
+
+              <p>
+                <b>Berat Bersih :</b>
+                ${beratBersih.toFixed(2)} gr
+              </p>
+
+              <p>
+                <b>Hasil :</b>
+                ${hasil.toFixed(2)}
+              </p>
+
+              <div class="status-ada">
+                Sudah Dihitung
+              </div>
+
+            </div>
+
+          `;
 
         }
 
-        tampilkanCard(
-          item.name,
-          beratBersih.toFixed(2) + ' gr',
-          hasil,
-          'Hasil',
-          'ada'
-        );
+        hasilDiv.innerHTML += isiHTML;
 
       });
 
