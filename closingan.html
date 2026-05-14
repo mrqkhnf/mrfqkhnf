@@ -67,6 +67,25 @@ body{
   padding:22px;
 }
 
+.search-box{
+  margin-bottom:25px;
+}
+
+.search-input{
+  width:100%;
+  padding:16px;
+  border-radius:16px;
+  border:1px solid #ccc;
+  outline:none;
+  font-size:15px;
+  font-family:'Poppins',sans-serif;
+}
+
+.search-input:focus{
+  border-color:#6f4e37;
+  box-shadow:0 0 0 3px rgba(111,78,55,0.15);
+}
+
 .items-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -229,13 +248,13 @@ input:focus{
 
 @media(max-width:700px){
 
-  .items-grid{
-    grid-template-columns:1fr;
-  }
+.items-grid{
+grid-template-columns:1fr;
+}
 
-  .header h1{
-    font-size:28px;
-  }
+.header h1{
+font-size:28px;
+}
 
 }
 
@@ -264,6 +283,18 @@ class="logo">
 </div>
 
 <div class="content">
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+class="search-input"
+placeholder="Cari barang..."
+onkeyup="cariBarang()"
+>
+
+</div>
 
 <div class="items-grid" id="tableBody"></div>
 
@@ -317,30 +348,31 @@ const products = [
 { name:'Caramel Syrup 750ml', gross:1050, type:'syrup' },
 { name:'Simple Syrup (Gula Cair)', gross:1060, type:'syrup' },
 { name:'Syrup Rancho', gross:1210, type:'syrup' },
-{ name:'Syrup Pinkgrape Fruit', gross:484, type:'syrup' },
-{ name:'Tomoro Caramel Sauce 1 Lt', gross:1360, type:'syrup' },
-{ name:'Manggo Syrup 1L', gross:1054, type:'syrup' },
+{ name:'Syrup Pinkgrape Fruit', gross:1360, type:'syrup' },
+{ name:'Tomoro Caramel Sauce 1 Lt', gross:1054, type:'syrup' },
+{ name:'Manggo Syrup 1L', gross:2500, type:'syrup' },
 
-{ name:'Chocolate Sweet 1kg', gross:2500, type:'powder', premade:'Premade Coklat' },
+{ name:'Chocolate Sweet 1kg', gross:1000, type:'powder', premade:'Premade Coklat' },
 
 { name:'Whipping Cream Charger', gross:10, type:'normal' },
+
 { name:'Hojicha Latte Powder 1kg', gross:1000, type:'powder' },
 
 { name:'Tomoro Matcha Powder 1 Kg', gross:1000, type:'powder', premade:'Premade Matcha' },
 
 { name:'Tomoro Frape Powder 1 Kg', gross:1000, type:'powder' },
 
-{ name:'Jasmine Green Tea Bag 5gr', gross:1, type:'normal' },
+{ name:'Jasmine Green Tea Bag 5gr', gross:25, type:'normal' },
 
-{ name:'Pastry Bag Logo', gross:25, type:'normal' },
+{ name:'Pastry Bag Logo', gross:200, type:'normal' },
 
-{ name:'Tomoro Blend V2', gross:100, type:'powder' },
+{ name:'Tomoro Blend V2', gross:1000, type:'powder' },
 
-{ name:'Tomoro Master Milk', gross:1000, type:'powder' },
+{ name:'Tomoro Master Milk', gross:1052, type:'powder' },
 
-{ name:'Manuka Syrup 750', gross:1052, type:'syrup' },
+{ name:'Manuka Syrup 750', gross:1050, type:'syrup' },
 
-{ name:'Foam Powder', gross:1050, type:'powder' },
+{ name:'Foam Powder', gross:1000, type:'powder' },
 
 { name:'Sea Salt 210 Gr', gross:210, type:'powder' },
 
@@ -348,9 +380,9 @@ const products = [
 
 { name:'Cheese Milk Powder', gross:1000, type:'powder' },
 
-{ name:'Pistachio Powder', gross:200, type:'powder', premade:'Premade Pistachio' },
+{ name:'Pistachio Powder', gross:700, type:'powder', premade:'Premade Pistachio' },
 
-{ name:'PEACH', gross:700, type:'syrup' },
+{ name:'PEACH', gross:1307, type:'syrup' },
 
 { name:'Thermal Bag Large', gross:25, type:'normal' },
 { name:'Thermal Bag Extra Large', gross:25, type:'normal' },
@@ -391,6 +423,10 @@ const products = [
 
 const tableBody = document.getElementById('tableBody');
 
+function renderProducts(){
+
+tableBody.innerHTML = '';
+
 products.forEach((item,index)=>{
 
 tableBody.innerHTML += `
@@ -424,14 +460,51 @@ oninput="simpanData()"
 
 });
 
+loadData();
+
+}
+
+renderProducts();
+
+function cariBarang(){
+
+const keyword =
+document.getElementById('searchInput')
+.value
+.toLowerCase();
+
+const cards =
+document.querySelectorAll('.item-card');
+
+cards.forEach(card=>{
+
+const nama =
+card.querySelector('.item-name')
+.innerText
+.toLowerCase();
+
+if(nama.includes(keyword)){
+card.style.display = 'block';
+}else{
+card.style.display = 'none';
+}
+
+});
+
+}
+
 function simpanData(){
 
 let data = {};
 
 products.forEach((item,index)=>{
 
-data[index] =
-document.getElementById(`input-${index}`).value;
+const input =
+document.getElementById(`input-${index}`);
+
+if(input){
+data[index] = input.value;
+}
 
 });
 
@@ -647,8 +720,6 @@ hasilDiv.innerHTML += isiHTML;
 });
 
 }
-
-loadData();
 
 </script>
 
