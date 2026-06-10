@@ -5,245 +5,265 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Closing Tomoro</title>
+<title>Closing Tomoro Final V2</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-  font-family:'Poppins',sans-serif;
-  background:#f5f1eb;
-  min-height:100vh;
-  padding:15px;
-  color:#2b2b2b;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#f5f1eb,#ebe2d5);
+min-height:100vh;
+padding:15px;
+color:#2b2b2b;
 }
 
 .container{
-  max-width:1300px;
-  margin:auto;
-  background:white;
-  border-radius:28px;
-  overflow:hidden;
-  box-shadow:0 15px 40px rgba(0,0,0,0.12);
+width:100%;
+max-width:1300px;
+margin:auto;
+background:#fff;
+border-radius:28px;
+overflow:hidden;
+box-shadow:0 15px 40px rgba(0,0,0,.12);
 }
 
 .header{
-  background:linear-gradient(135deg,#4b2e1e,#6f4e37);
-  color:white;
-  padding:35px 20px;
-  text-align:center;
+background:linear-gradient(135deg,#3d2b1f,#6f4e37);
+padding:35px 20px;
+text-align:center;
+color:white;
+position:relative;
+}
+
+.creator{
+position:absolute;
+top:15px;
+right:15px;
+background:rgba(255,255,255,.12);
+padding:8px 14px;
+border-radius:999px;
+font-size:12px;
+font-weight:500;
+backdrop-filter:blur(5px);
 }
 
 .logo{
-  width:120px;
-  margin-bottom:15px;
-  transition:0.3s;
+width:120px;
+margin-bottom:18px;
+transition:.3s;
 }
 
 .logo:hover{
-  transform:scale(1.05);
+transform:scale(1.05);
 }
 
 .header h1{
-  font-size:34px;
-  font-weight:700;
+font-size:34px;
+font-weight:700;
 }
 
 .header p{
-  margin-top:8px;
-  opacity:0.9;
-  font-size:14px;
+margin-top:10px;
+font-size:14px;
+opacity:.9;
 }
 
 .content{
-  padding:22px;
+padding:20px;
 }
 
-.search-box{
-  margin-bottom:25px;
+.top-info{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+margin-bottom:20px;
 }
 
-.search-input{
-  width:100%;
-  padding:16px;
-  border-radius:16px;
-  border:1px solid #ccc;
-  outline:none;
-  font-size:15px;
-  font-family:'Poppins',sans-serif;
-}
-
-.search-input:focus{
-  border-color:#6f4e37;
-  box-shadow:0 0 0 3px rgba(111,78,55,0.15);
+.info-box{
+flex:1;
+min-width:220px;
+background:#fff8ef;
+border:1px solid #f0d9b5;
+padding:14px;
+border-radius:15px;
+font-size:13px;
+color:#6f4e37;
+font-weight:600;
+text-align:center;
 }
 
 .items-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:18px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:18px;
 }
 
 .item-card{
-  background:white;
-  border:1px solid #ececec;
-  border-radius:20px;
-  padding:18px;
-  box-shadow:0 5px 14px rgba(0,0,0,0.05);
+background:#fff;
+border:1px solid #eee;
+border-radius:20px;
+padding:18px;
+box-shadow:0 5px 15px rgba(0,0,0,.05);
+transition:.2s;
+}
+
+.item-card:hover{
+transform:translateY(-2px);
 }
 
 .item-name{
-  font-size:16px;
-  font-weight:700;
-  color:#5c3d2e;
-  margin-bottom:12px;
+font-size:16px;
+font-weight:700;
+color:#5c3d2e;
+margin-bottom:14px;
 }
 
 .item-info{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:14px;
-  gap:10px;
-  flex-wrap:wrap;
+display:flex;
+justify-content:space-between;
+gap:10px;
+margin-bottom:14px;
+flex-wrap:wrap;
 }
 
 .badge{
-  background:#f3f4f6;
-  padding:7px 12px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:600;
+background:#f3f4f6;
+padding:7px 12px;
+border-radius:999px;
+font-size:12px;
+font-weight:600;
+color:#555;
 }
 
 input{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:1px solid #ccc;
-  outline:none;
-  font-size:15px;
-  text-align:center;
-  font-family:'Poppins',sans-serif;
+width:100%;
+padding:14px;
+border-radius:14px;
+border:1px solid #ccc;
+outline:none;
+font-size:15px;
+text-align:center;
+font-family:'Poppins',sans-serif;
 }
 
 input:focus{
-  border-color:#6f4e37;
-  box-shadow:0 0 0 3px rgba(111,78,55,0.15);
+border-color:#6f4e37;
+box-shadow:0 0 0 3px rgba(111,78,55,.15);
 }
 
 .button-group{
-  margin-top:30px;
+margin-top:30px;
+display:flex;
+flex-direction:column;
+gap:12px;
 }
 
 .btn{
-  width:100%;
-  padding:16px;
-  border:none;
-  border-radius:16px;
-  background:linear-gradient(135deg,#6f4e37,#3d2b1f);
-  color:white;
-  font-size:16px;
-  font-weight:600;
-  cursor:pointer;
+width:100%;
+padding:16px;
+border:none;
+border-radius:16px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+font-family:'Poppins',sans-serif;
+transition:.2s;
+}
+
+.btn:hover{
+transform:translateY(-2px);
+}
+
+.btn-primary{
+background:linear-gradient(135deg,#6f4e37,#3d2b1f);
+color:white;
+}
+
+.btn-danger{
+background:linear-gradient(135deg,#dc2626,#991b1b);
+color:white;
 }
 
 .result-title{
-  margin-top:35px;
-  margin-bottom:20px;
-  color:#5c3d2e;
-  font-size:26px;
+margin-top:40px;
+margin-bottom:20px;
+font-size:24px;
+font-weight:700;
+color:#5c3d2e;
 }
 
 .result{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
-  gap:18px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:18px;
 }
 
 .card{
-  background:white;
-  border-radius:18px;
-  padding:20px;
-  border:1px solid #eee;
-  box-shadow:0 5px 14px rgba(0,0,0,0.05);
+background:#fff;
+border-radius:18px;
+padding:20px;
+border:1px solid #eee;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
 }
 
 .card h3{
-  color:#5c3d2e;
-  margin-bottom:12px;
+margin-bottom:14px;
+color:#5c3d2e;
+font-size:18px;
 }
 
 .card p{
-  margin:7px 0;
-  font-size:14px;
+margin:8px 0;
+font-size:14px;
 }
 
-.status-habis{
-  margin-top:12px;
-  background:#ffeaea;
-  color:#c1121f;
-  padding:8px;
-  border-radius:10px;
-  text-align:center;
-  font-size:13px;
-  font-weight:600;
-}
-
-.status-ada{
-  margin-top:12px;
-  background:#e8fff1;
-  color:#14804a;
-  padding:8px;
-  border-radius:10px;
-  text-align:center;
-  font-size:13px;
-  font-weight:600;
-}
-
-.note-premade{
-  margin-top:10px;
-  background:#fff7dc;
-  color:#8a5a00;
-  padding:10px;
-  border-radius:10px;
-  font-size:12px;
-  line-height:1.7;
+.empty-text{
+text-align:center;
+padding:40px 20px;
+background:#fff8ef;
+border-radius:18px;
+color:#8b5e3c;
+font-weight:600;
+border:1px dashed #d6b08c;
 }
 
 .notes{
-  margin-top:35px;
-  background:#fff8ef;
-  border:1px solid #f0d9b5;
-  border-radius:20px;
-  padding:22px;
+margin-top:40px;
+background:#fff8ef;
+border:1px solid #f0d9b5;
+border-radius:20px;
+padding:24px;
 }
 
 .notes h2{
-  margin-bottom:15px;
-  color:#5c3d2e;
+margin-bottom:15px;
+color:#5c3d2e;
 }
 
 .notes ul{
-  padding-left:20px;
-  line-height:2;
-  font-size:14px;
+padding-left:20px;
+line-height:2;
+font-size:14px;
+color:#555;
 }
 
 .footer{
-  text-align:center;
-  padding:20px;
-  background:#fafafa;
-  border-top:1px solid #eee;
-  color:#777;
-  font-size:13px;
+text-align:center;
+padding:22px;
+color:#777;
+font-size:13px;
+border-top:1px solid #eee;
+background:#fafafa;
 }
 
 @media(max-width:700px){
@@ -254,6 +274,12 @@ grid-template-columns:1fr;
 
 .header h1{
 font-size:28px;
+}
+
+.creator{
+position:static;
+margin-bottom:15px;
+display:inline-block;
 }
 
 }
@@ -268,40 +294,57 @@ font-size:28px;
 
 <div class="header">
 
-<a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDw1rBEzkPWQoDBVyWNduo80f-XI6jeP769xeMi9rXBw&s=10" target="_blank">
+<div class="creator">
+Project By : Rifqi Jatengland
+</div>
 
 <img
 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDw1rBEzkPWQoDBVyWNduo80f-XI6jeP769xeMi9rXBw&s=10"
-class="logo">
+class="logo"
+alt="Tomoro Coffee Logo">
 
-</a>
+<h1>Closing Tomoro Final V2</h1>
 
-<h1>Closing Tomoro</h1>
-
-<p>Sistem Kalkulator Closing Stock Tomoro Coffee</p>
+<p>
+Sistem Closing Stock Tomoro Coffee
+</p>
 
 </div>
 
 <div class="content">
 
-<div class="search-box">
+<div class="top-info">
 
-<input
-type="text"
-id="searchInput"
-class="search-input"
-placeholder="Cari bahan..."
-onkeyup="cariBarang()"
->
+<div class="info-box">
+✓ Auto Save Local Storage
+</div>
+
+<div class="info-box">
+✓ Premade Otomatis Digabung
+</div>
+
+<div class="info-box">
+✓ Cup & Lid Berdasarkan Berat Per PCS
+</div>
 
 </div>
 
 <div class="items-grid" id="tableBody"></div>
 
 <div class="button-group">
-<button class="btn" onclick="hitung()">
+
+<button
+class="btn btn-primary"
+onclick="hitung()">
 Hitung Closing
 </button>
+
+<button
+class="btn btn-danger"
+onclick="hapusSemua()">
+Hapus Semua Data
+</button>
+
 </div>
 
 <h2 class="result-title">
@@ -310,122 +353,147 @@ Hasil Perhitungan
 
 <div class="result" id="hasil"></div>
 
-<div class="notes">
-
-<h2>Catatan Perhitungan</h2>
-
-<ul>
-<li>Powder ditambahkan hasil premade terlebih dahulu.</li>
-<li>Setelah ditambahkan premade, powder dikurangi berat toples 200gr.</li>
-<li>Syrup dikurangi berat pump 45gr.</li>
-<li>Premade powder dikurangi 60gr lalu ditambahkan ke powder terkait.</li>
-<li>Premade tetap muncul dengan catatan sudah ditambahkan.</li>
-<li>Premade SKM & caramel sauce hanya dikurangi 60gr.</li>
-<li>Data otomatis tersimpan.</li>
-</ul>
-
-</div>
-
-</div>
-
-<div class="footer">
-© 2026 Closing Tomoro By Rifqi Jatengland
-</div>
-
-</div>
-
 <script>
 
-const products = [
+const products = [/* =========================
+   BEAN
+========================= */
 
-{ name:'Tomoro Master Coffee Bean', gross:1000, type:'normal' },
+{ name:'Tomoro Master Coffee Bean', gross:1000, type:'bean' },
+
+/* =========================
+   DAIRY
+========================= */
+
 { name:'Whipping Cream', gross:1010, type:'normal' },
+
 { name:'Oat Milk', gross:1080, type:'normal' },
-{ name:'Susu Kental Manis', gross:545, type:'syrup' },
-{ name:'Barista Coconut 1 L', gross:1054, type:'normal' },
-{ name:'Aren Syrup 1kg', gross:1050, type:'syrup' },
-{ name:'Vanilla Syrup 750', gross:1050, type:'syrup' },
-{ name:'Caramel Syrup 750ml', gross:1050, type:'syrup' },
-{ name:'Simple Syrup (Gula Cair)', gross:1060, type:'syrup' },
-{ name:'Syrup Rancho', gross:1210, type:'syrup' },
-{ name:'Syrup Pinkgrape Fruit', gross:1360, type:'syrup' },
-{ name:'Tomoro Caramel Sauce 1 Lt', gross:1054, type:'syrup' },
-{ name:'Manggo Syrup 1L', gross:2500, type:'syrup' },
 
-{ name:'Chocolate Sweet 1kg', gross:1000, type:'powder', premade:'Premade Coklat' },
+{ name:'Susu Kental Manis', gross:545, type:'skm', key:'skm' },
 
-{ name:'Whipping Cream Charger', gross:10, type:'normal' },
+{ name:'Barista Coconut', gross:1054, type:'normal' },
 
-{ name:'Hojicha Latte Powder 1kg', gross:1000, type:'powder' },
+/* =========================
+   SYRUP
+========================= */
 
-{ name:'Tomoro Matcha Powder 1 Kg', gross:1000, type:'powder', premade:'Premade Matcha' },
+{ name:'Aren Syrup', gross:1050, type:'syrup' },
 
-{ name:'Tomoro Frape Powder 1 Kg', gross:1000, type:'powder' },
+{ name:'Vanilla Syrup', gross:1050, type:'syrup' },
 
-{ name:'Jasmine Green Tea Bag 5gr', gross:25, type:'normal' },
+{ name:'Caramel Syrup', gross:1050, type:'syrup' },
 
-{ name:'Pastry Bag Logo', gross:200, type:'normal' },
+{ name:'Simple Syrup', gross:1060, type:'syrup' },
+
+{ name:'Manuka Syrup', gross:1050, type:'syrup' },
+
+{ name:'Strawberry Syrup', gross:1134, type:'strawberry' },
+
+/* =========================
+   SAUCE
+========================= */
+
+{ name:'Tomoro Caramel Sauce', gross:1054, type:'sauce', key:'caramel' },
+
+{ name:'Premade Caramel Sauce', gross:1054, type:'premade_sauce', key:'caramel' },
+
+/* =========================
+   POWDER
+========================= */
+
+{ name:'Chocolate Sweet Powder', gross:1000, type:'powder', key:'coklat' },
+
+{ name:'Premade Coklat', gross:2, type:'premade', key:'coklat' },
+
+{ name:'Hojicha Latte Powder', gross:1000, type:'powder' },
+
+{ name:'Matcha Powder', gross:1000, type:'powder', key:'matcha' },
+
+{ name:'Premade Matcha', gross:2, type:'premade', key:'matcha' },
+
+{ name:'Tomoro Frappe Powder', gross:1000, type:'powder' },
 
 { name:'Tomoro Blend V2', gross:1000, type:'powder' },
 
 { name:'Tomoro Master Milk', gross:1052, type:'powder' },
 
-{ name:'Manuka Syrup 750', gross:1050, type:'syrup' },
-
 { name:'Foam Powder', gross:1000, type:'powder' },
 
-{ name:'Sea Salt 210 Gr', gross:210, type:'powder' },
+{ name:'Sea Salt', gross:210, type:'seasalt' },
 
 { name:'Milk Powder', gross:1000, type:'powder' },
 
 { name:'Cheese Milk Powder', gross:1000, type:'powder' },
 
-{ name:'Pistachio Powder', gross:700, type:'powder', premade:'Premade Pistachio' },
+{ name:'Pistachio Powder', gross:700, type:'powder', key:'pistachio' },
 
-{ name:'PEACH', gross:1307, type:'syrup' },
+{ name:'Premade Pistachio', gross:2, type:'premade', key:'pistachio' },
 
-{ name:'Thermal Bag Large', gross:25, type:'normal' },
-{ name:'Thermal Bag Extra Large', gross:25, type:'normal' },
+/* =========================
+   PACKAGING
+========================= */
 
-{ name:'CUP 18 oz', gross:50, type:'normal' },
-{ name:'CUP 12 oz', gross:50, type:'normal' },
+{ name:'Pastry Bag Logo', gross:200, type:'pack', pcsWeight:7.7 },
 
-{ name:'Singgel Hot New V2 Doubel Film', gross:25, type:'normal' },
+{ name:'Cup 12oz', gross:50, type:'pack', pcsWeight:11.5 },
 
-{ name:'Colour Changing', gross:50, type:'normal' },
+{ name:'Cup 18oz', gross:50, type:'pack', pcsWeight:14.0 },
 
-{ name:'Black Ice Cup', gross:50, type:'normal' },
-{ name:'Black Hot Cup', gross:25, type:'normal' },
+{ name:'Cup 30oz', gross:50, type:'pack', pcsWeight:18.7 },
 
-{ name:'Iced Cup 30 Oz', gross:50, type:'normal' },
+{ name:'Black Hot Cup', gross:25, type:'pack', pcsWeight:18.3 },
 
-{ name:'Lid Black Hot Cup', gross:50, type:'normal' },
-{ name:'Lid Black Ice Cup', gross:50, type:'normal' },
-{ name:'Dome Lid Ice Cup New', gross:50, type:'normal' },
-{ name:'Strawless Lid Ice Cup New', gross:50, type:'normal' },
-{ name:'Anti Spill Lid (D-90) - V2', gross:50, type:'normal' },
-{ name:'Lid Iced Cup 30oz', gross:50, type:'normal' },
+{ name:'Black Ice Cup', gross:50, type:'pack', pcsWeight:13.7 },
 
-{ name:'Straw Logo Small', gross:500, type:'normal' },
+{ name:'Lid Black Hot Cup', gross:50, type:'pack', pcsWeight:8.0 },
 
-{ name:'Character Cup', gross:50, type:'normal' },
-{ name:'Lid Character Cup', gross:50, type:'normal' },
-{ name:'Frieren Collectible Card', gross:50, type:'normal' },
+{ name:'Lid Black Ice Cup', gross:50, type:'pack', pcsWeight:4.3 },
 
-{ name:'Premade Coklat', gross:1, type:'premade' },
-{ name:'Premade Matcha', gross:1, type:'premade' },
-{ name:'Premade Pistachio', gross:1, type:'premade' },
+{ name:'Dome Lid Ice Cup', gross:50, type:'pack', pcsWeight:3.8 },
 
-{ name:'Premade Caramel Sauce', gross:1, type:'premade_only' },
-{ name:'Premade SKM', gross:1, type:'premade_only' }
+{ name:'Strawless Lid Ice Cup', gross:50, type:'pack', pcsWeight:3.6 },
+
+{ name:'Anti Spill Lid', gross:50, type:'pack', pcsWeight:7.0 },
+
+{ name:'Lid Iced Cup 30oz', gross:50, type:'pack', pcsWeight:3.5 },
+
+{ name:'Straw Logo Small', gross:500, type:'pack', pcsWeight:0.7 },
+
+{ name:'Straw Logo D', gross:200, type:'pack', pcsWeight:0.6 },
+
+{ name:'Straw Wrapping Double Film', gross:500, type:'pack', pcsWeight:2.0 },
+
+{ name:'Lid Character Cup', gross:50, type:'pack', pcsWeight:4.2 },
+
+{ name:'Frieren Collectible Card', gross:100, type:'pack', pcsWeight:3.4 },
+
+{ name:'Frieren Character Cup', gross:50, type:'pack', pcsWeight:13.8 },
+
+{ name:'Single Hot', gross:50, type:'pack', pcsWeight:12.2 },
+
+/* =========================
+   OTHERS
+========================= */
+
+{ name:'Jasmine Green Tea', gross:25, type:'normal' }
 
 ];
 
-const tableBody = document.getElementById('tableBody');
+const powderGross = {
 
-function renderProducts(){
+coklat:1000,
 
-tableBody.innerHTML = '';
+matcha:1000,
+
+pistachio:700
+
+};
+  const tableBody =
+document.getElementById('tableBody');
+
+/* =========================
+   RENDER PRODUK
+========================= */
 
 products.forEach((item,index)=>{
 
@@ -433,7 +501,9 @@ tableBody.innerHTML += `
 
 <div class="item-card">
 
-<div class="item-name">${item.name}</div>
+<div class="item-name">
+${item.name}
+</div>
 
 <div class="item-info">
 
@@ -460,38 +530,9 @@ oninput="simpanData()"
 
 });
 
-loadData();
-
-}
-
-renderProducts();
-
-function cariBarang(){
-
-const keyword =
-document.getElementById('searchInput')
-.value
-.toLowerCase();
-
-const cards =
-document.querySelectorAll('.item-card');
-
-cards.forEach(card=>{
-
-const nama =
-card.querySelector('.item-name')
-.innerText
-.toLowerCase();
-
-if(nama.includes(keyword)){
-card.style.display = 'block';
-}else{
-card.style.display = 'none';
-}
-
-});
-
-}
+/* =========================
+   SIMPAN DATA
+========================= */
 
 function simpanData(){
 
@@ -499,38 +540,49 @@ let data = {};
 
 products.forEach((item,index)=>{
 
-const input =
-document.getElementById(`input-${index}`);
-
-if(input){
-data[index] = input.value;
-}
+data[index] =
+document.getElementById(
+`input-${index}`
+).value;
 
 });
 
 localStorage.setItem(
-'closingTomoroData',
+'closingTomoroDataV2',
 JSON.stringify(data)
 );
 
 }
 
+/* =========================
+   LOAD DATA
+========================= */
+
 function loadData(){
 
 let saved =
-localStorage.getItem('closingTomoroData');
+localStorage.getItem(
+'closingTomoroDataV2'
+);
 
 if(saved){
 
-let data = JSON.parse(saved);
+let data =
+JSON.parse(saved);
 
-Object.keys(data).forEach(index=>{
+Object.keys(data)
+.forEach(index=>{
 
-const input =
-document.getElementById(`input-${index}`);
+let input =
+document.getElementById(
+`input-${index}`
+);
 
 if(input){
-input.value = data[index];
+
+input.value =
+data[index];
+
 }
 
 });
@@ -539,175 +591,505 @@ input.value = data[index];
 
 }
 
-function getInputByName(name){
+/* =========================
+   HAPUS SEMUA
+========================= */
 
-for(let i = 0; i < products.length; i++){
+function hapusSemua(){
 
-if(products[i].name === name){
+let konfirmasi =
+confirm(
+'Yakin ingin menghapus seluruh data closing?'
+);
 
-return Number(
-document.getElementById(`input-${i}`).value
+if(!konfirmasi){
+return;
+}
+
+products.forEach((item,index)=>{
+
+let input =
+document.getElementById(
+`input-${index}`
+);
+
+if(input){
+
+input.value = '';
+
+}
+
+});
+
+localStorage.removeItem(
+'closingTomoroDataV2'
+);
+
+document.getElementById(
+'hasil'
+).innerHTML = '';
+
+alert(
+'Seluruh data berhasil dihapus.'
+);
+
+}
+
+/* =========================
+   ANGKA
+========================= */
+
+function angka(nilai){
+
+return Number(nilai) || 0;
+
+}
+
+/* =========================
+   CARD BIASA
+========================= */
+
+function tampilkanCard(
+nama,
+bersih,
+hasil,
+label
+){
+
+const hasilDiv =
+document.getElementById(
+'hasil'
+);
+
+hasilDiv.innerHTML += `
+
+<div class="card">
+
+<h3>${nama}</h3>
+
+<p>
+
+<b>Berat Bersih :</b>
+
+${bersih.toFixed(2)}
+
+</p>
+
+<p>
+
+<b>${label} :</b>
+
+${hasil.toFixed(2)}
+
+</p>
+
+</div>
+
+`;
+
+}
+
+/* =========================
+   CARD PACK
+========================= */
+
+function tampilkanPackCard(
+nama,
+pcs,
+pack
+){
+
+const hasilDiv =
+document.getElementById(
+'hasil'
+);
+
+hasilDiv.innerHTML += `
+
+<div class="card">
+
+<h3>${nama}</h3>
+
+<p>
+
+<b>Jumlah PCS :</b>
+
+${pcs.toFixed(0)}
+
+</p>
+
+<p>
+
+<b>Jumlah Pack :</b>
+
+${pack.toFixed(2)}
+
+</p>
+
+</div>
+
+`;
+
+}
+
+/* =========================
+   CARD HASIL AKHIR
+========================= */
+
+function tampilkanHasilAkhir(
+nama,
+hasil
+){
+
+const hasilDiv =
+document.getElementById(
+'hasil'
+);
+
+hasilDiv.innerHTML += `
+
+<div class="card">
+
+<h3>${nama}</h3>
+
+<p>
+
+<b>Total Akhir :</b>
+
+${hasil.toFixed(2)}
+
+</p>
+
+</div>
+
+`;
+
+}
+  /* =========================
+   HITUNG CLOSING
+========================= */
+
+function hitung(){
+
+const hasilDiv =
+document.getElementById(
+'hasil'
+);
+
+hasilDiv.innerHTML = '';
+
+let adaData = false;
+
+let finalResult = {
+
+coklat:0,
+
+matcha:0,
+
+pistachio:0,
+
+caramel:0,
+
+skm:0
+
+};
+
+products.forEach((item,index)=>{
+
+let timbang = angka(
+document.getElementById(
+`input-${index}`
+).value
+);
+
+if(timbang <= 0){
+return;
+}
+
+adaData = true;
+
+let beratBersih = timbang;
+let hasil = 0;
+
+/* =========================
+   COFFEE BEAN
+========================= */
+
+if(item.type === 'bean'){
+
+beratBersih =
+timbang - 808;
+
+hasil =
+beratBersih / 1000;
+
+tampilkanCard(
+item.name,
+beratBersih,
+hasil,
+'Sisa'
+);
+
+}
+
+/* =========================
+   SKM
+========================= */
+
+else if(item.type === 'skm'){
+
+beratBersih =
+timbang - 60;
+
+hasil =
+beratBersih / 545;
+
+finalResult.skm += hasil;
+
+}
+
+/* =========================
+   SEA SALT
+========================= */
+
+else if(item.type === 'seasalt'){
+
+hasil =
+timbang / 210;
+
+tampilkanCard(
+item.name,
+timbang,
+hasil,
+'Sisa'
+);
+
+}
+
+/* =========================
+   STRAWBERRY SYRUP
+========================= */
+
+else if(item.type === 'strawberry'){
+
+beratBersih =
+timbang - 45;
+
+hasil =
+beratBersih / 1134;
+
+tampilkanCard(
+item.name,
+beratBersih,
+hasil,
+'Sisa'
+);
+
+}
+
+/* =========================
+   SYRUP
+========================= */
+
+else if(item.type === 'syrup'){
+
+beratBersih =
+timbang - 45;
+
+hasil =
+beratBersih /
+item.gross;
+
+tampilkanCard(
+item.name,
+beratBersih,
+hasil,
+'Sisa'
+);
+
+}
+
+/* =========================
+   CARAMEL SAUCE
+========================= */
+
+else if(item.type === 'sauce'){
+
+beratBersih =
+timbang - 60;
+
+hasil =
+beratBersih / 1054;
+
+finalResult.caramel += hasil;
+
+}
+
+/* =========================
+   PREMADE CARAMEL SAUCE
+========================= */
+
+else if(item.type === 'premade_sauce'){
+
+beratBersih =
+timbang - 60;
+
+hasil =
+beratBersih / 1054;
+
+finalResult.caramel += hasil;
+
+}
+
+/* =========================
+   POWDER
+========================= */
+
+else if(item.type === 'powder'){
+
+beratBersih =
+timbang - 200;
+
+hasil =
+beratBersih /
+item.gross;
+
+if(item.key){
+
+finalResult[item.key] += hasil;
+
+}else{
+
+tampilkanCard(
+item.name,
+beratBersih,
+hasil,
+'Sisa'
 );
 
 }
 
 }
 
-return 0;
-
-}
-
-function hitung(){
-
-const hasilDiv =
-document.getElementById('hasil');
-
-hasilDiv.innerHTML = '';
-
-products.forEach((item,index)=>{
-
-let timbang =
-Number(document.getElementById(`input-${index}`).value);
-
-let isiHTML = '';
-
-if(!timbang || timbang <= 0){
-
-isiHTML = `
-
-<div class="card">
-
-<h3>${item.name}</h3>
-
-<p><b>Status :</b> Belum dihitung</p>
-
-<div class="status-habis">
-Habis / Belum Dihitung
-</div>
-
-</div>
-
-`;
-
-}else{
-
-let beratBersih = timbang;
-let hasil = 0;
-let catatanPremade = '';
-
-if(item.type === 'powder'){
-
-let totalKotor = timbang;
-
-if(item.premade){
-
-let premadeInput =
-getInputByName(item.premade);
-
-if(premadeInput > 0){
-
-let hasilPremade =
-premadeInput - 60;
-
-if(hasilPremade < 0){
-hasilPremade = 0;
-}
-
-totalKotor += hasilPremade;
-
-catatanPremade = `
-<div class="note-premade">
-Hasil premade sebesar
-${hasilPremade.toFixed(2)} gr
-sudah ditambahkan otomatis
-ke powder terkait.
-</div>
-`;
-
-}
-
-}
-
-beratBersih = totalKotor - 200;
-
-if(beratBersih < 0){
-beratBersih = 0;
-}
-
-hasil = beratBersih / item.gross;
-
-}
-
-else if(item.type === 'syrup'){
-
-beratBersih -= 45;
-
-if(beratBersih < 0){
-beratBersih = 0;
-}
-
-hasil = beratBersih / item.gross;
-
-}
+/* =========================
+   PREMADE
+========================= */
 
 else if(item.type === 'premade'){
 
-beratBersih = timbang - 60;
+beratBersih =
+timbang - 60;
 
-if(beratBersih < 0){
-beratBersih = 0;
-}
+let gramPowder =
+beratBersih / 2;
 
-hasil = beratBersih;
+hasil =
+gramPowder /
+powderGross[item.key];
 
-catatanPremade = `
-<div class="note-premade">
-Hasil sudah ditambahkan otomatis
-ke powder terkait.
-</div>
-`;
+finalResult[item.key] += hasil;
 
 }
 
-else if(item.type === 'premade_only'){
+/* =========================
+   PACKAGING
+========================= */
 
-beratBersih -= 60;
+else if(item.type === 'pack'){
 
-if(beratBersih < 0){
-beratBersih = 0;
+let jumlahPcs =
+timbang /
+item.pcsWeight;
+
+hasil =
+jumlahPcs /
+item.gross;
+
+tampilkanPackCard(
+item.name,
+jumlahPcs,
+hasil
+);
+
 }
 
-hasil = beratBersih;
-
-}
+/* =========================
+   NORMAL
+========================= */
 
 else{
 
-hasil = timbang / item.gross;
+hasil =
+timbang /
+item.gross;
+
+tampilkanCard(
+item.name,
+timbang,
+hasil,
+'Sisa'
+);
 
 }
 
-isiHTML = `
+});
 
-<div class="card">
+/* =========================
+   HASIL AKHIR GABUNGAN
+========================= */
 
-<h3>${item.name}</h3>
+if(finalResult.coklat > 0){
 
-<p>
-<b>Berat Bersih :</b>
-${beratBersih.toFixed(2)} gr
-</p>
+tampilkanHasilAkhir(
+'Chocolate Sweet Powder',
+finalResult.coklat
+);
 
-<p>
-<b>Hasil :</b>
-${hasil.toFixed(2)}
-</p>
+}
 
-${catatanPremade}
+if(finalResult.matcha > 0){
 
-<div class="status-ada">
-Sudah Dihitung
-</div>
+tampilkanHasilAkhir(
+'Matcha Powder',
+finalResult.matcha
+);
+
+}
+
+if(finalResult.pistachio > 0){
+
+tampilkanHasilAkhir(
+'Pistachio Powder',
+finalResult.pistachio
+);
+
+}
+
+if(finalResult.caramel > 0){
+
+tampilkanHasilAkhir(
+'Tomoro Caramel Sauce',
+finalResult.caramel
+);
+
+}
+
+if(finalResult.skm > 0){
+
+tampilkanHasilAkhir(
+'Susu Kental Manis',
+finalResult.skm
+);
+
+}
+
+if(!adaData){
+
+hasilDiv.innerHTML = `
+
+<div class="empty-text">
+
+Tidak ada data yang dimasukkan
 
 </div>
 
@@ -715,13 +1097,135 @@ Sudah Dihitung
 
 }
 
-hasilDiv.innerHTML += isiHTML;
+  }
+/* =========================
+   LOAD DATA SAAT HALAMAN DIBUKA
+========================= */
 
-});
+loadData();
+
+/* =========================
+   WARNING REFRESH / KELUAR
+========================= */
+
+window.addEventListener(
+'beforeunload',
+function(e){
+
+e.preventDefault();
+
+e.returnValue =
+'Data closing sudah diisi. Yakin ingin keluar atau refresh?';
 
 }
+);
 
 </script>
 
+<div class="notes">
+
+<h2>Catatan Perhitungan Final V2</h2>
+
+<ul>
+
+<li>
+Tomoro Master Coffee Bean :
+(Timbangan - 808) ÷ 1000
+</li>
+
+<li>
+Powder :
+(Timbangan - 200) ÷ Gross Weight
+</li>
+
+<li>
+Premade Powder :
+(Timbangan - 60) ÷ 2
+kemudian otomatis dikonversi ke powder terkait.
+</li>
+
+<li>
+Premade dan Powder akan otomatis digabung menjadi satu hasil akhir.
+</li>
+
+<li>
+Chocolate Sweet Powder + Premade Coklat = 1 hasil.
+</li>
+
+<li>
+Matcha Powder + Premade Matcha = 1 hasil.
+</li>
+
+<li>
+Pistachio Powder + Premade Pistachio = 1 hasil.
+</li>
+
+<li>
+Tomoro Caramel Sauce + Premade Caramel Sauce = 1 hasil.
+</li>
+
+<li>
+Caramel Syrup berbeda dengan Caramel Sauce dan dihitung terpisah.
+</li>
+
+<li>
+Susu Kental Manis :
+(Timbangan - 60) ÷ 545
+</li>
+
+<li>
+Sea Salt :
+Timbangan ÷ 210
+</li>
+
+<li>
+Strawberry Syrup :
+(Timbangan - 45) ÷ 1134
+</li>
+
+<li>
+Syrup lainnya :
+(Timbangan - 45) ÷ Gross Weight
+</li>
+
+<li>
+Cup, Lid, Straw, Packaging:
+Berat Timbangan ÷ Berat Per PCS
+untuk mendapatkan jumlah PCS.
+</li>
+
+<li>
+Jumlah PCS kemudian dibagi Gross Weight
+untuk mendapatkan jumlah Pack.
+</li>
+
+<li>
+Data tersimpan otomatis menggunakan Local Storage.
+</li>
+
+<li>
+Tombol Hapus Semua akan menghapus seluruh data input setelah konfirmasi.
+</li>
+
+</ul>
+
+</div>
+<div class="footer">
+
+© 2026 Closing Tomoro Final V2
+
+<br>
+
+Project By Rifqi Jatengland
+
+<br>
+
+Enhanced Version by Rifqi Tomoro
+
+</div>
+
+</div>
+
 </body>
+
 </html>
