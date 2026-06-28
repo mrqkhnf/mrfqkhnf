@@ -5,283 +5,337 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Closing Tomoro Final V2</title>
+<title>Closing Tomoro Final V3</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+--bg:#f3ede4;
+--card:#fff;
+--border:#e8ddd0;
+--primary:#5c3a1e;
+--primary-light:#8b6340;
+--accent:#c77b2f;
+--accent-glow:rgba(199,123,47,.15);
+--green:#2e7d4f;
+--green-bg:#e8f5ec;
+--red:#c0392b;
+--red-bg:#fdecea;
+--text:#2b2b2b;
+--muted:#888;
+--warm:#fff8ef;
+--warm-border:#f0d9b5;
 }
 
 body{
 font-family:'Poppins',sans-serif;
-background:linear-gradient(135deg,#f5f1eb,#ebe2d5);
+background:var(--bg);
 min-height:100vh;
-padding:15px;
-color:#2b2b2b;
+padding:12px;
+color:var(--text);
 }
 
 .container{
 width:100%;
-max-width:1300px;
+max-width:1340px;
 margin:auto;
-background:#fff;
-border-radius:28px;
+background:var(--card);
+border-radius:24px;
 overflow:hidden;
-box-shadow:0 15px 40px rgba(0,0,0,.12);
+box-shadow:0 12px 48px rgba(60,30,10,.1);
 }
 
+/* HEADER */
 .header{
-background:linear-gradient(135deg,#3d2b1f,#6f4e37);
-padding:35px 20px;
+background:linear-gradient(135deg,#3d2b1f 0%,#6f4e37 60%,#8b6340 100%);
+padding:32px 20px 28px;
 text-align:center;
-color:white;
+color:#fff;
 position:relative;
+overflow:hidden;
+}
+
+.header::before{
+content:'';position:absolute;top:-50%;right:-20%;
+width:400px;height:400px;
+background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 70%);
+border-radius:50%;
 }
 
 .creator{
-position:absolute;
-top:15px;
-right:15px;
-background:rgba(255,255,255,.12);
-padding:8px 14px;
-border-radius:999px;
-font-size:12px;
-font-weight:500;
-backdrop-filter:blur(5px);
+position:absolute;top:14px;right:14px;
+background:rgba(255,255,255,.1);
+padding:7px 14px;border-radius:999px;
+font-size:11px;font-weight:500;
+backdrop-filter:blur(6px);
+border:1px solid rgba(255,255,255,.12);
 }
 
 .logo{
-width:120px;
-margin-bottom:18px;
+width:100px;margin-bottom:14px;
+filter:drop-shadow(0 4px 8px rgba(0,0,0,.3));
 transition:.3s;
 }
 
-.logo:hover{
-transform:scale(1.05);
-}
+.logo:hover{transform:scale(1.06)}
 
-.header h1{
-font-size:34px;
-font-weight:700;
-}
+.header h1{font-size:30px;font-weight:700;letter-spacing:-.5px}
+.header p{margin-top:6px;font-size:13px;opacity:.85}
 
-.header p{
-margin-top:10px;
-font-size:14px;
-opacity:.9;
-}
-
-.content{
-padding:20px;
-}
+/* CONTENT */
+.content{padding:18px}
 
 .top-info{
-display:flex;
-flex-wrap:wrap;
-gap:12px;
-margin-bottom:20px;
+display:flex;flex-wrap:wrap;gap:10px;
+margin-bottom:18px;
 }
 
 .info-box{
-flex:1;
-min-width:220px;
-background:#fff8ef;
-border:1px solid #f0d9b5;
-padding:14px;
-border-radius:15px;
-font-size:13px;
-color:#6f4e37;
-font-weight:600;
-text-align:center;
+flex:1;min-width:200px;
+background:var(--warm);border:1px solid var(--warm-border);
+padding:12px;border-radius:14px;
+font-size:12px;color:var(--primary-light);
+font-weight:600;text-align:center;
+display:flex;align-items:center;justify-content:center;gap:8px;
 }
 
+.info-box i{color:var(--accent);font-size:14px}
+
+/* SECTION DIVIDER */
+.section-label{
+display:flex;align-items:center;gap:10px;
+margin:24px 0 14px;
+font-size:13px;font-weight:700;
+color:var(--primary-light);
+text-transform:uppercase;letter-spacing:1.5px;
+}
+
+.section-label::after{
+content:'';flex:1;height:1px;
+background:linear-gradient(90deg,var(--border),transparent);
+}
+
+.section-label i{font-size:15px;color:var(--accent)}
+
+/* GRID */
 .items-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:18px;
+grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+gap:14px;
 }
 
+/* ITEM CARD */
 .item-card{
-background:#fff;
-border:1px solid #eee;
-border-radius:20px;
-padding:18px;
-box-shadow:0 5px 15px rgba(0,0,0,.05);
-transition:.2s;
+background:var(--card);
+border:1.5px solid var(--border);
+border-radius:18px;
+padding:16px;
+transition:all .25s;
+position:relative;
 }
 
 .item-card:hover{
-transform:translateY(-2px);
+border-color:var(--accent);
+box-shadow:0 6px 20px rgba(199,123,47,.1);
+}
+
+.item-card.has-result{
+border-color:var(--green);
+background:linear-gradient(180deg,#fff 60%,var(--green-bg) 100%);
 }
 
 .item-name{
-font-size:16px;
-font-weight:700;
-color:#5c3d2e;
-margin-bottom:14px;
+font-size:14px;font-weight:700;
+color:var(--primary);
+margin-bottom:10px;
+display:flex;align-items:center;gap:8px;
+}
+
+.item-name .dot{
+width:8px;height:8px;border-radius:50%;
+background:var(--border);flex-shrink:0;
+transition:.3s;
+}
+
+.item-card.has-result .item-name .dot{
+background:var(--green);
+box-shadow:0 0 6px rgba(46,125,79,.4);
 }
 
 .item-info{
-display:flex;
-justify-content:space-between;
-gap:10px;
-margin-bottom:14px;
-flex-wrap:wrap;
+display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;
 }
 
 .badge{
-background:#f3f4f6;
-padding:7px 12px;
-border-radius:999px;
-font-size:12px;
-font-weight:600;
-color:#555;
+background:#f3f2ef;padding:5px 10px;
+border-radius:999px;font-size:11px;
+font-weight:600;color:#777;
 }
 
-input{
-width:100%;
-padding:14px;
+.badge.gross{background:var(--warm);color:var(--primary-light);border:1px solid var(--warm-border)}
+
+/* INPUT */
+.input-wrap{margin-bottom:8px}
+
+.input-label{
+font-size:11px;font-weight:600;color:var(--muted);
+margin-bottom:4px;display:block;
+}
+
+.input-row{
+display:flex;gap:8px;
+}
+
+.input-row .input-wrap{flex:1}
+
+input[type="number"]{
+width:100%;padding:12px 14px;
+border-radius:12px;
+border:1.5px solid #ddd;
+outline:none;font-size:14px;
+text-align:center;font-family:'Poppins',sans-serif;
+background:#fafafa;
+transition:all .2s;
+-moz-appearance:textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button{
+-webkit-appearance:none;margin:0;
+}
+
+input[type="number"]:focus{
+border-color:var(--accent);
+box-shadow:0 0 0 3px var(--accent-glow);
+background:#fff;
+}
+
+input[type="number"]:not(:placeholder-shown){
+border-color:var(--primary-light);
+background:#fff;
+}
+
+/* RESULT BOX */
+.result-box{
+margin-top:12px;
+background:var(--green-bg);
+border:1px solid #b8dfc5;
 border-radius:14px;
-border:1px solid #ccc;
-outline:none;
-font-size:15px;
-text-align:center;
-font-family:'Poppins',sans-serif;
+padding:14px;
+display:none;
+animation:fadeSlide .3s ease;
 }
 
-input:focus{
-border-color:#6f4e37;
-box-shadow:0 0 0 3px rgba(111,78,55,.15);
+.result-box.show{display:block}
+
+@keyframes fadeSlide{
+from{opacity:0;transform:translateY(-6px)}
+to{opacity:1;transform:translateY(0)}
 }
 
+.result-row{
+display:flex;justify-content:space-between;
+align-items:center;padding:4px 0;
+font-size:13px;
+}
+
+.result-row .label{color:#555;font-weight:500}
+.result-row .value{color:var(--green);font-weight:700;font-size:15px}
+
+.result-divider{
+height:1px;background:#b8dfc5;margin:6px 0;
+}
+
+.result-total .label{color:var(--primary);font-weight:700;font-size:14px}
+.result-total .value{color:var(--primary);font-size:17px}
+
+/* BUTTONS */
 .button-group{
-margin-top:30px;
-display:flex;
-flex-direction:column;
-gap:12px;
+margin-top:28px;
+display:flex;gap:12px;
+flex-wrap:wrap;
 }
 
 .btn{
-width:100%;
-padding:16px;
-border:none;
-border-radius:16px;
-font-size:16px;
-font-weight:600;
-cursor:pointer;
+flex:1;min-width:200px;
+padding:15px;border:none;
+border-radius:14px;font-size:15px;
+font-weight:600;cursor:pointer;
 font-family:'Poppins',sans-serif;
-transition:.2s;
+transition:all .2s;
+display:flex;align-items:center;
+justify-content:center;gap:8px;
 }
 
-.btn:hover{
-transform:translateY(-2px);
-}
+.btn:hover{transform:translateY(-2px)}
 
 .btn-primary{
 background:linear-gradient(135deg,#6f4e37,#3d2b1f);
-color:white;
+color:#fff;
+box-shadow:0 4px 15px rgba(61,43,31,.3);
 }
 
 .btn-danger{
-background:linear-gradient(135deg,#dc2626,#991b1b);
-color:white;
+background:linear-gradient(135deg,#c0392b,#8b1a1a);
+color:#fff;
+box-shadow:0 4px 15px rgba(192,57,43,.25);
 }
 
-.result-title{
-margin-top:40px;
-margin-bottom:20px;
-font-size:24px;
-font-weight:700;
-color:#5c3d2e;
-}
-
-.result{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:18px;
-}
-
-.card{
-background:#fff;
-border-radius:18px;
-padding:20px;
-border:1px solid #eee;
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-}
-
-.card h3{
-margin-bottom:14px;
-color:#5c3d2e;
-font-size:18px;
-}
-
-.card p{
-margin:8px 0;
-font-size:14px;
-}
-
-.empty-text{
-text-align:center;
-padding:40px 20px;
-background:#fff8ef;
-border-radius:18px;
-color:#8b5e3c;
-font-weight:600;
-border:1px dashed #d6b08c;
-}
-
+/* NOTES */
 .notes{
-margin-top:40px;
-background:#fff8ef;
-border:1px solid #f0d9b5;
-border-radius:20px;
-padding:24px;
+margin-top:32px;
+background:var(--warm);
+border:1px solid var(--warm-border);
+border-radius:18px;padding:22px;
 }
 
 .notes h2{
-margin-bottom:15px;
-color:#5c3d2e;
+margin-bottom:14px;color:var(--primary);
+font-size:17px;display:flex;align-items:center;gap:8px;
 }
 
-.notes ul{
-padding-left:20px;
-line-height:2;
-font-size:14px;
-color:#555;
-}
+.notes h2 i{color:var(--accent)}
 
+.notes ul{padding-left:18px;line-height:2;font-size:13px;color:#666}
+
+.notes li strong{color:var(--primary-light)}
+
+/* FOOTER */
 .footer{
-text-align:center;
-padding:22px;
-color:#777;
-font-size:13px;
-border-top:1px solid #eee;
-background:#fafafa;
+text-align:center;padding:20px;
+color:var(--muted);font-size:12px;
+border-top:1px solid var(--border);
+background:#fafaf8;
 }
+
+/* TOAST */
+.toast{
+position:fixed;bottom:24px;left:50%;
+transform:translateX(-50%) translateY(100px);
+background:#2b2b2b;color:#fff;
+padding:14px 28px;border-radius:14px;
+font-size:14px;font-weight:500;
+font-family:'Poppins',sans-serif;
+box-shadow:0 8px 30px rgba(0,0,0,.25);
+z-index:9999;
+transition:transform .4s cubic-bezier(.175,.885,.32,1.275);
+pointer-events:none;
+}
+
+.toast.show{transform:translateX(-50%) translateY(0)}
 
 @media(max-width:700px){
-
-.items-grid{
-grid-template-columns:1fr;
-}
-
-.header h1{
-font-size:28px;
-}
-
-.creator{
-position:static;
-margin-bottom:15px;
-display:inline-block;
-}
-
+.items-grid{grid-template-columns:1fr}
+.header h1{font-size:24px}
+.creator{position:static;margin-bottom:12px;display:inline-block}
+.input-row{flex-direction:column}
+.btn{min-width:100%}
 }
 
 </style>
@@ -293,939 +347,643 @@ display:inline-block;
 <div class="container">
 
 <div class="header">
-
-<div class="creator">
-Project By : Rifqi Jatengland
-</div>
-
-<img
-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDw1rBEzkPWQoDBVyWNduo80f-XI6jeP769xeMi9rXBw&s=10"
-class="logo"
-alt="Tomoro Coffee Logo">
-
-<h1>Closing Tomoro Final V2</h1>
-
-<p>
-Sistem Closing Stock Tomoro Coffee
-</p>
-
+<div class="creator"><i class="fas fa-user-pen"></i> Project By : Rifqi Jatengland</div>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDw1rBEzkPWQoDBVyWNduo80f-XI6jeP769xeMi9rXBw&s=10" class="logo" alt="Tomoro Coffee Logo">
+<h1>Closing Tomoro Final V3</h1>
+<p>Sistem Closing Stock — Realtime Calculation</p>
 </div>
 
 <div class="content">
 
 <div class="top-info">
-
-<div class="info-box">
-✓ Auto Save Local Storage
+<div class="info-box"><i class="fas fa-bolt"></i> Hitung Otomatis Langsung di Tempat</div>
+<div class="info-box"><i class="fas fa-link"></i> Powder + Premade Sejajar & Gabung</div>
+<div class="info-box"><i class="fas fa-floppy-disk"></i> Auto Save Local Storage</div>
 </div>
 
-<div class="info-box">
-✓ Premade Otomatis Digabung
-</div>
-
-<div class="info-box">
-✓ Cup & Lid Berdasarkan Berat Per PCS
-</div>
-
-</div>
-
-<div class="items-grid" id="tableBody"></div>
+<div id="tableBody"></div>
 
 <div class="button-group">
-
-<button
-class="btn btn-primary"
-onclick="hitung()">
-Hitung Closing
+<button class="btn btn-primary" onclick="kirimWa()">
+<i class="fas fa-paper-plane"></i> Kirim via WhatsApp
 </button>
-
-<button
-class="btn btn-danger"
-onclick="hapusSemua()">
-Hapus Semua Data
+<button class="btn btn-danger" onclick="hapusSemua()">
+<i class="fas fa-trash-can"></i> Hapus Semua Data
 </button>
-
 </div>
 
-<h2 class="result-title">
-Hasil Perhitungan
-</h2>
+<div class="notes">
+<h2><i class="fas fa-book-open"></i> Catatan Perhitungan V3</h2>
+<ul>
+<li><strong>Coffee Bean :</strong> (Timbangan − 808) ÷ 1000</li>
+<li><strong>Powder :</strong> (Timbangan − 200) ÷ Gross Weight</li>
+<li><strong>Premade Powder :</strong> (Timbangan − 60) ÷ 2, lalu dikonversi ke powder terkait</li>
+<li><strong>Powder + Premade sejajar</strong> dalam satu kartu, hasil langsung gabung otomatis</li>
+<li><strong>Chocolate Sweet Powder + Premade Coklat</strong> = 1 hasil akhir</li>
+<li><strong>Matcha Powder + Premade Matcha</strong> = 1 hasil akhir</li>
+<li><strong>Pistachio Powder + Premade Pistachio</strong> = 1 hasil akhir</li>
+<li><strong>Tomoro Caramel Sauce + Premade Caramel Sauce</strong> = 1 hasil akhir sejajar</li>
+<li><strong>Caramel Syrup</strong> berbeda dengan Caramel Sauce, dihitung terpisah</li>
+<li><strong>SKM :</strong> (Timbangan − 60) ÷ 545</li>
+<li><strong>Sea Salt :</strong> Timbangan ÷ 210</li>
+<li><strong>Strawberry Syrup :</strong> (Timbangan − 45) ÷ 1134</li>
+<li><strong>Syrup lainnya :</strong> (Timbangan − 45) ÷ Gross Weight</li>
+<li><strong>Cup, Lid, Straw, Packaging :</strong> Timbangan ÷ Berat/PCS = Jumlah PCS, lalu ÷ Gross = Pack</li>
+<li><strong>Normal / Dairy :</strong> Timbangan ÷ Gross Weight</li>
+</ul>
+</div>
 
-<div class="result" id="hasil"></div>
+<div class="footer">
+© 2025 Closing Tomoro Final V3 &nbsp;·&nbsp; Project By Rifqi Jatengland &nbsp;·&nbsp; Enhanced by Rifqi Tomoro
+</div>
+
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 
-const products = [/* =========================
-   BEAN
-========================= */
+/* ========================================
+   DATA PRODUK — DIKELMPOHKAN PER SEKSI
+   ======================================== */
 
-{ name:'Tomoro Master Coffee Bean', gross:1000, type:'bean' },
+const sections = [
 
-/* =========================
-   DAIRY
-========================= */
+/* ── BEAN ── */
+{
+  title:'Coffee Bean', icon:'fa-seedling',
+  items:[
+    {id:'bean', name:'Tomoro Master Coffee Bean', gross:1000, type:'bean'}
+  ]
+},
 
-{ name:'Whipping Cream', gross:1010, type:'normal' },
+/* ── DAIRY ── */
+{
+  title:'Dairy', icon:'fa-glass-water',
+  items:[
+    {id:'whip', name:'Whipping Cream', gross:1010, type:'normal'},
+    {id:'oat', name:'Oat Milk', gross:1080, type:'normal'},
+    {id:'skm', name:'Susu Kental Manis', gross:545, type:'skm'},
+    {id:'coconut', name:'Barista Coconut', gross:1054, type:'normal'}
+  ]
+},
 
-{ name:'Oat Milk', gross:1080, type:'normal' },
+/* ── SYRUP ── */
+{
+  title:'Syrup', icon:'fa-droplet',
+  items:[
+    {id:'aren', name:'Aren Syrup', gross:1050, type:'syrup'},
+    {id:'vanilla', name:'Vanilla Syrup', gross:1050, type:'syrup'},
+    {id:'caramel_syrup', name:'Caramel Syrup', gross:1050, type:'syrup'},
+    {id:'simple', name:'Simple Syrup', gross:1060, type:'syrup'},
+    {id:'manuka', name:'Manuka Syrup', gross:1050, type:'syrup'},
+    {id:'strawberry', name:'Strawberry Syrup', gross:1134, type:'strawberry'}
+  ]
+},
 
-{ name:'Susu Kental Manis', gross:545, type:'skm', key:'skm' },
+/* ── SAUCE (SEJAJAR) ── */
+{
+  title:'Sauce', icon:'fa-flask',
+  items:[
+    {
+      id:'caramel_sauce', type:'combined_sauce',
+      name:'Tomoro Caramel Sauce',
+      inputs:[
+        {key:'caramel_sauce_main', label:'Caramel Sauce Utama', gross:1054, type:'sauce'},
+        {key:'caramel_sauce_premade', label:'Premade Caramel Sauce', gross:1054, type:'premade_sauce'}
+      ],
+      finalName:'Tomoro Caramel Sauce'
+    }
+  ]
+},
 
-{ name:'Barista Coconut', gross:1054, type:'normal' },
+/* ── POWDER (SEJAJAR UNTUK YANG BERPASANGAN) ── */
+{
+  title:'Powder', icon:'fa-mortar-pestle',
+  items:[
+    /* Coklat — sejajar */
+    {
+      id:'coklat', type:'combined_powder',
+      name:'Chocolate Sweet Powder',
+      inputs:[
+        {key:'coklat_powder', label:'Chocolate Sweet Powder', gross:1000, type:'powder'},
+        {key:'coklat_premade', label:'Premade Coklat', gross:2, type:'premade'}
+      ],
+      finalName:'Chocolate Sweet Powder',
+      powderGross:1000
+    },
 
-/* =========================
-   SYRUP
-========================= */
+    /* Matcha — sejajar */
+    {
+      id:'matcha', type:'combined_powder',
+      name:'Matcha Powder',
+      inputs:[
+        {key:'matcha_powder', label:'Matcha Powder', gross:1000, type:'powder'},
+        {key:'matcha_premade', label:'Premade Matcha', gross:2, type:'premade'}
+      ],
+      finalName:'Matcha Powder',
+      powderGross:1000
+    },
 
-{ name:'Aren Syrup', gross:1050, type:'syrup' },
+    /* Pistachio — sejajar */
+    {
+      id:'pistachio', type:'combined_powder',
+      name:'Pistachio Powder',
+      inputs:[
+        {key:'pistachio_powder', label:'Pistachio Powder', gross:700, type:'powder'},
+        {key:'pistachio_premade', label:'Premade Pistachio', gross:2, type:'premade'}
+      ],
+      finalName:'Pistachio Powder',
+      powderGross:700
+    },
 
-{ name:'Vanilla Syrup', gross:1050, type:'syrup' },
+    /* Powder biasa (tanpa premade) */
+    {id:'hojicha', name:'Hojicha Latte Powder', gross:1000, type:'powder'},
+    {id:'frappe', name:'Tomoro Frappe Powder', gross:1000, type:'powder'},
+    {id:'blend', name:'Tomoro Blend V2', gross:1000, type:'powder'},
+    {id:'master_milk', name:'Tomoro Master Milk', gross:1052, type:'powder'},
+    {id:'foam', name:'Foam Powder', gross:1000, type:'powder'},
+    {id:'milk_powder', name:'Milk Powder', gross:1000, type:'powder'},
+    {id:'cheese_milk', name:'Cheese Milk Powder', gross:1000, type:'powder'},
+    {id:'seasalt', name:'Sea Salt', gross:210, type:'seasalt'}
+  ]
+},
 
-{ name:'Caramel Syrup', gross:1050, type:'syrup' },
+/* ── PACKAGING ── */
+{
+  title:'Packaging', icon:'fa-box-open',
+  items:[
+    {id:'pastry_bag', name:'Pastry Bag Logo', gross:200, type:'pack', pcsWeight:7.7},
+    {id:'cup12', name:'Cup 12oz', gross:50, type:'pack', pcsWeight:11.5},
+    {id:'cup18', name:'Cup 18oz', gross:50, type:'pack', pcsWeight:14.0},
+    {id:'cup30', name:'Cup 30oz', gross:50, type:'pack', pcsWeight:18.7},
+    {id:'black_hot', name:'Black Hot Cup', gross:25, type:'pack', pcsWeight:18.3},
+    {id:'black_ice', name:'Black Ice Cup', gross:50, type:'pack', pcsWeight:13.7},
+    {id:'lid_hot', name:'Lid Black Hot Cup', gross:50, type:'pack', pcsWeight:8.0},
+    {id:'lid_ice', name:'Lid Black Ice Cup', gross:50, type:'pack', pcsWeight:4.3},
+    {id:'dome_lid', name:'Dome Lid Ice Cup', gross:50, type:'pack', pcsWeight:3.8},
+    {id:'strawless_lid', name:'Strawless Lid Ice Cup', gross:50, type:'pack', pcsWeight:3.6},
+    {id:'anti_spill', name:'Anti Spill Lid', gross:50, type:'pack', pcsWeight:7.0},
+    {id:'lid_30oz', name:'Lid Iced Cup 30oz', gross:50, type:'pack', pcsWeight:3.5},
+    {id:'straw_s', name:'Straw Logo Small', gross:500, type:'pack', pcsWeight:0.7},
+    {id:'straw_d', name:'Straw Logo D', gross:200, type:'pack', pcsWeight:0.6},
+    {id:'straw_wrap', name:'Straw Wrapping Double Film', gross:500, type:'pack', pcsWeight:2.0},
+    {id:'lid_char', name:'Lid Character Cup', gross:50, type:'pack', pcsWeight:4.2},
+    {id:'frieren_card', name:'Frieren Collectible Card', gross:100, type:'pack', pcsWeight:3.4},
+    {id:'frieren_cup', name:'Frieren Character Cup', gross:50, type:'pack', pcsWeight:13.8},
+    {id:'single_hot', name:'Single Hot', gross:50, type:'pack', pcsWeight:12.2}
+  ]
+},
 
-{ name:'Simple Syrup', gross:1060, type:'syrup' },
-
-{ name:'Manuka Syrup', gross:1050, type:'syrup' },
-
-{ name:'Strawberry Syrup', gross:1340, type:'strawberry' },
-
-/* =========================
-   SAUCE
-========================= */
-
-{ name:'Tomoro Caramel Sauce', gross:1054, type:'sauce', key:'caramel' },
-
-{ name:'Premade Caramel Sauce', gross:1054, type:'premade_sauce', key:'caramel' },
-
-/* =========================
-   POWDER
-========================= */
-
-{ name:'Chocolate Sweet Powder', gross:1000, type:'powder', key:'coklat' },
-
-{ name:'Premade Coklat', gross:2, type:'premade', key:'coklat' },
-
-{ name:'Hojicha Latte Powder', gross:1000, type:'powder' },
-
-{ name:'Matcha Powder', gross:1000, type:'powder', key:'matcha' },
-
-{ name:'Premade Matcha', gross:2, type:'premade', key:'matcha' },
-
-{ name:'Tomoro Frappe Powder', gross:1000, type:'powder' },
-
-{ name:'Tomoro Blend V2', gross:1000, type:'powder' },
-
-{ name:'Tomoro Master Milk', gross:1052, type:'powder' },
-
-{ name:'Foam Powder', gross:1000, type:'powder' },
-
-{ name:'Sea Salt', gross:210, type:'seasalt' },
-
-{ name:'Milk Powder', gross:1000, type:'powder' },
-
-{ name:'Cheese Milk Powder', gross:1000, type:'powder' },
-
-{ name:'Pistachio Powder', gross:700, type:'powder', key:'pistachio' },
-
-{ name:'Premade Pistachio', gross:2, type:'premade', key:'pistachio' },
-
-/* =========================
-   PACKAGING
-========================= */
-
-{ name:'Pastry Bag Logo', gross:200, type:'pack', pcsWeight:7.7 },
-
-{ name:'Cup 12oz', gross:50, type:'pack', pcsWeight:11.5 },
-
-{ name:'Cup 18oz', gross:50, type:'pack', pcsWeight:14.0 },
-
-{ name:'Cup 30oz', gross:50, type:'pack', pcsWeight:18.7 },
-
-{ name:'Black Hot Cup', gross:25, type:'pack', pcsWeight:18.3 },
-
-{ name:'Black Ice Cup', gross:50, type:'pack', pcsWeight:13.7 },
-
-{ name:'Lid Black Hot Cup', gross:50, type:'pack', pcsWeight:8.0 },
-
-{ name:'Lid Black Ice Cup', gross:50, type:'pack', pcsWeight:4.3 },
-
-{ name:'Dome Lid Ice Cup', gross:50, type:'pack', pcsWeight:3.8 },
-
-{ name:'Strawless Lid Ice Cup', gross:50, type:'pack', pcsWeight:3.6 },
-
-{ name:'Anti Spill Lid', gross:50, type:'pack', pcsWeight:7.0 },
-
-{ name:'Lid Iced Cup 30oz', gross:50, type:'pack', pcsWeight:3.5 },
-
-{ name:'Straw Logo Small', gross:500, type:'pack', pcsWeight:0.7 },
-
-{ name:'Straw Logo D', gross:200, type:'pack', pcsWeight:0.6 },
-
-{ name:'Straw Wrapping Double Film', gross:200, type:'pack', pcsWeight:2.0 },
-
-{ name:'Lid Character Cup', gross:50, type:'pack', pcsWeight:4.2 },
-
-{ name:'Frieren Collectible Card', gross:50, type:'pack', pcsWeight:3.4 },
-
-{ name:'Frieren Character Cup', gross:50, type:'pack', pcsWeight:13.8 },
-
-{ name:'Single Hot', gross:25, type:'pack', pcsWeight:12.2 },
-
-/* =========================
-   OTHERS
-========================= */
-
-{ name:'Jasmine Green Tea', gross:25, type:'normal' }
+/* ── OTHERS ── */
+{
+  title:'Others', icon:'fa-leaf',
+  items:[
+    {id:'jasmine', name:'Jasmine Green Tea', gross:25, type:'normal'}
+  ]
+}
 
 ];
 
-const powderGross = {
 
-coklat:1000,
+/* ========================================
+   RENDER SELURUH UI
+   ======================================== */
 
-matcha:1000,
+const tableBody = document.getElementById('tableBody');
 
-pistachio:700
+sections.forEach(section => {
 
-};
-  const tableBody =
-document.getElementById('tableBody');
+  /* Label seksi */
+  tableBody.innerHTML += `
+    <div class="section-label">
+      <i class="fas ${section.icon}"></i> ${section.title}
+    </div>
+    <div class="items-grid" id="grid-${section.title.replace(/\s/g,'_')}"></div>
+  `;
 
-/* =========================
-   RENDER PRODUK
-========================= */
+  const grid = document.getElementById('grid-' + section.title.replace(/\s/g,'_'));
 
-products.forEach((item,index)=>{
+  section.items.forEach(item => {
 
-tableBody.innerHTML += `
+    if (item.type === 'combined_powder') {
+      grid.innerHTML += renderCombinedPowder(item);
+    }
+    else if (item.type === 'combined_sauce') {
+      grid.innerHTML += renderCombinedSauce(item);
+    }
+    else {
+      grid.innerHTML += renderSingle(item);
+    }
 
-<div class="item-card">
-
-<div class="item-name">
-${item.name}
-</div>
-
-<div class="item-info">
-
-<div class="badge">
-Gross : ${item.gross}
-</div>
-
-<div class="badge">
-${item.type}
-</div>
-
-</div>
-
-<input
-type="number"
-id="input-${index}"
-placeholder="Masukkan hasil timbangan"
-oninput="simpanData()"
->
-
-</div>
-
-`;
+  });
 
 });
 
-/* =========================
-   SIMPAN DATA
-========================= */
 
-function simpanData(){
+/* ========================================
+   TEMPLATE KARTU
+   ======================================== */
 
-let data = {};
-
-products.forEach((item,index)=>{
-
-data[index] =
-document.getElementById(
-`input-${index}`
-).value;
-
-});
-
-localStorage.setItem(
-'closingTomoroDataV2',
-JSON.stringify(data)
-);
-
+function renderSingle(item) {
+  return `
+    <div class="item-card" id="card-${item.id}">
+      <div class="item-name"><span class="dot"></span>${item.name}</div>
+      <div class="item-info">
+        <span class="badge gross">Gross : ${item.gross}</span>
+        <span class="badge">${item.type}</span>
+      </div>
+      <div class="input-wrap">
+        <input type="number" id="inp-${item.id}" placeholder="Masukkan hasil timbangan" oninput="onInput('${item.id}','${item.type}',${item.gross},${item.pcsWeight || 0})">
+      </div>
+      <div class="result-box" id="res-${item.id}"></div>
+    </div>
+  `;
 }
 
-/* =========================
-   LOAD DATA
-========================= */
-
-function loadData(){
-
-let saved =
-localStorage.getItem(
-'closingTomoroDataV2'
-);
-
-if(saved){
-
-let data =
-JSON.parse(saved);
-
-Object.keys(data)
-.forEach(index=>{
-
-let input =
-document.getElementById(
-`input-${index}`
-);
-
-if(input){
-
-input.value =
-data[index];
-
+function renderCombinedPowder(item) {
+  let inputsHTML = '';
+  item.inputs.forEach(inp => {
+    inputsHTML += `
+      <div class="input-wrap">
+        <span class="input-label">${inp.label} (Gross: ${inp.gross})</span>
+        <input type="number" id="inp-${inp.key}" placeholder="Timbangan" oninput="onCombinedPowder('${item.id}')">
+      </div>
+    `;
+  });
+  return `
+    <div class="item-card" id="card-${item.id}" style="grid-column:span 1">
+      <div class="item-name"><span class="dot"></span>${item.name} <span style="font-size:11px;color:var(--accent);font-weight:500">+ Premade</span></div>
+      <div class="input-row">${inputsHTML}</div>
+      <div class="result-box" id="res-${item.id}"></div>
+    </div>
+  `;
 }
 
-});
-
+function renderCombinedSauce(item) {
+  let inputsHTML = '';
+  item.inputs.forEach(inp => {
+    inputsHTML += `
+      <div class="input-wrap">
+        <span class="input-label">${inp.label} (Gross: ${inp.gross})</span>
+        <input type="number" id="inp-${inp.key}" placeholder="Timbangan" oninput="onCombinedSauce('${item.id}')">
+      </div>
+    `;
+  });
+  return `
+    <div class="item-card" id="card-${item.id}" style="grid-column:span 1">
+      <div class="item-name"><span class="dot"></span>${item.name} <span style="font-size:11px;color:var(--accent);font-weight:500">+ Premade</span></div>
+      <div class="input-row">${inputsHTML}</div>
+      <div class="result-box" id="res-${item.id}"></div>
+    </div>
+  `;
 }
 
+
+/* ========================================
+   LOGIKA PERHITUNGAN REALTIME
+   ======================================== */
+
+function getVal(id) {
+  return parseFloat(document.getElementById('inp-' + id)?.value) || 0;
 }
 
-/* =========================
-   HAPUS SEMUA
-========================= */
-
-function hapusSemua(){
-
-let konfirmasi =
-confirm(
-'Yakin ingin menghapus seluruh data closing?'
-);
-
-if(!konfirmasi){
-return;
+function showResult(id, html, hasValue) {
+  const box = document.getElementById('res-' + id);
+  const card = document.getElementById('card-' + id);
+  if (hasValue) {
+    box.innerHTML = html;
+    box.classList.add('show');
+    card.classList.add('has-result');
+  } else {
+    box.innerHTML = '';
+    box.classList.remove('show');
+    card.classList.remove('has-result');
+  }
 }
 
-products.forEach((item,index)=>{
-
-let input =
-document.getElementById(
-`input-${index}`
-);
-
-if(input){
-
-input.value = '';
-
+function row(label, value) {
+  return `<div class="result-row"><span class="label">${label}</span><span class="value">${value}</span></div>`;
 }
 
-});
-
-localStorage.removeItem(
-'closingTomoroDataV2'
-);
-
-document.getElementById(
-'hasil'
-).innerHTML = '';
-
-alert(
-'Seluruh data berhasil dihapus.'
-);
-
+function divider() {
+  return `<div class="result-divider"></div>`;
 }
 
-/* =========================
-   ANGKA
-========================= */
-
-function angka(nilai){
-
-return Number(nilai) || 0;
-
-}
-
-/* =========================
-   CARD BIASA
-========================= */
-
-function tampilkanCard(
-nama,
-bersih,
-hasil,
-label
-){
-
-const hasilDiv =
-document.getElementById(
-'hasil'
-);
-
-hasilDiv.innerHTML += `
-
-<div class="card">
-
-<h3>${nama}</h3>
-
-<p>
-
-<b>Berat Bersih :</b>
-
-${bersih.toFixed(2)}
-
-</p>
-
-<p>
-
-<b>${label} :</b>
-
-${hasil.toFixed(2)}
-
-</p>
-
-</div>
-
-`;
-
-}
-
-/* =========================
-   CARD PACK
-========================= */
-
-function tampilkanPackCard(
-nama,
-pcs,
-pack
-){
-
-const hasilDiv =
-document.getElementById(
-'hasil'
-);
-
-hasilDiv.innerHTML += `
-
-<div class="card">
-
-<h3>${nama}</h3>
-
-<p>
-
-<b>Jumlah PCS :</b>
-
-${pcs.toFixed(0)}
-
-</p>
-
-<p>
-
-<b>Jumlah Pack :</b>
-
-${pack.toFixed(2)}
-
-</p>
-
-</div>
-
-`;
-
-}
-
-/* =========================
-   CARD HASIL AKHIR
-========================= */
-
-function tampilkanHasilAkhir(
-nama,
-hasil
-){
-
-const hasilDiv =
-document.getElementById(
-'hasil'
-);
-
-hasilDiv.innerHTML += `
-
-<div class="card">
-
-<h3>${nama}</h3>
-
-<p>
-
-<b>Total Akhir :</b>
-
-${hasil.toFixed(2)}
-
-</p>
-
-</div>
-
-`;
-
-}
-  /* =========================
-   HITUNG CLOSING
-========================= */
-
-function hitung(){
-
-const hasilDiv =
-document.getElementById(
-'hasil'
-);
-
-hasilDiv.innerHTML = '';
-
-let adaData = false;
-
-let finalResult = {
-
-coklat:0,
-
-matcha:0,
-
-pistachio:0,
-
-caramel:0,
-
-skm:0
-
-};
-
-products.forEach((item,index)=>{
-
-let timbang = angka(
-document.getElementById(
-`input-${index}`
-).value
-);
-
-if(timbang <= 0){
-return;
-}
-
-adaData = true;
-
-let beratBersih = timbang;
-let hasil = 0;
-
-/* =========================
-   COFFEE BEAN
-========================= */
-
-if(item.type === 'bean'){
-
-beratBersih =
-timbang - 808;
-
-hasil =
-beratBersih / 1000;
-
-tampilkanCard(
-item.name,
-beratBersih,
-hasil,
-'Sisa'
-);
-
-}
-
-/* =========================
-   SKM
-========================= */
-
-else if(item.type === 'skm'){
-
-beratBersih =
-timbang - 60;
-
-hasil =
-beratBersih / 545;
-
-finalResult.skm += hasil;
-
-}
-
-/* =========================
-   SEA SALT
-========================= */
-
-else if(item.type === 'seasalt'){
-
-hasil =
-timbang / 210;
-
-tampilkanCard(
-item.name,
-timbang,
-hasil,
-'Sisa'
-);
-
-}
-
-/* =========================
-   STRAWBERRY SYRUP
-========================= */
-
-else if(item.type === 'strawberry'){
-
-beratBersih =
-timbang - 45;
-
-hasil =
-beratBersih / 1134;
-
-tampilkanCard(
-item.name,
-beratBersih,
-hasil,
-'Sisa'
-);
-
-}
-
-/* =========================
-   SYRUP
-========================= */
-
-else if(item.type === 'syrup'){
-
-beratBersih =
-timbang - 45;
-
-hasil =
-beratBersih /
-item.gross;
-
-tampilkanCard(
-item.name,
-beratBersih,
-hasil,
-'Sisa'
-);
-
-}
-
-/* =========================
-   CARAMEL SAUCE
-========================= */
-
-else if(item.type === 'sauce'){
-
-beratBersih =
-timbang - 60;
-
-hasil =
-beratBersih / 1054;
-
-finalResult.caramel += hasil;
-
-}
-
-/* =========================
-   PREMADE CARAMEL SAUCE
-========================= */
-
-else if(item.type === 'premade_sauce'){
-
-beratBersih =
-timbang - 60;
-
-hasil =
-beratBersih / 1054;
-
-finalResult.caramel += hasil;
-
-}
-
-/* =========================
-   POWDER
-========================= */
-
-else if(item.type === 'powder'){
-
-beratBersih =
-timbang - 200;
-
-hasil =
-beratBersih /
-item.gross;
-
-if(item.key){
-
-finalResult[item.key] += hasil;
-
-}else{
-
-tampilkanCard(
-item.name,
-beratBersih,
-hasil,
-'Sisa'
-);
-
-}
-
-}
-
-/* =========================
-   PREMADE
-========================= */
-
-else if(item.type === 'premade'){
-
-beratBersih =
-timbang - 60;
-
-let gramPowder =
-beratBersih / 2;
-
-hasil =
-gramPowder /
-powderGross[item.key];
-
-finalResult[item.key] += hasil;
-
-}
-
-/* =========================
-   PACKAGING
-========================= */
-
-else if(item.type === 'pack'){
-
-let jumlahPcs =
-timbang /
-item.pcsWeight;
-
-hasil =
-jumlahPcs /
-item.gross;
-
-tampilkanPackCard(
-item.name,
-jumlahPcs,
-hasil
-);
-
-}
-
-/* =========================
-   NORMAL
-========================= */
-
-else{
-
-hasil =
-timbang /
-item.gross;
-
-tampilkanCard(
-item.name,
-timbang,
-hasil,
-'Sisa'
-);
-
-}
-
-});
-
-/* =========================
-   HASIL AKHIR GABUNGAN
-========================= */
-
-if(finalResult.coklat > 0){
-
-tampilkanHasilAkhir(
-'Chocolate Sweet Powder',
-finalResult.coklat
-);
-
-}
-
-if(finalResult.matcha > 0){
-
-tampilkanHasilAkhir(
-'Matcha Powder',
-finalResult.matcha
-);
-
-}
-
-if(finalResult.pistachio > 0){
-
-tampilkanHasilAkhir(
-'Pistachio Powder',
-finalResult.pistachio
-);
-
-}
-
-if(finalResult.caramel > 0){
-
-tampilkanHasilAkhir(
-'Tomoro Caramel Sauce',
-finalResult.caramel
-);
-
-}
-
-if(finalResult.skm > 0){
-
-tampilkanHasilAkhir(
-'Susu Kental Manis',
-finalResult.skm
-);
-
-}
-
-if(!adaData){
-
-hasilDiv.innerHTML = `
-
-<div class="empty-text">
-
-Tidak ada data yang dimasukkan
-
-</div>
-
-`;
-
-}
+/* ── SINGLE ITEM ── */
+function onInput(id, type, gross, pcsWeight) {
+  const t = getVal(id);
+  if (t <= 0) { showResult(id, '', false); simpanData(); return; }
+
+  let html = '';
+
+  switch (type) {
+
+    case 'bean': {
+      const bersih = t - 808;
+      const sisa = bersih / 1000;
+      html = row('Berat Bersih', bersih.toFixed(1) + ' g');
+      html += divider();
+      html += `<div class="result-row result-total"><span class="label">Sisa</span><span class="value">${sisa.toFixed(3)}</span></div>`;
+      break;
+    }
+
+    case 'skm': {
+      const bersih = t - 60;
+      const sisa = bersih / 545;
+      html = row('Berat Bersih', bersih.toFixed(1) + ' g');
+      html += divider();
+      html += `<div class="result-row result-total"><span class="label">Sisa</span><span class="value">${sisa.toFixed(3)}</span></div>`;
+      break;
+    }
+
+    case 'seasalt': {
+      const sisa = t / 210;
+      html = `<div class="result-row result-total"><span class="label">Sisa</span><span class="value">${sisa.toFixed(3)}</span></div>`;
+      break;
+    }
+
+    case 'strawberry': {
+      const bersih = t - 45;
+      const sisa = bersih / 1134;
+      html = row('Berat Bersih', bersih.toFixed(1) + ' g');
+      html += divider();
+      html += `<div class="result-row result-total"><span class="label">Sisa</span><span class="value">${sisa.toFixed(3)}</span></div>`;
+      break;
+    }
+
+    case 'syrup': {
+      const bersih = t - 45;
+      const sisa = bersih / gross;
+      html = row('Berat Bersih', bersih.toFixed(1) + ' g');
+      html += divider();
+      html += `<div class="result-row result-total"><span class="label">Sisa</span><span class="value">${sisa.toFixed(3)}</span></div>`;
+      break;
+    }
+
+    case 'powder': {
+      const bersih = t - 200;
+      const sisa = bersih / gross;
+      html = row('Berat Bersih', bersih.toFixed(1) + ' g');
+      html += divider();
+      html += `<div class="result-row result-total"><span class="label">Sisa</span><span class="value">${sisa.toFixed(3)}</span></div>`;
+      break;
+    }
+
+    case 'pack': {
+      const pcs = t / pcsWeight;
+      const pack = pcs / gross;
+      html = row('Jumlah PCS', Math.floor(pcs) + ' pcs');
+      html += row('Sisa Gram', (t - Math.floor(pcs) * pcsWeight).toFixed(1) + ' g');
+      html += divider();
+      html += `<div class="result-row result-total"><span class="label">Jumlah Pack</span><span class="value">${pack.toFixed(3)}</span></div>`;
+      break;
+    }
+
+    default: {
+      /* normal / dairy */
+      const sisa = t / gross;
+      html = `<div class="result-row result-total"><span class="label">Sisa</span><span class="value">${sisa.toFixed(3)}</span></div>`;
+      break;
+    }
 
   }
-/* =========================
-   LOAD DATA SAAT HALAMAN DIBUKA
-========================= */
+
+  showResult(id, html, true);
+  simpanData();
+}
+
+/* ── COMBINED POWDER ── */
+function onCombinedPowder(id) {
+  const item = findItem(id);
+  if (!item) return;
+
+  const vals = item.inputs.map(inp => ({
+    key: inp.key,
+    label: inp.label,
+    t: getVal(inp.key),
+    gross: inp.gross,
+    type: inp.type
+  }));
+
+  const anyFilled = vals.some(v => v.t > 0);
+  if (!anyFilled) { showResult(id, '', false); simpanData(); return; }
+
+  let html = '';
+  let totalSisa = 0;
+
+  vals.forEach(v => {
+    if (v.t <= 0) return;
+    let sisa = 0;
+    let bersih = 0;
+    if (v.type === 'powder') {
+      bersih = v.t - 200;
+      sisa = bersih / v.gross;
+      html += row(v.label, sisa.toFixed(3));
+    } else if (v.type === 'premade') {
+      bersih = v.t - 60;
+      const gramPowder = bersih / 2;
+      sisa = gramPowder / item.powderGross;
+      html += row(v.label, sisa.toFixed(3));
+    }
+    totalSisa += sisa;
+  });
+
+  html += divider();
+  html += `<div class="result-row result-total"><span class="label">${item.finalName}</span><span class="value">${totalSisa.toFixed(3)}</span></div>`;
+
+  showResult(id, html, true);
+  simpanData();
+}
+
+/* ── COMBINED SAUCE ── */
+function onCombinedSauce(id) {
+  const item = findItem(id);
+  if (!item) return;
+
+  const vals = item.inputs.map(inp => ({
+    key: inp.key,
+    label: inp.label,
+    t: getVal(inp.key),
+    gross: inp.gross,
+    type: inp.type
+  }));
+
+  const anyFilled = vals.some(v => v.t > 0);
+  if (!anyFilled) { showResult(id, '', false); simpanData(); return; }
+
+  let html = '';
+  let totalSisa = 0;
+
+  vals.forEach(v => {
+    if (v.t <= 0) return;
+    const bersih = v.t - 60;
+    const sisa = bersih / v.gross;
+    html += row(v.label, sisa.toFixed(3));
+    totalSisa += sisa;
+  });
+
+  html += divider();
+  html += `<div class="result-row result-total"><span class="label">${item.finalName}</span><span class="value">${totalSisa.toFixed(3)}</span></div>`;
+
+  showResult(id, html, true);
+  simpanData();
+}
+
+
+/* ========================================
+   HELPER: CARI ITEM BY ID
+   ======================================== */
+
+function findItem(id) {
+  for (const sec of sections) {
+    for (const item of sec.items) {
+      if (item.id === id) return item;
+    }
+  }
+  return null;
+}
+
+
+/* ========================================
+   LOCAL STORAGE
+   ======================================== */
+
+function simpanData() {
+  const allInputs = document.querySelectorAll('input[type="number"]');
+  const data = {};
+  allInputs.forEach(inp => {
+    if (inp.id && inp.id.startsWith('inp-')) {
+      data[inp.id] = inp.value;
+    }
+  });
+  localStorage.setItem('closingTomoroV3', JSON.stringify(data));
+}
+
+function loadData() {
+  const saved = localStorage.getItem('closingTomoroV3');
+  if (!saved) return;
+  const data = JSON.parse(saved);
+  Object.keys(data).forEach(id => {
+    const inp = document.getElementById(id);
+    if (inp) inp.value = data[id];
+  });
+  /* Trigger semua perhitungan ulang */
+  document.querySelectorAll('input[type="number"]').forEach(inp => {
+    if (inp.value) inp.dispatchEvent(new Event('input'));
+  });
+}
+
+
+/* ========================================
+   HAPUS SEMUA
+   ======================================== */
+
+function hapusSemua() {
+  if (!confirm('Yakin ingin menghapus seluruh data closing?')) return;
+  document.querySelectorAll('input[type="number"]').forEach(inp => inp.value = '');
+  document.querySelectorAll('.result-box').forEach(box => {
+    box.innerHTML = '';
+    box.classList.remove('show');
+  });
+  document.querySelectorAll('.item-card').forEach(card => card.classList.remove('has-result'));
+  localStorage.removeItem('closingTomoroV3');
+  showToast('Seluruh data berhasil dihapus');
+}
+
+
+/* ========================================
+   KIRIM VIA WHATSAPP
+   ======================================== */
+
+function kirimWa() {
+  let text = '*CLOSING TOMORO COFFEE*\n';
+  text += '_Tanggal: ' + new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}) + '_\n\n';
+
+  let adaData = false;
+
+  sections.forEach(sec => {
+    let sectionText = '';
+    sec.items.forEach(item => {
+      if (item.type === 'combined_powder') {
+        const box = document.getElementById('res-' + item.id);
+        if (box && box.classList.contains('show')) {
+          const rows = box.querySelectorAll('.result-row');
+          let lines = '';
+          rows.forEach(r => {
+            const l = r.querySelector('.label')?.textContent || '';
+            const v = r.querySelector('.value')?.textContent || '';
+            lines += l + ': ' + v + '\n';
+          });
+          sectionText += lines + '\n';
+          adaData = true;
+        }
+      }
+      else if (item.type === 'combined_sauce') {
+        const box = document.getElementById('res-' + item.id);
+        if (box && box.classList.contains('show')) {
+          const rows = box.querySelectorAll('.result-row');
+          let lines = '';
+          rows.forEach(r => {
+            const l = r.querySelector('.label')?.textContent || '';
+            const v = r.querySelector('.value')?.textContent || '';
+            lines += l + ': ' + v + '\n';
+          });
+          sectionText += lines + '\n';
+          adaData = true;
+        }
+      }
+      else {
+        const box = document.getElementById('res-' + item.id);
+        if (box && box.classList.contains('show')) {
+          sectionText += '*' + item.name + '*\n';
+          const rows = box.querySelectorAll('.result-row');
+          rows.forEach(r => {
+            const l = r.querySelector('.label')?.textContent || '';
+            const v = r.querySelector('.value')?.textContent || '';
+            sectionText += '  ' + l + ': ' + v + '\n';
+          });
+          sectionText += '\n';
+          adaData = true;
+        }
+      }
+    });
+
+    if (sectionText) {
+      text += '*' + sec.title.toUpperCase() + '*\n' + sectionText;
+    }
+  });
+
+  if (!adaData) {
+    showToast('Belum ada data yang dihitung');
+    return;
+  }
+
+  const encoded = encodeURIComponent(text.trim());
+  window.open('https://wa.me/?text=' + encoded, '_blank');
+}
+
+
+/* ========================================
+   TOAST
+   ======================================== */
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+
+/* ========================================
+   INIT
+   ======================================== */
 
 loadData();
 
-/* =========================
-   WARNING REFRESH / KELUAR
-========================= */
-
-window.addEventListener(
-'beforeunload',
-function(e){
-
-e.preventDefault();
-
-e.returnValue =
-'Data closing sudah diisi. Yakin ingin keluar atau refresh?';
-
-}
-);
-
 </script>
 
-<div class="notes">
-
-<h2>Catatan Perhitungan Final V2</h2>
-
-<ul>
-
-<li>
-Tomoro Master Coffee Bean :
-(Timbangan - 808) ÷ 1000
-</li>
-
-<li>
-Powder :
-(Timbangan - 200) ÷ Gross Weight
-</li>
-
-<li>
-Premade Powder :
-(Timbangan - 60) ÷ 2
-kemudian otomatis dikonversi ke powder terkait.
-</li>
-
-<li>
-Premade dan Powder akan otomatis digabung menjadi satu hasil akhir.
-</li>
-
-<li>
-Chocolate Sweet Powder + Premade Coklat = 1 hasil.
-</li>
-
-<li>
-Matcha Powder + Premade Matcha = 1 hasil.
-</li>
-
-<li>
-Pistachio Powder + Premade Pistachio = 1 hasil.
-</li>
-
-<li>
-Tomoro Caramel Sauce + Premade Caramel Sauce = 1 hasil.
-</li>
-
-<li>
-Caramel Syrup berbeda dengan Caramel Sauce dan dihitung terpisah.
-</li>
-
-<li>
-Susu Kental Manis :
-(Timbangan - 60) ÷ 545
-</li>
-
-<li>
-Sea Salt :
-Timbangan ÷ 210
-</li>
-
-<li>
-Strawberry Syrup :
-(Timbangan - 45) ÷ 1134
-</li>
-
-<li>
-Syrup lainnya :
-(Timbangan - 45) ÷ Gross Weight
-</li>
-
-<li>
-Cup, Lid, Straw, Packaging:
-Berat Timbangan ÷ Berat Per PCS
-untuk mendapatkan jumlah PCS.
-</li>
-
-<li>
-Jumlah PCS kemudian dibagi Gross Weight
-untuk mendapatkan jumlah Pack.
-</li>
-
-<li>
-Data tersimpan otomatis menggunakan Local Storage.
-</li>
-
-<li>
-Tombol Hapus Semua akan menghapus seluruh data input setelah konfirmasi.
-</li>
-
-</ul>
-
-</div>
-<div class="footer">
-
-© 2026 Closing Tomoro Final V2
-
-<br>
-
-Project By Rifqi Jatengland
-
-<br>
-
-Enhanced Version by Rifqi Tomoro
-
-</div>
-
-</div>
-
 </body>
-
 </html>
