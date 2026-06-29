@@ -91,6 +91,41 @@ transition:.3s;
 /* CONTENT */
 .content{padding:18px}
 
+/* SEARCH BOX */
+.search-wrap{
+position:relative;
+margin-bottom:18px;
+}
+
+.search-wrap i{
+position:absolute;left:18px;top:50%;
+transform:translateY(-50%);
+color:var(--muted);font-size:16px;
+pointer-events:none;
+transition:.3s;
+}
+
+.search-wrap input{
+width:100%;padding:16px 20px 16px 50px;
+border-radius:16px;
+border:2px solid var(--border);
+outline:none;font-size:15px;
+font-family:'Poppins',sans-serif;
+background:#fafaf8;
+transition:all .25s;
+}
+
+.search-wrap input:focus{
+border-color:var(--accent);
+box-shadow:0 0 0 4px var(--accent-glow);
+background:#fff;
+}
+
+.search-wrap input:focus + i,
+.search-wrap input:not(:placeholder-shown) + i{
+color:var(--accent);
+}
+
 .top-info{
 display:flex;flex-wrap:wrap;gap:10px;
 margin-bottom:18px;
@@ -148,6 +183,10 @@ box-shadow:0 6px 20px rgba(199,123,47,.1);
 .item-card.has-result{
 border-color:var(--green);
 background:linear-gradient(180deg,#fff 60%,var(--green-bg) 100%);
+}
+
+.item-card.hidden-card{
+display:none;
 }
 
 .item-name{
@@ -255,6 +294,18 @@ height:1px;background:#b8dfc5;margin:6px 0;
 .result-total .label{color:var(--primary);font-weight:700;font-size:14px}
 .result-total .value{color:var(--primary);font-size:17px}
 
+/* NO RESULTS */
+.no-results{
+text-align:center;padding:40px 20px;
+color:var(--muted);font-weight:600;
+display:none;
+font-size:15px;
+}
+
+.no-results.show{display:block}
+
+.no-results i{font-size:40px;display:block;margin-bottom:12px;color:var(--border)}
+
 /* BUTTONS */
 .button-group{
 margin-top:28px;
@@ -355,6 +406,12 @@ pointer-events:none;
 
 <div class="content">
 
+<!-- SEARCH BAR -->
+<div class="search-wrap">
+  <input type="text" id="searchInput" placeholder="Cari produk (contoh: matcha, cup 12oz, lid...)">
+  <i class="fas fa-magnifying-glass"></i>
+</div>
+
 <div class="top-info">
 <div class="info-box"><i class="fas fa-bolt"></i> Hitung Otomatis Langsung di Tempat</div>
 <div class="info-box"><i class="fas fa-link"></i> Powder + Premade Sejajar & Gabung</div>
@@ -362,6 +419,11 @@ pointer-events:none;
 </div>
 
 <div id="tableBody"></div>
+
+<div class="no-results" id="noResults">
+  <i class="fas fa-magnifying-glass"></i>
+  Produk tidak ditemukan
+</div>
 
 <div class="button-group">
 <button class="btn btn-primary" onclick="kirimWa()">
@@ -386,7 +448,8 @@ pointer-events:none;
 <li><strong>Caramel Syrup</strong> berbeda dengan Caramel Sauce, dihitung terpisah</li>
 <li><strong>SKM :</strong> (Timbangan − 60) ÷ 545</li>
 <li><strong>Sea Salt :</strong> Timbangan ÷ 210</li>
-<li><strong>Strawberry Syrup :</strong> (Timbangan − 45) ÷ 1134</li>
+<li><strong>Strawberry Syrup :</strong> (Timbangan − 45) ÷ 1337</li>
+<li><strong>Peach Syrup :</strong> (Timbangan − 45) ÷ 1307</li>
 <li><strong>Syrup lainnya :</strong> (Timbangan − 45) ÷ Gross Weight</li>
 <li><strong>Cup, Lid, Straw, Packaging :</strong> Timbangan ÷ Berat/PCS = Jumlah PCS, lalu ÷ Gross = Pack</li>
 <li><strong>Normal / Dairy :</strong> Timbangan ÷ Gross Weight</li>
@@ -405,7 +468,7 @@ pointer-events:none;
 <script>
 
 /* ========================================
-   DATA PRODUK — DIKELMPOHKAN PER SEKSI
+   DATA PRODUK — DIKELOMPOKKAN PER SEKSI
    ======================================== */
 
 const sections = [
@@ -438,7 +501,8 @@ const sections = [
     {id:'caramel_syrup', name:'Caramel Syrup', gross:1050, type:'syrup'},
     {id:'simple', name:'Simple Syrup', gross:1060, type:'syrup'},
     {id:'manuka', name:'Manuka Syrup', gross:1050, type:'syrup'},
-    {id:'strawberry', name:'Strawberry Syrup', gross:1134, type:'strawberry'}
+    {id:'strawberry', name:'Strawberry Syrup', gross:1337, type:'strawberry'},
+    {id:'peach', name:'Peach Syrup', gross:1307, type:'syrup'}
   ]
 },
 
@@ -532,7 +596,9 @@ const sections = [
     {id:'lid_char', name:'Lid Character Cup', gross:50, type:'pack', pcsWeight:4.2},
     {id:'frieren_card', name:'Frieren Collectible Card', gross:100, type:'pack', pcsWeight:3.4},
     {id:'frieren_cup', name:'Frieren Character Cup', gross:50, type:'pack', pcsWeight:13.8},
-    {id:'single_hot', name:'Single Hot', gross:50, type:'pack', pcsWeight:12.2}
+    {id:'single_hot', name:'Single Hot', gross:50, type:'pack', pcsWeight:12.2},
+    {id:'thermal_large', name:'Thermal Bag Large', gross:37, type:'pack', pcsWeight:59},
+    {id:'thermal_xl', name:'Thermal Bag Extra Large', gross:59.5, type:'pack', pcsWeight:59.5}
   ]
 },
 
@@ -557,10 +623,10 @@ sections.forEach(section => {
 
   /* Label seksi */
   tableBody.innerHTML += `
-    <div class="section-label">
+    <div class="section-label" data-section="${section.title}">
       <i class="fas ${section.icon}"></i> ${section.title}
     </div>
-    <div class="items-grid" id="grid-${section.title.replace(/\s/g,'_')}"></div>
+    <div class="items-grid" id="grid-${section.title.replace(/\s/g,'_')}" data-section="${section.title}"></div>
   `;
 
   const grid = document.getElementById('grid-' + section.title.replace(/\s/g,'_'));
@@ -588,11 +654,12 @@ sections.forEach(section => {
 
 function renderSingle(item) {
   return `
-    <div class="item-card" id="card-${item.id}">
+    <div class="item-card" id="card-${item.id}" data-search="${item.name.toLowerCase()}">
       <div class="item-name"><span class="dot"></span>${item.name}</div>
       <div class="item-info">
         <span class="badge gross">Gross : ${item.gross}</span>
         <span class="badge">${item.type}</span>
+        ${item.pcsWeight ? '<span class="badge gross">' + item.pcsWeight + ' g/pcs</span>' : ''}
       </div>
       <div class="input-wrap">
         <input type="number" id="inp-${item.id}" placeholder="Masukkan hasil timbangan" oninput="onInput('${item.id}','${item.type}',${item.gross},${item.pcsWeight || 0})">
@@ -612,8 +679,10 @@ function renderCombinedPowder(item) {
       </div>
     `;
   });
+  /* Gabungkan semua nama untuk pencarian */
+  const searchStr = item.inputs.map(i => i.label.toLowerCase()).join(' ');
   return `
-    <div class="item-card" id="card-${item.id}" style="grid-column:span 1">
+    <div class="item-card" id="card-${item.id}" data-search="${item.name.toLowerCase()} ${searchStr}">
       <div class="item-name"><span class="dot"></span>${item.name} <span style="font-size:11px;color:var(--accent);font-weight:500">+ Premade</span></div>
       <div class="input-row">${inputsHTML}</div>
       <div class="result-box" id="res-${item.id}"></div>
@@ -631,14 +700,770 @@ function renderCombinedSauce(item) {
       </div>
     `;
   });
+  const searchStr = item.inputs.map(i => i.label.toLowerCase()).join(' ');
+  return `<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Closing Tomoro Final V3</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+--bg:#f3ede4;
+--card:#fff;
+--border:#e8ddd0;
+--primary:#5c3a1e;
+--primary-light:#8b6340;
+--accent:#c77b2f;
+--accent-glow:rgba(199,123,47,.15);
+--green:#2e7d4f;
+--green-bg:#e8f5ec;
+--red:#c0392b;
+--red-bg:#fdecea;
+--text:#2b2b2b;
+--muted:#888;
+--warm:#fff8ef;
+--warm-border:#f0d9b5;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:var(--bg);
+min-height:100vh;
+padding:12px;
+color:var(--text);
+}
+
+.container{
+width:100%;
+max-width:1340px;
+margin:auto;
+background:var(--card);
+border-radius:24px;
+overflow:hidden;
+box-shadow:0 12px 48px rgba(60,30,10,.1);
+}
+
+/* HEADER */
+.header{
+background:linear-gradient(135deg,#3d2b1f 0%,#6f4e37 60%,#8b6340 100%);
+padding:32px 20px 28px;
+text-align:center;
+color:#fff;
+position:relative;
+overflow:hidden;
+}
+
+.header::before{
+content:'';position:absolute;top:-50%;right:-20%;
+width:400px;height:400px;
+background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 70%);
+border-radius:50%;
+}
+
+.creator{
+position:absolute;top:14px;right:14px;
+background:rgba(255,255,255,.1);
+padding:7px 14px;border-radius:999px;
+font-size:11px;font-weight:500;
+backdrop-filter:blur(6px);
+border:1px solid rgba(255,255,255,.12);
+}
+
+.logo{
+width:100px;margin-bottom:14px;
+filter:drop-shadow(0 4px 8px rgba(0,0,0,.3));
+transition:.3s;
+}
+
+.logo:hover{transform:scale(1.06)}
+
+.header h1{font-size:30px;font-weight:700;letter-spacing:-.5px}
+.header p{margin-top:6px;font-size:13px;opacity:.85}
+
+/* CONTENT */
+.content{padding:18px}
+
+/* SEARCH BOX */
+.search-wrap{
+position:relative;
+margin-bottom:18px;
+}
+
+.search-wrap i{
+position:absolute;left:18px;top:50%;
+transform:translateY(-50%);
+color:var(--muted);font-size:16px;
+pointer-events:none;
+transition:.3s;
+}
+
+.search-wrap input{
+width:100%;padding:16px 20px 16px 50px;
+border-radius:16px;
+border:2px solid var(--border);
+outline:none;font-size:15px;
+font-family:'Poppins',sans-serif;
+background:#fafaf8;
+transition:all .25s;
+}
+
+.search-wrap input:focus{
+border-color:var(--accent);
+box-shadow:0 0 0 4px var(--accent-glow);
+background:#fff;
+}
+
+.search-wrap input:focus + i,
+.search-wrap input:not(:placeholder-shown) + i{
+color:var(--accent);
+}
+
+.top-info{
+display:flex;flex-wrap:wrap;gap:10px;
+margin-bottom:18px;
+}
+
+.info-box{
+flex:1;min-width:200px;
+background:var(--warm);border:1px solid var(--warm-border);
+padding:12px;border-radius:14px;
+font-size:12px;color:var(--primary-light);
+font-weight:600;text-align:center;
+display:flex;align-items:center;justify-content:center;gap:8px;
+}
+
+.info-box i{color:var(--accent);font-size:14px}
+
+/* SECTION DIVIDER */
+.section-label{
+display:flex;align-items:center;gap:10px;
+margin:24px 0 14px;
+font-size:13px;font-weight:700;
+color:var(--primary-light);
+text-transform:uppercase;letter-spacing:1.5px;
+}
+
+.section-label::after{
+content:'';flex:1;height:1px;
+background:linear-gradient(90deg,var(--border),transparent);
+}
+
+.section-label i{font-size:15px;color:var(--accent)}
+
+/* GRID */
+.items-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+gap:14px;
+}
+
+/* ITEM CARD */
+.item-card{
+background:var(--card);
+border:1.5px solid var(--border);
+border-radius:18px;
+padding:16px;
+transition:all .25s;
+position:relative;
+}
+
+.item-card:hover{
+border-color:var(--accent);
+box-shadow:0 6px 20px rgba(199,123,47,.1);
+}
+
+.item-card.has-result{
+border-color:var(--green);
+background:linear-gradient(180deg,#fff 60%,var(--green-bg) 100%);
+}
+
+.item-card.hidden-card{
+display:none;
+}
+
+.item-name{
+font-size:14px;font-weight:700;
+color:var(--primary);
+margin-bottom:10px;
+display:flex;align-items:center;gap:8px;
+}
+
+.item-name .dot{
+width:8px;height:8px;border-radius:50%;
+background:var(--border);flex-shrink:0;
+transition:.3s;
+}
+
+.item-card.has-result .item-name .dot{
+background:var(--green);
+box-shadow:0 0 6px rgba(46,125,79,.4);
+}
+
+.item-info{
+display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;
+}
+
+.badge{
+background:#f3f2ef;padding:5px 10px;
+border-radius:999px;font-size:11px;
+font-weight:600;color:#777;
+}
+
+.badge.gross{background:var(--warm);color:var(--primary-light);border:1px solid var(--warm-border)}
+
+/* INPUT */
+.input-wrap{margin-bottom:8px}
+
+.input-label{
+font-size:11px;font-weight:600;color:var(--muted);
+margin-bottom:4px;display:block;
+}
+
+.input-row{
+display:flex;gap:8px;
+}
+
+.input-row .input-wrap{flex:1}
+
+input[type="number"]{
+width:100%;padding:12px 14px;
+border-radius:12px;
+border:1.5px solid #ddd;
+outline:none;font-size:14px;
+text-align:center;font-family:'Poppins',sans-serif;
+background:#fafafa;
+transition:all .2s;
+-moz-appearance:textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button{
+-webkit-appearance:none;margin:0;
+}
+
+input[type="number"]:focus{
+border-color:var(--accent);
+box-shadow:0 0 0 3px var(--accent-glow);
+background:#fff;
+}
+
+input[type="number"]:not(:placeholder-shown){
+border-color:var(--primary-light);
+background:#fff;
+}
+
+/* RESULT BOX */
+.result-box{
+margin-top:12px;
+background:var(--green-bg);
+border:1px solid #b8dfc5;
+border-radius:14px;
+padding:14px;
+display:none;
+animation:fadeSlide .3s ease;
+}
+
+.result-box.show{display:block}
+
+@keyframes fadeSlide{
+from{opacity:0;transform:translateY(-6px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+.result-row{
+display:flex;justify-content:space-between;
+align-items:center;padding:4px 0;
+font-size:13px;
+}
+
+.result-row .label{color:#555;font-weight:500}
+.result-row .value{color:var(--green);font-weight:700;font-size:15px}
+
+.result-divider{
+height:1px;background:#b8dfc5;margin:6px 0;
+}
+
+.result-total .label{color:var(--primary);font-weight:700;font-size:14px}
+.result-total .value{color:var(--primary);font-size:17px}
+
+/* NO RESULTS */
+.no-results{
+text-align:center;padding:40px 20px;
+color:var(--muted);font-weight:600;
+display:none;
+font-size:15px;
+}
+
+.no-results.show{display:block}
+
+.no-results i{font-size:40px;display:block;margin-bottom:12px;color:var(--border)}
+
+/* BUTTONS */
+.button-group{
+margin-top:28px;
+display:flex;gap:12px;
+flex-wrap:wrap;
+}
+
+.btn{
+flex:1;min-width:200px;
+padding:15px;border:none;
+border-radius:14px;font-size:15px;
+font-weight:600;cursor:pointer;
+font-family:'Poppins',sans-serif;
+transition:all .2s;
+display:flex;align-items:center;
+justify-content:center;gap:8px;
+}
+
+.btn:hover{transform:translateY(-2px)}
+
+.btn-primary{
+background:linear-gradient(135deg,#6f4e37,#3d2b1f);
+color:#fff;
+box-shadow:0 4px 15px rgba(61,43,31,.3);
+}
+
+.btn-danger{
+background:linear-gradient(135deg,#c0392b,#8b1a1a);
+color:#fff;
+box-shadow:0 4px 15px rgba(192,57,43,.25);
+}
+
+/* NOTES */
+.notes{
+margin-top:32px;
+background:var(--warm);
+border:1px solid var(--warm-border);
+border-radius:18px;padding:22px;
+}
+
+.notes h2{
+margin-bottom:14px;color:var(--primary);
+font-size:17px;display:flex;align-items:center;gap:8px;
+}
+
+.notes h2 i{color:var(--accent)}
+
+.notes ul{padding-left:18px;line-height:2;font-size:13px;color:#666}
+
+.notes li strong{color:var(--primary-light)}
+
+/* FOOTER */
+.footer{
+text-align:center;padding:20px;
+color:var(--muted);font-size:12px;
+border-top:1px solid var(--border);
+background:#fafaf8;
+}
+
+/* TOAST */
+.toast{
+position:fixed;bottom:24px;left:50%;
+transform:translateX(-50%) translateY(100px);
+background:#2b2b2b;color:#fff;
+padding:14px 28px;border-radius:14px;
+font-size:14px;font-weight:500;
+font-family:'Poppins',sans-serif;
+box-shadow:0 8px 30px rgba(0,0,0,.25);
+z-index:9999;
+transition:transform .4s cubic-bezier(.175,.885,.32,1.275);
+pointer-events:none;
+}
+
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+@media(max-width:700px){
+.items-grid{grid-template-columns:1fr}
+.header h1{font-size:24px}
+.creator{position:static;margin-bottom:12px;display:inline-block}
+.input-row{flex-direction:column}
+.btn{min-width:100%}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<div class="creator"><i class="fas fa-user-pen"></i> Project By : Rifqi Jatengland</div>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDw1rBEzkPWQoDBVyWNduo80f-XI6jeP769xeMi9rXBw&s=10" class="logo" alt="Tomoro Coffee Logo">
+<h1>Closing Tomoro Final V3</h1>
+<p>Sistem Closing Stock — Realtime Calculation</p>
+</div>
+
+<div class="content">
+
+<!-- SEARCH BAR -->
+<div class="search-wrap">
+  <input type="text" id="searchInput" placeholder="Cari produk (contoh: matcha, cup 12oz, lid...)">
+  <i class="fas fa-magnifying-glass"></i>
+</div>
+
+<div class="top-info">
+<div class="info-box"><i class="fas fa-bolt"></i> Hitung Otomatis Langsung di Tempat</div>
+<div class="info-box"><i class="fas fa-link"></i> Powder + Premade Sejajar & Gabung</div>
+<div class="info-box"><i class="fas fa-floppy-disk"></i> Auto Save Local Storage</div>
+</div>
+
+<div id="tableBody"></div>
+
+<div class="no-results" id="noResults">
+  <i class="fas fa-magnifying-glass"></i>
+  Produk tidak ditemukan
+</div>
+
+<div class="button-group">
+<button class="btn btn-primary" onclick="kirimWa()">
+<i class="fas fa-paper-plane"></i> Kirim via WhatsApp
+</button>
+<button class="btn btn-danger" onclick="hapusSemua()">
+<i class="fas fa-trash-can"></i> Hapus Semua Data
+</button>
+</div>
+
+<div class="notes">
+<h2><i class="fas fa-book-open"></i> Catatan Perhitungan V3</h2>
+<ul>
+<li><strong>Coffee Bean :</strong> (Timbangan − 808) ÷ 1000</li>
+<li><strong>Powder :</strong> (Timbangan − 200) ÷ Gross Weight</li>
+<li><strong>Premade Powder :</strong> (Timbangan − 60) ÷ 2, lalu dikonversi ke powder terkait</li>
+<li><strong>Powder + Premade sejajar</strong> dalam satu kartu, hasil langsung gabung otomatis</li>
+<li><strong>Chocolate Sweet Powder + Premade Coklat</strong> = 1 hasil akhir</li>
+<li><strong>Matcha Powder + Premade Matcha</strong> = 1 hasil akhir</li>
+<li><strong>Pistachio Powder + Premade Pistachio</strong> = 1 hasil akhir</li>
+<li><strong>Tomoro Caramel Sauce + Premade Caramel Sauce</strong> = 1 hasil akhir sejajar</li>
+<li><strong>Caramel Syrup</strong> berbeda dengan Caramel Sauce, dihitung terpisah</li>
+<li><strong>SKM :</strong> (Timbangan − 60) ÷ 545</li>
+<li><strong>Sea Salt :</strong> Timbangan ÷ 210</li>
+<li><strong>Strawberry Syrup :</strong> (Timbangan − 45) ÷ 1337</li>
+<li><strong>Peach Syrup :</strong> (Timbangan − 45) ÷ 1307</li>
+<li><strong>Syrup lainnya :</strong> (Timbangan − 45) ÷ Gross Weight</li>
+<li><strong>Cup, Lid, Straw, Packaging :</strong> Timbangan ÷ Berat/PCS = Jumlah PCS, lalu ÷ Gross = Pack</li>
+<li><strong>Normal / Dairy :</strong> Timbangan ÷ Gross Weight</li>
+</ul>
+</div>
+
+<div class="footer">
+© 2025 Closing Tomoro Final V3 &nbsp;·&nbsp; Project By Rifqi Jatengland &nbsp;·&nbsp; Enhanced by Rifqi Tomoro
+</div>
+
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* ========================================
+   DATA PRODUK — DIKELOMPOKKAN PER SEKSI
+   ======================================== */
+
+const sections = [
+
+/* ── BEAN ── */
+{
+  title:'Coffee Bean', icon:'fa-seedling',
+  items:[
+    {id:'bean', name:'Tomoro Master Coffee Bean', gross:1000, type:'bean'}
+  ]
+},
+
+/* ── DAIRY ── */
+{
+  title:'Dairy', icon:'fa-glass-water',
+  items:[
+    {id:'whip', name:'Whipping Cream', gross:1010, type:'normal'},
+    {id:'oat', name:'Oat Milk', gross:1080, type:'normal'},
+    {id:'skm', name:'Susu Kental Manis', gross:545, type:'skm'},
+    {id:'coconut', name:'Barista Coconut', gross:1054, type:'normal'}
+  ]
+},
+
+/* ── SYRUP ── */
+{
+  title:'Syrup', icon:'fa-droplet',
+  items:[
+    {id:'aren', name:'Aren Syrup', gross:1050, type:'syrup'},
+    {id:'vanilla', name:'Vanilla Syrup', gross:1050, type:'syrup'},
+    {id:'caramel_syrup', name:'Caramel Syrup', gross:1050, type:'syrup'},
+    {id:'simple', name:'Simple Syrup', gross:1060, type:'syrup'},
+    {id:'manuka', name:'Manuka Syrup', gross:1050, type:'syrup'},
+    {id:'strawberry', name:'Strawberry Syrup', gross:1337, type:'strawberry'},
+    {id:'peach', name:'Peach Syrup', gross:1307, type:'syrup'}
+  ]
+},
+
+/* ── SAUCE (SEJAJAR) ── */
+{
+  title:'Sauce', icon:'fa-flask',
+  items:[
+    {
+      id:'caramel_sauce', type:'combined_sauce',
+      name:'Tomoro Caramel Sauce',
+      inputs:[
+        {key:'caramel_sauce_main', label:'Caramel Sauce Utama', gross:1054, type:'sauce'},
+        {key:'caramel_sauce_premade', label:'Premade Caramel Sauce', gross:1054, type:'premade_sauce'}
+      ],
+      finalName:'Tomoro Caramel Sauce'
+    }
+  ]
+},
+
+/* ── POWDER (SEJAJAR UNTUK YANG BERPASANGAN) ── */
+{
+  title:'Powder', icon:'fa-mortar-pestle',
+  items:[
+    /* Coklat — sejajar */
+    {
+      id:'coklat', type:'combined_powder',
+      name:'Chocolate Sweet Powder',
+      inputs:[
+        {key:'coklat_powder', label:'Chocolate Sweet Powder', gross:1000, type:'powder'},
+        {key:'coklat_premade', label:'Premade Coklat', gross:2, type:'premade'}
+      ],
+      finalName:'Chocolate Sweet Powder',
+      powderGross:1000
+    },
+
+    /* Matcha — sejajar */
+    {
+      id:'matcha', type:'combined_powder',
+      name:'Matcha Powder',
+      inputs:[
+        {key:'matcha_powder', label:'Matcha Powder', gross:1000, type:'powder'},
+        {key:'matcha_premade', label:'Premade Matcha', gross:2, type:'premade'}
+      ],
+      finalName:'Matcha Powder',
+      powderGross:1000
+    },
+
+    /* Pistachio — sejajar */
+    {
+      id:'pistachio', type:'combined_powder',
+      name:'Pistachio Powder',
+      inputs:[
+        {key:'pistachio_powder', label:'Pistachio Powder', gross:700, type:'powder'},
+        {key:'pistachio_premade', label:'Premade Pistachio', gross:2, type:'premade'}
+      ],
+      finalName:'Pistachio Powder',
+      powderGross:700
+    },
+
+    /* Powder biasa (tanpa premade) */
+    {id:'hojicha', name:'Hojicha Latte Powder', gross:1000, type:'powder'},
+    {id:'frappe', name:'Tomoro Frappe Powder', gross:1000, type:'powder'},
+    {id:'blend', name:'Tomoro Blend V2', gross:1000, type:'powder'},
+    {id:'master_milk', name:'Tomoro Master Milk', gross:1052, type:'powder'},
+    {id:'foam', name:'Foam Powder', gross:1000, type:'powder'},
+    {id:'milk_powder', name:'Milk Powder', gross:1000, type:'powder'},
+    {id:'cheese_milk', name:'Cheese Milk Powder', gross:1000, type:'powder'},
+    {id:'seasalt', name:'Sea Salt', gross:210, type:'seasalt'}
+  ]
+},
+
+/* ── PACKAGING ── */
+{
+  title:'Packaging', icon:'fa-box-open',
+  items:[
+    {id:'pastry_bag', name:'Pastry Bag Logo', gross:200, type:'pack', pcsWeight:7.7},
+    {id:'cup12', name:'Cup 12oz', gross:50, type:'pack', pcsWeight:11.5},
+    {id:'cup18', name:'Cup 18oz', gross:50, type:'pack', pcsWeight:14.0},
+    {id:'cup30', name:'Cup 30oz', gross:50, type:'pack', pcsWeight:18.7},
+    {id:'black_hot', name:'Black Hot Cup', gross:25, type:'pack', pcsWeight:18.3},
+    {id:'black_ice', name:'Black Ice Cup', gross:50, type:'pack', pcsWeight:13.7},
+    {id:'lid_hot', name:'Lid Black Hot Cup', gross:50, type:'pack', pcsWeight:8.0},
+    {id:'lid_ice', name:'Lid Black Ice Cup', gross:50, type:'pack', pcsWeight:4.3},
+    {id:'dome_lid', name:'Dome Lid Ice Cup', gross:50, type:'pack', pcsWeight:3.8},
+    {id:'strawless_lid', name:'Strawless Lid Ice Cup', gross:50, type:'pack', pcsWeight:3.6},
+    {id:'anti_spill', name:'Anti Spill Lid', gross:50, type:'pack', pcsWeight:7.0},
+    {id:'lid_30oz', name:'Lid Iced Cup 30oz', gross:50, type:'pack', pcsWeight:3.5},
+    {id:'straw_s', name:'Straw Logo Small', gross:500, type:'pack', pcsWeight:0.7},
+    {id:'straw_d', name:'Straw Logo D', gross:200, type:'pack', pcsWeight:0.6},
+    {id:'straw_wrap', name:'Straw Wrapping Double Film', gross:500, type:'pack', pcsWeight:2.0},
+    {id:'lid_char', name:'Lid Character Cup', gross:50, type:'pack', pcsWeight:4.2},
+    {id:'frieren_card', name:'Frieren Collectible Card', gross:100, type:'pack', pcsWeight:3.4},
+    {id:'frieren_cup', name:'Frieren Character Cup', gross:50, type:'pack', pcsWeight:13.8},
+    {id:'single_hot', name:'Single Hot', gross:50, type:'pack', pcsWeight:12.2},
+    {id:'thermal_large', name:'Thermal Bag Large', gross:37, type:'pack', pcsWeight:59},
+    {id:'thermal_xl', name:'Thermal Bag Extra Large', gross:59.5, type:'pack', pcsWeight:59.5}
+  ]
+},
+
+/* ── OTHERS ── */
+{
+  title:'Others', icon:'fa-leaf',
+  items:[
+    {id:'jasmine', name:'Jasmine Green Tea', gross:25, type:'normal'}
+  ]
+}
+
+];
+
+
+/* ========================================
+   RENDER SELURUH UI
+   ======================================== */
+
+const tableBody = document.getElementById('tableBody');
+
+sections.forEach(section => {
+
+  /* Label seksi */
+  tableBody.innerHTML += `
+    <div class="section-label" data-section="${section.title}">
+      <i class="fas ${section.icon}"></i> ${section.title}
+    </div>
+    <div class="items-grid" id="grid-${section.title.replace(/\s/g,'_')}" data-section="${section.title}"></div>
+  `;
+
+  const grid = document.getElementById('grid-' + section.title.replace(/\s/g,'_'));
+
+  section.items.forEach(item => {
+
+    if (item.type === 'combined_powder') {
+      grid.innerHTML += renderCombinedPowder(item);
+    }
+    else if (item.type === 'combined_sauce') {
+      grid.innerHTML += renderCombinedSauce(item);
+    }
+    else {
+      grid.innerHTML += renderSingle(item);
+    }
+
+  });
+
+});
+
+
+/* ========================================
+   TEMPLATE KARTU
+   ======================================== */
+
+function renderSingle(item) {
   return `
-    <div class="item-card" id="card-${item.id}" style="grid-column:span 1">
+    <div class="item-card" id="card-${item.id}" data-search="${item.name.toLowerCase()}">
+      <div class="item-name"><span class="dot"></span>${item.name}</div>
+      <div class="item-info">
+        <span class="badge gross">Gross : ${item.gross}</span>
+        <span class="badge">${item.type}</span>
+        ${item.pcsWeight ? '<span class="badge gross">' + item.pcsWeight + ' g/pcs</span>' : ''}
+      </div>
+      <div class="input-wrap">
+        <input type="number" id="inp-${item.id}" placeholder="Masukkan hasil timbangan" oninput="onInput('${item.id}','${item.type}',${item.gross},${item.pcsWeight || 0})">
+      </div>
+      <div class="result-box" id="res-${item.id}"></div>
+    </div>
+  `;
+}
+
+function renderCombinedPowder(item) {
+  let inputsHTML = '';
+  item.inputs.forEach(inp => {
+    inputsHTML += `
+      <div class="input-wrap">
+        <span class="input-label">${inp.label} (Gross: ${inp.gross})</span>
+        <input type="number" id="inp-${inp.key}" placeholder="Timbangan" oninput="onCombinedPowder('${item.id}')">
+      </div>
+    `;
+  });
+  /* Gabungkan semua nama untuk pencarian */
+  const searchStr = item.inputs.map(i => i.label.toLowerCase()).join(' ');
+  return `
+    <div class="item-card" id="card-${item.id}" data-search="${item.name.toLowerCase()} ${searchStr}">
       <div class="item-name"><span class="dot"></span>${item.name} <span style="font-size:11px;color:var(--accent);font-weight:500">+ Premade</span></div>
       <div class="input-row">${inputsHTML}</div>
       <div class="result-box" id="res-${item.id}"></div>
     </div>
   `;
 }
+
+function renderCombinedSauce(item) {
+  let inputsHTML = '';
+  item.inputs.forEach(inp => {
+    inputsHTML += `
+      <div class="input-wrap">
+        <span class="input-label">${inp.label} (Gross: ${inp.gross})</span>
+        <input type="number" id="inp-${inp.key}" placeholder="Timbangan" oninput="onCombinedSauce('${item.id}')">
+      </div>
+    `;
+  });
+  const searchStr = item.inputs.map(i => i.label.toLowerCase()).join(' ');
+  return `
+    <div class="item-card" id="card-${item.id}" data-search="${item.name.toLowerCase()} ${searchStr}">
+      <div class="item-name"><span class="dot"></span>${item.name} <span style="font-size:11px;color:var(--accent);font-weight:500">+ Premade</span></div>
+      <div class="input-row">${inputsHTML}</div>
+      <div class="result-box" id="res-${item.id}"></div>
+    </div>
+  `;
+}
+
+
+/* ========================================
+   LOGIKA PENCARIAN OTOMATIS
+   ======================================== */
+
+const searchInput = document.getElementById('searchInput');
+const noResults = document.getElementById('noResults');
+
+searchInput.addEventListener('input', function() {
+  const query = this.value.toLowerCase().trim();
+  const allCards = document.querySelectorAll('.item-card');
+  const allSectionLabels = document.querySelectorAll('.section-label');
+  const allGrids = document.querySelectorAll('.items-grid');
+  
+  let totalVisible = 0;
+
+  /* Sembunyikan tampilkan kartu berdasarkan pencarian */
+  allCards.forEach(card => {
+    const name = card.getAttribute('data-search');
+    if (!query || name.includes(query)) {
+      card.classList.remove('hidden-card');
+      totalVisible++;
+    } else {
+      card.classList.add('hidden-card');
+    }
+  });
+
+  /* Sembunyikan/tampilkan label seksi jika grid-nya kosong */
+  allGrids.forEach(grid => {
+    const visibleCards = grid.querySelectorAll('.item-card:not(.hidden-card)');
+    const sectionName = grid.getAttribute('data-section');
+    
+    /* Cari label seksi yang sesuai */
+    const label = document.querySelector(`.section-label[data-section="${sectionName}"]`);
+    
+    if (visibleCards.length === 0) {
+      grid.style.display = 'none';
+      if (label) label.style.display = 'none';
+    } else {
+      grid.style.display = '';
+      if (label) label.style.display = '';
+    }
+  });
+
+  /* Tampilkan pesan tidak ditemukan */
+  if (totalVisible === 0 && query !== '') {
+    noResults.classList.add('show');
+  } else {
+    noResults.classList.remove('show');
+  }
+});
 
 
 /* ========================================
@@ -706,7 +1531,7 @@ function onInput(id, type, gross, pcsWeight) {
 
     case 'strawberry': {
       const bersih = t - 45;
-      const sisa = bersih / 1134;
+      const sisa = bersih / 1337;
       html = row('Berat Bersih', bersih.toFixed(1) + ' g');
       html += divider();
       html += `<div class="result-row result-total"><span class="label">Sisa</span><span class="value">${sisa.toFixed(3)}</span></div>`;
@@ -906,21 +1731,7 @@ function kirimWa() {
   sections.forEach(sec => {
     let sectionText = '';
     sec.items.forEach(item => {
-      if (item.type === 'combined_powder') {
-        const box = document.getElementById('res-' + item.id);
-        if (box && box.classList.contains('show')) {
-          const rows = box.querySelectorAll('.result-row');
-          let lines = '';
-          rows.forEach(r => {
-            const l = r.querySelector('.label')?.textContent || '';
-            const v = r.querySelector('.value')?.textContent || '';
-            lines += l + ': ' + v + '\n';
-          });
-          sectionText += lines + '\n';
-          adaData = true;
-        }
-      }
-      else if (item.type === 'combined_sauce') {
+      if (item.type === 'combined_powder' || item.type === 'combined_sauce') {
         const box = document.getElementById('res-' + item.id);
         if (box && box.classList.contains('show')) {
           const rows = box.querySelectorAll('.result-row');
@@ -966,7 +1777,7 @@ function kirimWa() {
 
 
 /* ========================================
-   TOAST
+   TOAST NOTIFICATION
    ======================================== */
 
 function showToast(msg) {
@@ -978,7 +1789,7 @@ function showToast(msg) {
 
 
 /* ========================================
-   INIT
+   INIT SAAT HALAMAN DIBUKA
    ======================================== */
 
 loadData();
@@ -987,3 +1798,7 @@ loadData();
 
 </body>
 </html>
+    <div class="item-card" id="card-${item.id}" data-search="${item.name.toLowerCase()} ${searchStr}">
+      <div class="item-name"><span class="dot"></span>${item.name} <span style="font-size:11px;color:var(--accent);font-weight:500">+ Premade</span></div>
+      <div class="input-row">${inputsHTML}</div>
+      <div class="result-box" id="re
